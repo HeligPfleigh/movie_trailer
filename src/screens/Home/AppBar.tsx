@@ -21,7 +21,7 @@ const AppBar: React.FC = () => {
   const handleOpenDrawer = () => navigation.openDrawer();
 
   return (
-    <Box row mt={2.5} pl={2} pr={2}>
+    <Box row mt={2.5} pl={2} pr={2} flex={false}>
       <Box>
         <TouchableOpacity onPress={handleOpenDrawer}>
           <MenuIcon />
