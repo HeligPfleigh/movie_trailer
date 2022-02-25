@@ -6,7 +6,6 @@ import LinearGradient from 'react-native-linear-gradient';
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    height: 300,
     width: '100%',
     borderBottomLeftRadius: 150,
   },
@@ -28,14 +27,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeBackground = () => {
+interface IHomeBackgroundProps {
+  height?: number;
+}
+
+const HomeBackground: React.FC<IHomeBackgroundProps> = ({
+  height = 300,
+}: IHomeBackgroundProps) => {
   return (
     <LinearGradient
       colors={[colors.fuchsiaPink, colors.irisBlue]}
       useAngle={true}
       angle={135}
       angleCenter={{x: 0.5, y: 0.5}}
-      style={styles.container}>
+      style={[styles.container, {height}]}>
       <View style={styles.circleContainer}>
         <View style={styles.circle} />
       </View>

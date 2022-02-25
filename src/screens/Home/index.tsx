@@ -1,20 +1,15 @@
-import {HomeBackground} from '@movie_trailer/components';
-import {colors} from '@movie_trailer/theme';
-import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React from 'react';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.codGray,
-  },
-});
+import {colors} from '@movie_trailer/theme';
+import {Box, HomeBackground} from '@movie_trailer/components';
+import AppBar from './AppBar';
 
 function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <Box color={colors.codGray}>
       <HomeBackground />
-    </View>
+      <AppBar />
+    </Box>
   );
 }
 

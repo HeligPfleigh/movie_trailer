@@ -8,7 +8,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {Box, Typography} from '@movie_trailer/components';
-import CloseIcon from '@movie_trailer/assets/icons/CloseIcon';
+import CloseIcon from '@movie_trailer/assets/icons/Close';
 import NavigatorMap from './NavigatorMap';
 
 const styles = StyleSheet.create({
@@ -36,7 +36,7 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
 
   return (
     <DrawerContentScrollView {...props} style={styles.container}>
-      <Box mt={7} mb={8.5} ml={1}>
+      <Box mt={1.5} mb={8.5} ml={1}>
         <TouchableOpacity onPress={handleClose}>
           <CloseIcon />
         </TouchableOpacity>

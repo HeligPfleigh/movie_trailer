@@ -6,8 +6,10 @@ import 'react-native-gesture-handler';
 
 import HomeScreen from './screens/Home';
 import MovieTrailerDrawer from './navigations/MovieTrailerDrawer';
+import {RootDrawerParamList} from './navigations/types';
+import NavigatorMap from './navigations/NavigatorMap';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 function App() {
   return (
@@ -17,8 +19,7 @@ function App() {
           headerShown: false,
         }}
         drawerContent={props => <MovieTrailerDrawer {...props} />}>
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Setting" component={HomeScreen} />
+        <Drawer.Screen name={NavigatorMap.Home} component={HomeScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
