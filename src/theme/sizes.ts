@@ -2,8 +2,8 @@ import {PixelRatio} from 'react-native';
 
 const SPACING_UNIT = 8;
 
-const commonPixelRatio = 1.5;
-const currentRatio = Math.min(commonPixelRatio / PixelRatio.get(), 1);
+// const commonPixelRatio = 1.5;
+const currentRatio = 1; //Math.min(commonPixelRatio / PixelRatio.get(), 1);
 
 /**
  * Responsive for xhdpi/ xxhdpi base on hdpi size
