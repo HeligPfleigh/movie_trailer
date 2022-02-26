@@ -8,12 +8,14 @@ import AppBar from './AppBar';
 import SearchBox from './SearchBox';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
+import {fetchNowPlayingMovies} from '@movie_trailer/store/slices/movieSlice';
 
 function HomeScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMovieGenres());
+    dispatch(fetchNowPlayingMovies());
   }, [dispatch]);
 
   return (

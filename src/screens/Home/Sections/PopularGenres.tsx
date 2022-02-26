@@ -1,8 +1,9 @@
-import {Box, GenreCard} from '@movie_trailer/components';
-import {RootState} from '@movie_trailer/store/rootReducer';
 import React from 'react';
 import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
+
+import {Box, GenreCard} from '@movie_trailer/components';
+import {RootState} from '@movie_trailer/store/rootReducer';
 import SectionHeader from './SectionHeader';
 
 const PopularGenres: React.FC = () => {
@@ -19,7 +20,7 @@ const PopularGenres: React.FC = () => {
       <SectionHeader title="Popular Genres" />
 
       <FlatList
-        data={genres}
+        data={genres.map(item => item.name)}
         renderItem={renderItem}
         keyExtractor={item => `${item}`}
         horizontal

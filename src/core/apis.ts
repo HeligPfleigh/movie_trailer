@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {IGenre, IMovieOverview, IPagination} from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
 export const IMAGE_SERVER = 'https://image.tmdb.org/t/p/w500';
@@ -12,12 +13,22 @@ const instance = axios.create({
 });
 
 export const getListMovieGenres = async (): Promise<{
-  genres: Array<{id: number; name: string}>;
+  genres: Array<IGenre>;
 }> => {
   const {data} = await instance.get('genre/movie/list');
   return data;
 };
 
 export const getListTVGenres = async (): Promise<{
-  genres: Array<{id: number; name: string}>;
-}> => instance.get('genre/tv/list');
+  genres: Array<IGenre>;
+}> => {
+  const {data} = await instance.get('genre/tv/list');
+  return data;
+};
+
+export const getNowPlayingMovies = async (): Promise<
+  IPagination & {results: Array<IMovieOverview>}
+> => {
+  const {data} = await instance.get('movie/now_playing');
+  return data;
+};

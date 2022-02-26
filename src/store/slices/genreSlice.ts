@@ -1,9 +1,10 @@
 import {getListMovieGenres} from '@movie_trailer/core/apis';
+import {IGenre} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 export interface IGenreState {
-  tvGenres: string[];
-  movieGenres: string[];
+  tvGenres: Array<IGenre>;
+  movieGenres: Array<IGenre>;
 }
 
 export const initialState: IGenreState = {
@@ -25,7 +26,7 @@ const genreSlice = createSlice({
   reducers: {},
   extraReducers: (builder): void => {
     builder.addCase(fetchMovieGenres.fulfilled, (state, action) => {
-      state.movieGenres = action.payload.map(item => item.name);
+      state.movieGenres = action.payload;
     });
   },
 });
