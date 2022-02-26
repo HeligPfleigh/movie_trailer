@@ -4,7 +4,8 @@ import {colors, responsiveSize} from '@movie_trailer/theme';
 import {Box, HomeBackground, Tabs} from '@movie_trailer/components';
 import AppBar from './AppBar';
 import SearchBox from './SearchBox';
-import SectionHeader from './SectionHeader';
+import PopularGenres from './Sections/PopularGenres';
+import Today from './Sections/Today';
 
 function HomeScreen() {
   return (
@@ -20,7 +21,11 @@ function HomeScreen() {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mt={4}>
-        <SectionHeader />
+        <PopularGenres />
+      </Box>
+
+      <Box flex={false} ml={2} mr={2} mt={4}>
+        <Today />
       </Box>
     </Box>
   );

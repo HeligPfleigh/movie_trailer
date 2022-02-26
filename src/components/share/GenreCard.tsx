@@ -1,6 +1,6 @@
 import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Box, Typography} from '../common';
 
 const styles = StyleSheet.create({
@@ -25,16 +25,18 @@ interface IGenreCardProps {
 
 const GenreCard: React.FC<IGenreCardProps> = ({image, name}) => {
   return (
-    <Box flex={false} style={styles.container}>
-      {image ? (
-        <Image source={{uri: image}} style={styles.image} />
-      ) : (
-        <Box flex={false} style={styles.image} />
-      )}
-      <Typography variant="caps1" color={colors.white}>
-        {name}
-      </Typography>
-    </Box>
+    <TouchableOpacity>
+      <Box flex={false} style={styles.container}>
+        {image ? (
+          <Image source={{uri: image}} style={styles.image} />
+        ) : (
+          <Box flex={false} style={styles.image} />
+        )}
+        <Typography variant="caps1" color={colors.white}>
+          {name}
+        </Typography>
+      </Box>
+    </TouchableOpacity>
   );
 };
 

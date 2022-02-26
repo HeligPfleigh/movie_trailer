@@ -15,19 +15,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionHeader: React.FC = () => {
+interface ISectionHeaderProps {
+  title: string;
+  onPress?: () => void;
+}
+
+const SectionHeader: React.FC<ISectionHeaderProps> = ({
+  title,
+  onPress,
+}: ISectionHeaderProps) => {
+  const [emphasizeWord, ...others] = title.split(' ');
+
   return (
-    <Box flex={false} row center>
+    <Box flex={false} row center mb={2}>
       <Typography variant="h5" fontWeight="700" color={colors.white}>
-        {'Popular '}
-        <Typography variant="h5" fontWeight="400" color={colors.white}>
-          Genres
-        </Typography>
+        {emphasizeWord}
+        {others.length ? (
+          <Typography variant="h5" fontWeight="400" color={colors.white}>
+            {` ${others.join(' ')}`}
+          </Typography>
+        ) : (
+          ''
+        )}
       </Typography>
 
       <Box flex={false} style={styles.divider} />
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Box flex={false} row center>
           <Typography variant="caps1" color={colors.lavenderMagenta}>
             See All
