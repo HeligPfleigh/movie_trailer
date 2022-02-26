@@ -5,6 +5,7 @@ const colors = <const>{
   codGray: '#121212',
   fuchsiaPink: '#C85EBC',
   irisBlue: '#5E60F0',
+  cadetBlue: '#A0AEC0',
 };
 
 export default colors;
