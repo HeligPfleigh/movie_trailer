@@ -1,12 +1,16 @@
 import {Box, GenreCard} from '@movie_trailer/components';
+import {RootState} from '@movie_trailer/store/rootReducer';
 import React from 'react';
 import {FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 import SectionHeader from './SectionHeader';
 
 const PopularGenres: React.FC = () => {
-  const renderItem = () => (
+  const genres = useSelector((state: RootState) => state.genre.movieGenres);
+
+  const renderItem = ({item}: {item: string}) => (
     <Box mr={2}>
-      <GenreCard name="demo" />
+      <GenreCard name={item} />
     </Box>
   );
 
@@ -15,7 +19,7 @@ const PopularGenres: React.FC = () => {
       <SectionHeader title="Popular Genres" />
 
       <FlatList
-        data={[1, 2, 3, 4, 5]}
+        data={genres}
         renderItem={renderItem}
         keyExtractor={item => `${item}`}
         horizontal
