@@ -6,6 +6,7 @@ const colors = <const>{
   fuchsiaPink: '#C85EBC',
   irisBlue: '#5E60F0',
   cadetBlue: '#A0AEC0',
+  lavenderMagenta: '#E884E4',
 };
 
 export default colors;
