@@ -40,7 +40,10 @@ const styles = StyleSheet.create({
     fontSize: responsiveSize(24),
     lineHeight: responsiveSize(28),
   },
-  h5: {},
+  h5: {
+    fontSize: responsiveSize(20),
+    lineHeight: responsiveSize(24),
+  },
   h6: {},
   h7: {},
   caps1: {
