@@ -38,6 +38,7 @@ const Recommendation: React.FC = () => {
     <>
       <SectionHeader title="Recommendation" />
 
+      {/** TODO: remove flatlist */}
       <FlatList
         data={movies}
         renderItem={renderItem}
