@@ -25,7 +25,40 @@ export interface IMovieOverview {
   poster_path: string;
   release_date: string;
   title: string;
-  video: false;
+  video: boolean;
   vote_average: number;
   vote_count: number;
+}
+
+export interface ITVShowOverview {
+  backdrop_path: string;
+  first_air_date: string;
+  genre_ids: Array<number>;
+  id: number;
+  name: string;
+  origin_country: Array<string>;
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface ITodayMediaItem {
+  id: number;
+  title: string;
+  poster: string;
+  rating: number;
+  genres: string;
+}
+
+export interface IRecommendationMediaItem {
+  id: number;
+  title: string;
+  poster: string;
+  rating: number;
+  genres: string;
+  time: string;
 }

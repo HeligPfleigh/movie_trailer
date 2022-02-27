@@ -6,11 +6,10 @@ import {
 import {IMovieOverview, IPagination} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-export interface IMovieState {
-  nowPlaying: IPagination & {results: Array<IMovieOverview>};
-  upcoming: IPagination & {results: Array<IMovieOverview>};
-  recommandation: IPagination & {results: Array<IMovieOverview>};
-}
+export type IMovieState = Record<
+  'nowPlaying' | 'upcoming' | 'recommendation',
+  IPagination & {results: Array<IMovieOverview>}
+>;
 
 const defaultPage: IPagination & {results: Array<IMovieOverview>} = {
   dates: {
@@ -26,7 +25,7 @@ const defaultPage: IPagination & {results: Array<IMovieOverview>} = {
 export const initialState: IMovieState = {
   nowPlaying: defaultPage,
   upcoming: defaultPage,
-  recommandation: defaultPage,
+  recommendation: defaultPage,
 };
 
 export const fetchNowPlayingMovies = createAsyncThunk(
@@ -67,7 +66,7 @@ const movieSlice = createSlice({
     });
 
     builder.addCase(fetchRecommendationMovies.fulfilled, (state, action) => {
-      state.recommandation = action.payload;
+      state.recommendation = action.payload;
     });
   },
 });

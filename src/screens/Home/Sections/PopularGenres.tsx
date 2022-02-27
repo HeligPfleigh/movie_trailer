@@ -1,14 +1,17 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
 
 import {Box, GenreCard} from '@movie_trailer/components';
-import {RootState} from '@movie_trailer/store/rootReducer';
 import SectionHeader from './SectionHeader';
+import {IGenre} from '@movie_trailer/core/types';
 
-const PopularGenres: React.FC = () => {
-  const genres = useSelector((state: RootState) => state.genre.movieGenres);
+interface IPopularGenresProps {
+  genres: IGenre[];
+}
 
+const PopularGenres: React.FC<IPopularGenresProps> = ({
+  genres,
+}: IPopularGenresProps) => {
   const renderItem = ({item}: {item: string}) => (
     <Box mr={2}>
       <GenreCard name={item} />

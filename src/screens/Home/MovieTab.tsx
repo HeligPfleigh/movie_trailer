@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {memo} from 'react';
+import {useSelector} from 'react-redux';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {Box, Typography} from '@movie_trailer/components';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
 import Upcoming from './Sections/Upcomming';
-import {StyleSheet, TouchableOpacity} from 'react-native';
 import ShowTime from './Sections/ShowTime';
 import Recommendation from './Sections/Recommendation';
+import {RootState} from '@movie_trailer/store/rootReducer';
+import {
+  recommendationMoviesSelector,
+  todayMoviesSelector,
+} from '@movie_trailer/store/selectors/movie';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -20,14 +26,19 @@ const styles = StyleSheet.create({
 });
 
 const MovieTab = () => {
+  const genres = useSelector((state: RootState) => state.genre.movieGenres);
+
+  const moviesToday = useSelector(todayMoviesSelector);
+  const recommendationMovies = useSelector(recommendationMoviesSelector);
+
   return (
     <>
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <PopularGenres />
+        <PopularGenres genres={genres} />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <Today />
+        <Today medias={moviesToday} />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
@@ -49,10 +60,10 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
-        <Recommendation />
+        <Recommendation medias={recommendationMovies} />
       </Box>
     </>
   );
 };
 
-export default MovieTab;
+export default memo(MovieTab);

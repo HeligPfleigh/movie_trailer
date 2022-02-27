@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 
 import TabItem from './TabItem';
 
 interface ITabsProps {
   tabs: string[];
+  activeTab: string;
   onTabChanged?: (tab: string) => void;
   type?: 'medium' | 'small';
 }
@@ -19,18 +20,12 @@ const styles = StyleSheet.create({
 const Tabs: React.FC<ITabsProps> = ({
   tabs,
   onTabChanged,
+  activeTab,
   type = 'medium',
 }: ITabsProps) => {
-  const [activeTab, setActiveTab] = React.useState<string>('');
-
   const handleTabPress = (tab: string) => {
-    setActiveTab(tab);
     onTabChanged?.(tab);
   };
-
-  useEffect(() => {
-    setActiveTab(tabs?.[0] ?? '');
-  }, [tabs]);
 
   return (
     <ScrollView

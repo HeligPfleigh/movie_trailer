@@ -1,6 +1,7 @@
 import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {Box, Typography} from '../common';
 
 const styles = StyleSheet.create({
@@ -28,11 +29,11 @@ const GenreCard: React.FC<IGenreCardProps> = ({image, name}) => {
     <TouchableOpacity>
       <Box flex={false} style={styles.container}>
         {image ? (
-          <Image source={{uri: image}} style={styles.image} />
+          <FastImage source={{uri: image}} style={styles.image} />
         ) : (
           <Box flex={false} style={styles.image} />
         )}
-        <Typography variant="caps1" color={colors.white}>
+        <Typography variant="caps1" color={colors.white} numberOfLines={1}>
           {name}
         </Typography>
       </Box>

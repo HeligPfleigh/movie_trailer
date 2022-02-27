@@ -1,4 +1,8 @@
-import {IMovieOverview} from '@movie_trailer/core/types';
+import {
+  IMovieOverview,
+  IRecommendationMediaItem,
+  ITodayMediaItem,
+} from '@movie_trailer/core/types';
 import {createSelector} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
 
@@ -25,4 +29,51 @@ const getUpcommingMovies = (
 export const upcomingMoviesSelector = createSelector(
   [(state: RootState) => state.movie.upcoming],
   upcoming => getUpcommingMovies(upcoming.results),
+);
+
+export const todayMoviesSelector = createSelector(
+  [
+    (state: RootState) => state.movie.nowPlaying.results,
+    (state: RootState) => state.genre.movieGenres,
+  ],
+  (movies, genres): Array<ITodayMediaItem> => {
+    return movies.map(movie => {
+      const genre = genres
+        .filter(item => movie.genre_ids.includes(item.id))
+        .map(item => item.name)
+        .join('/ ');
+
+      return {
+        id: movie.id,
+        title: movie.title,
+        genres: genre,
+        poster: movie.poster_path,
+        rating: movie.vote_average,
+      };
+    });
+  },
+);
+
+export const recommendationMoviesSelector = createSelector(
+  [
+    (state: RootState) => state.movie.recommendation.results,
+    (state: RootState) => state.genre.movieGenres,
+  ],
+  (movies, genres): Array<IRecommendationMediaItem> => {
+    return movies.map(movie => {
+      const genre = genres
+        .filter(item => movie.genre_ids.includes(item.id))
+        .map(item => item.name)
+        .join('/ ');
+
+      return {
+        id: movie.id,
+        title: movie.title,
+        genres: genre,
+        poster: movie.poster_path,
+        rating: movie.vote_average,
+        time: movie.release_date,
+      };
+    });
+  },
 );

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 interface IRecommendationCardProps {
   title: string;
-  genres: Array<string>;
+  genres: string;
   poster: string;
   rating: number;
   time: string;
@@ -75,7 +75,7 @@ const RecommendationCard: React.FC<IRecommendationCardProps> = ({
       </Typography>
 
       <Typography variant="caps2" color={colors.cadetBlue}>
-        {genres.join('/ ')}
+        {genres}
       </Typography>
     </TouchableOpacity>
   );

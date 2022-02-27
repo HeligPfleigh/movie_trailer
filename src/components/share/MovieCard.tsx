@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
 interface IMovieCardProps {
   title: string;
-  genres: Array<string>;
+  genres: string;
   poster: string;
   rating: number;
 }
@@ -59,7 +59,7 @@ const MovieCard: React.FC<IMovieCardProps> = ({
         {title}
       </Typography>
       <Typography variant="caps2" color={colors.cadetBlue}>
-        {genres.join('/ ')}
+        {genres}
       </Typography>
     </ImageBackground>
   );

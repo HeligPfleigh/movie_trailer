@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {IGenre, IMovieOverview, IPagination} from './types';
+import {IGenre, IMovieOverview, IPagination, ITVShowOverview} from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
 export const IMAGE_SERVER = 'https://image.tmdb.org/t/p/w500';
@@ -44,5 +44,19 @@ export const getRecommendationMovies = async (): Promise<
   IPagination & {results: Array<IMovieOverview>}
 > => {
   const {data} = await instance.get('movie/top_rated');
+  return data;
+};
+
+export const getAringTodayTVShows = async (): Promise<
+  IPagination & {results: Array<ITVShowOverview>}
+> => {
+  const {data} = await instance.get('tv/airing_today');
+  return data;
+};
+
+export const getRecommendationTVShows = async (): Promise<
+  IPagination & {results: Array<ITVShowOverview>}
+> => {
+  const {data} = await instance.get('tv/top_rated');
   return data;
 };

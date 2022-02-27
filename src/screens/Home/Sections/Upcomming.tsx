@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import dayjs from 'dayjs';
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
 const Upcoming: React.FC = () => {
   const movies = useSelector(upcomingMoviesSelector);
   const {dates} = useSelector((state: RootState) => state.movie.upcoming);
+  const [activeTab, setActiveTab] = useState<string>('');
 
   const renderItem = ({item}: {item: IMovieOverview[]}) => {
     if (item.length === 1) {
@@ -72,7 +73,12 @@ const Upcoming: React.FC = () => {
     <>
       <SectionHeader title="Upcomming Movie" />
 
-      <Tabs tabs={listDatesString(dates.maximum, dates.minimum)} type="small" />
+      <Tabs
+        tabs={listDatesString(dates.maximum, dates.minimum)}
+        type="small"
+        activeTab={activeTab}
+        onTabChanged={setActiveTab}
+      />
 
       <Box mt={1.5}>
         <FlatList
