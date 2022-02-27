@@ -9,6 +9,8 @@ const colors = <const>{
   lavenderMagenta: '#E884E4',
   zircon: '#F8FAFF',
   royalBlue: '#5D5FEF',
+  persianPink: '#F178B6',
+  cornflowerBlue: '#7763EF',
 };
 
 export default colors;

@@ -33,7 +33,10 @@ const Tabs: React.FC<ITabsProps> = ({
   }, [tabs]);
 
   return (
-    <ScrollView horizontal contentContainerStyle={styles.scrollview}>
+    <ScrollView
+      horizontal
+      contentContainerStyle={styles.scrollview}
+      showsHorizontalScrollIndicator={false}>
       {tabs.map(tab => (
         <TabItem
           key={tab}
