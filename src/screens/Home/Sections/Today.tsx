@@ -8,9 +8,11 @@ import {useSelector} from 'react-redux';
 
 import SectionHeader from './SectionHeader';
 
+// TODO: progress of scroll
+
 const Today: React.FC = () => {
   const movies = useSelector(
-    (state: RootState) => state.movie.nowPlaying.movies,
+    (state: RootState) => state.movie.nowPlaying.results,
   );
   const movieGenres = useSelector(
     (state: RootState) => state.genre.movieGenres,

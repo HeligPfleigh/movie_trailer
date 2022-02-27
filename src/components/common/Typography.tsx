@@ -75,8 +75,14 @@ const styles = StyleSheet.create({
   b1: {},
   b2: {},
   b3: {},
-  b4: {},
-  b5: {},
+  b4: {
+    fontSize: responsiveSize(18),
+    lineHeight: responsiveSize(27),
+  },
+  b5: {
+    fontSize: responsiveSize(14),
+    lineHeight: responsiveSize(21),
+  },
   b6: {},
 });
 

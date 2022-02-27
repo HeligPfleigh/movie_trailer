@@ -1,32 +1,49 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
 
-import Box from '../Box';
 import TabItem from './TabItem';
 
 interface ITabsProps {
   tabs: string[];
   onTabChanged?: (tab: string) => void;
+  type?: 'medium' | 'small';
 }
 
-const Tabs: React.FC<ITabsProps> = ({tabs, onTabChanged}: ITabsProps) => {
-  const [activeTab, setActiveTab] = React.useState<string>(tabs?.[0] ?? '');
+const styles = StyleSheet.create({
+  scrollview: {
+    flexGrow: 1,
+    alignItems: 'center',
+  },
+});
+
+const Tabs: React.FC<ITabsProps> = ({
+  tabs,
+  onTabChanged,
+  type = 'medium',
+}: ITabsProps) => {
+  const [activeTab, setActiveTab] = React.useState<string>('');
 
   const handleTabPress = (tab: string) => {
     setActiveTab(tab);
     onTabChanged?.(tab);
   };
 
+  useEffect(() => {
+    setActiveTab(tabs?.[0] ?? '');
+  }, [tabs]);
+
   return (
-    <Box flex={false} row center>
+    <ScrollView horizontal contentContainerStyle={styles.scrollview}>
       {tabs.map(tab => (
         <TabItem
           key={tab}
           title={tab}
           onPress={() => handleTabPress(tab)}
           isActive={activeTab === tab}
+          type={type}
         />
       ))}
-    </Box>
+    </ScrollView>
   );
 };
 

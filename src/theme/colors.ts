@@ -8,6 +8,7 @@ const colors = <const>{
   cadetBlue: '#A0AEC0',
   lavenderMagenta: '#E884E4',
   zircon: '#F8FAFF',
+  royalBlue: '#5D5FEF',
 };
 
 export default colors;

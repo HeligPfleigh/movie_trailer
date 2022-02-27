@@ -8,7 +8,12 @@ import AppBar from './AppBar';
 import SearchBox from './SearchBox';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
-import {fetchNowPlayingMovies} from '@movie_trailer/store/slices/movieSlice';
+import {
+  fetchNowPlayingMovies,
+  fetchUpcomingMovies,
+} from '@movie_trailer/store/slices/movieSlice';
+import Upcoming from './Sections/Upcomming';
+import {ScrollView} from 'react-native-gesture-handler';
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -16,6 +21,7 @@ function HomeScreen() {
   useEffect(() => {
     dispatch(fetchMovieGenres());
     dispatch(fetchNowPlayingMovies());
+    dispatch(fetchUpcomingMovies());
   }, [dispatch]);
 
   return (
@@ -26,17 +32,23 @@ function HomeScreen() {
         <Tabs tabs={['Movie', 'TV Show']} />
       </Box>
 
-      <Box flex={false} ml={2} mr={2} mt={2.5}>
+      <Box flex={false} ml={2} mr={2} mt={2.5} mb={4}>
         <SearchBox />
       </Box>
 
-      <Box flex={false} ml={2} mr={2} mt={4}>
-        <PopularGenres />
-      </Box>
+      <ScrollView>
+        <Box flex={false} ml={2} mr={2} mb={4}>
+          <PopularGenres />
+        </Box>
 
-      <Box flex={false} ml={2} mr={2} mt={4}>
-        <Today />
-      </Box>
+        <Box flex={false} ml={2} mr={2} mb={4}>
+          <Today />
+        </Box>
+
+        <Box flex={false} ml={2} mr={2} mb={4}>
+          <Upcoming />
+        </Box>
+      </ScrollView>
     </Box>
   );
 }
