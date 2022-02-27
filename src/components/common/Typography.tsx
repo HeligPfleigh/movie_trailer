@@ -56,7 +56,10 @@ const styles = StyleSheet.create({
     fontSize: responsiveSize(20),
     lineHeight: responsiveSize(24),
   },
-  h6: {},
+  h6: {
+    fontSize: responsiveSize(18),
+    lineHeight: responsiveSize(20),
+  },
   h7: {},
   caps1: {
     fontSize: responsiveSize(15),

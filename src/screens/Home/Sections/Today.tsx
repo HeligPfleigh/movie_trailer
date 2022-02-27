@@ -1,26 +1,20 @@
 import {Box, MovieCard} from '@movie_trailer/components';
-import {IMAGE_SERVER} from '@movie_trailer/core/apis';
-import {ITodayMediaItem} from '@movie_trailer/core/types';
+import {IMediaItem} from '@movie_trailer/core/types';
 import React from 'react';
 import {FlatList} from 'react-native';
 
 import SectionHeader from './SectionHeader';
 
 interface ITodayProps {
-  medias: Array<ITodayMediaItem>;
+  medias: Array<IMediaItem>;
 }
 
 // TODO: progress of scroll
 
 const Today: React.FC<ITodayProps> = ({medias}: ITodayProps) => {
-  const renderItem = ({item}: {item: ITodayMediaItem}) => (
+  const renderItem = ({item}: {item: IMediaItem}) => (
     <Box mr={2}>
-      <MovieCard
-        title={item.title}
-        poster={`${IMAGE_SERVER}${item.poster}`}
-        rating={item.rating}
-        genres={item.genres}
-      />
+      <MovieCard {...item} />
     </Box>
   );
 

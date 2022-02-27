@@ -4,6 +4,7 @@ import {ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Typography, Box} from '../common';
 import StarIcon from '@movie_trailer/assets/icons/Star';
+import {IMediaItem} from '@movie_trailer/core/types';
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -32,21 +33,13 @@ const styles = StyleSheet.create({
   },
 });
 
-interface IRecommendationCardProps {
-  title: string;
-  genres: string;
-  poster: string;
-  rating: number;
-  time: string;
-}
-
-const RecommendationCard: React.FC<IRecommendationCardProps> = ({
+const RecommendationCard: React.FC<IMediaItem> = ({
   title,
   genres,
   poster,
   rating,
   time,
-}: IRecommendationCardProps) => {
+}: IMediaItem) => {
   return (
     <TouchableOpacity>
       <ImageBackground

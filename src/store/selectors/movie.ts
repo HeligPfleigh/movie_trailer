@@ -1,8 +1,5 @@
-import {
-  IMovieOverview,
-  IRecommendationMediaItem,
-  ITodayMediaItem,
-} from '@movie_trailer/core/types';
+import {IMAGE_SERVER} from '@movie_trailer/core/apis';
+import {IMovieOverview, IMediaItem} from '@movie_trailer/core/types';
 import {createSelector} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
 
@@ -36,7 +33,7 @@ export const todayMoviesSelector = createSelector(
     (state: RootState) => state.movie.nowPlaying.results,
     (state: RootState) => state.genre.movieGenres,
   ],
-  (movies, genres): Array<ITodayMediaItem> => {
+  (movies, genres): Array<IMediaItem> => {
     return movies.map(movie => {
       const genre = genres
         .filter(item => movie.genre_ids.includes(item.id))
@@ -47,8 +44,9 @@ export const todayMoviesSelector = createSelector(
         id: movie.id,
         title: movie.title,
         genres: genre,
-        poster: movie.poster_path,
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
         rating: movie.vote_average,
+        time: movie.release_date,
       };
     });
   },
@@ -59,7 +57,7 @@ export const recommendationMoviesSelector = createSelector(
     (state: RootState) => state.movie.recommendation.results,
     (state: RootState) => state.genre.movieGenres,
   ],
-  (movies, genres): Array<IRecommendationMediaItem> => {
+  (movies, genres): Array<IMediaItem> => {
     return movies.map(movie => {
       const genre = genres
         .filter(item => movie.genre_ids.includes(item.id))
@@ -70,7 +68,7 @@ export const recommendationMoviesSelector = createSelector(
         id: movie.id,
         title: movie.title,
         genres: genre,
-        poster: movie.poster_path,
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
         rating: movie.vote_average,
         time: movie.release_date,
       };

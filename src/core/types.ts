@@ -46,15 +46,7 @@ export interface ITVShowOverview {
   vote_count: number;
 }
 
-export interface ITodayMediaItem {
-  id: number;
-  title: string;
-  poster: string;
-  rating: number;
-  genres: string;
-}
-
-export interface IRecommendationMediaItem {
+export interface IMediaItem {
   id: number;
   title: string;
   poster: string;

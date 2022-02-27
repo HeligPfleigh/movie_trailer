@@ -11,6 +11,7 @@ const colors = <const>{
   royalBlue: '#5D5FEF',
   persianPink: '#F178B6',
   cornflowerBlue: '#7763EF',
+  torchRed: '#FF1F1F',
 };
 
 export default colors;

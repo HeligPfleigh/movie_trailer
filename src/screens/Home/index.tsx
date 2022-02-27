@@ -57,7 +57,7 @@ function HomeScreen() {
         />
       </Box>
 
-      <Box flex={false} ml={2} mr={2} mt={2.5} mb={4}>
+      <Box flex={false} ml={2} mr={2} mt={2.5}>
         <SearchBox />
       </Box>
 

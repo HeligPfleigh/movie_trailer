@@ -10,6 +10,7 @@ import {
   aringTodayTvShowsSelector,
   recommendationTvShowsSelector,
 } from '@movie_trailer/store/selectors/tvShow';
+import LatestShows from './Sections/LatestShows';
 
 const TvShowTab = () => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
@@ -18,6 +19,10 @@ const TvShowTab = () => {
 
   return (
     <>
+      <Box flex={false} mb={4} mt={2}>
+        <LatestShows medias={airingTodayShows} />
+      </Box>
+
       <Box flex={false} ml={2} mr={2} mb={4}>
         <Today medias={airingTodayShows} />
       </Box>
