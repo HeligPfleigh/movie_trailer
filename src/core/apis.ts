@@ -39,3 +39,10 @@ export const getUpcomingMovies = async (): Promise<
   const {data} = await instance.get('movie/upcoming');
   return data;
 };
+
+export const getRecommendationMovies = async (): Promise<
+  IPagination & {results: Array<IMovieOverview>}
+> => {
+  const {data} = await instance.get('movie/top_rated');
+  return data;
+};

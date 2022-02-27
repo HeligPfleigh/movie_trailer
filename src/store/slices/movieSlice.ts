@@ -1,31 +1,32 @@
-import {getNowPlayingMovies, getUpcomingMovies} from '@movie_trailer/core/apis';
+import {
+  getNowPlayingMovies,
+  getRecommendationMovies,
+  getUpcomingMovies,
+} from '@movie_trailer/core/apis';
 import {IMovieOverview, IPagination} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 export interface IMovieState {
   nowPlaying: IPagination & {results: Array<IMovieOverview>};
   upcoming: IPagination & {results: Array<IMovieOverview>};
+  recommandation: IPagination & {results: Array<IMovieOverview>};
 }
 
-const defaultPage: IPagination = {
+const defaultPage: IPagination & {results: Array<IMovieOverview>} = {
   dates: {
     maximum: '',
     minimum: '',
   },
+  results: [],
   page: 1,
   total_pages: 1,
   total_results: 0,
 };
 
 export const initialState: IMovieState = {
-  nowPlaying: {
-    ...defaultPage,
-    results: [],
-  },
-  upcoming: {
-    ...defaultPage,
-    results: [],
-  },
+  nowPlaying: defaultPage,
+  upcoming: defaultPage,
+  recommandation: defaultPage,
 };
 
 export const fetchNowPlayingMovies = createAsyncThunk(
@@ -44,6 +45,14 @@ export const fetchUpcomingMovies = createAsyncThunk(
   },
 );
 
+export const fetchRecommendationMovies = createAsyncThunk(
+  'movie/fetchRecommendationMovies',
+  async () => {
+    const data = await getRecommendationMovies();
+    return data;
+  },
+);
+
 const movieSlice = createSlice({
   name: 'movie',
   initialState,
@@ -55,6 +64,10 @@ const movieSlice = createSlice({
 
     builder.addCase(fetchUpcomingMovies.fulfilled, (state, action) => {
       state.upcoming = action.payload;
+    });
+
+    builder.addCase(fetchRecommendationMovies.fulfilled, (state, action) => {
+      state.recommandation = action.payload;
     });
   },
 });
