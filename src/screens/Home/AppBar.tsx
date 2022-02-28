@@ -19,6 +19,7 @@ const AppBar: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
 
   const handleOpenDrawer = () => navigation.openDrawer();
+  const handleOpenSetting = () => navigation.navigate(NavigatorMap.Setting);
 
   return (
     <Box row mt={2.5} pl={2} pr={2} flex={false}>
@@ -35,7 +36,7 @@ const AppBar: React.FC = () => {
           </TouchableOpacity>
         </Box>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleOpenSetting}>
           <SettingIcon />
         </TouchableOpacity>
       </Box>

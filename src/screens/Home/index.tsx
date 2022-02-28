@@ -21,6 +21,9 @@ import {
   fetchAringTodayTVShows,
   fetchRecommendationTVShows,
 } from '@movie_trailer/store/slices/tvShowSlice';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {RootDrawerParamList} from '@movie_trailer/navigations/types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +31,12 @@ const styles = StyleSheet.create({
   },
 });
 
-function HomeScreen() {
+type HomeScreenNavigationProps = DrawerScreenProps<
+  RootDrawerParamList,
+  NavigatorMap.Home
+>;
+
+function HomeScreen({navigation}: HomeScreenNavigationProps) {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState<string>('Movie');
 
@@ -43,10 +51,12 @@ function HomeScreen() {
     dispatch(fetchRecommendationTVShows());
   }, [dispatch]);
 
+  const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
+
   const content = activeTab === 'TV Show' ? <TvShowTab /> : <MovieTab />;
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <HomeBackground height={responsiveSize(540)} />
       <AppBar />
       <Box flex={false} ml={2} mr={2} mt={2.5}>
@@ -58,7 +68,7 @@ function HomeScreen() {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mt={2.5}>
-        <SearchBox />
+        <SearchBox onPress={handleOpenSearch} />
       </Box>
 
       {content}

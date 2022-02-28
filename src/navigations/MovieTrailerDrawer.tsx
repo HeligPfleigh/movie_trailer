@@ -31,7 +31,7 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
 ) => {
   const {navigation} = props;
 
-  // const handlePressMovie = () => navigation.navigate(NavigatorMap.Home);
+  const handlePressSetting = () => navigation.navigate(NavigatorMap.Setting);
   const handleClose = () => navigation.closeDrawer();
 
   return (
@@ -74,7 +74,7 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
             {NavigatorMap.Setting}
           </Typography>
         )}
-        onPress={() => {}}
+        onPress={handlePressSetting}
         style={styles.drawerItem}
       />
     </DrawerContentScrollView>

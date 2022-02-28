@@ -12,6 +12,14 @@ const colors = <const>{
   persianPink: '#F178B6',
   cornflowerBlue: '#7763EF',
   torchRed: '#FF1F1F',
+  mirage: '#1A202C',
+  oxfordBlue: '#2D3748',
+  selago: '#F4E5FD',
+  halfDutchWhite: '#FEF8DC',
+  roseWhite: '#FFF8F8',
+  scooter: '#26C6DA',
+  whiteIce: '#E3F8FA',
+  cinderella: '#FEE5E1',
 };
 
 export default colors;

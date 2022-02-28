@@ -22,11 +22,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const SearchBox: React.FC = () => {
+interface ISearchBoxProps {
+  onPress?: () => void;
+}
+
+const SearchBox: React.FC<ISearchBoxProps> = ({onPress}: ISearchBoxProps) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box flex={false} style={styles.container}>
-        <SearchIcon />
+        <SearchIcon fill={colors.mirage} />
         <Box ml={2}>
           <Typography variant="caps1" color={colors.riverBed}>
             Search

@@ -3,6 +3,9 @@ enum NavigatorMap {
   Setting = 'Setting',
   Favorite = 'Favorite',
 
+  // modal
+  Search = 'Search',
+
   // home tabs
   Movie = 'Movie',
   TVShow = 'TVShow',

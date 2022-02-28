@@ -6,10 +6,12 @@ import {Provider} from 'react-redux';
 import 'react-native-gesture-handler';
 
 import HomeScreen from './screens/Home';
+import SearchScreen from './screens/Search';
 import MovieTrailerDrawer from './navigations/MovieTrailerDrawer';
 import {RootDrawerParamList} from './navigations/types';
 import NavigatorMap from './navigations/NavigatorMap';
 import {store} from './store/rootReducer';
+import SettingScreen from './screens/Setting';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
@@ -22,7 +24,20 @@ function App() {
             headerShown: false,
           }}
           drawerContent={props => <MovieTrailerDrawer {...props} />}>
-          <Drawer.Screen name={NavigatorMap.Home} component={HomeScreen} />
+          <Drawer.Group>
+            <Drawer.Screen name={NavigatorMap.Home} component={HomeScreen} />
+            <Drawer.Screen
+              name={NavigatorMap.Setting}
+              component={SettingScreen}
+            />
+          </Drawer.Group>
+
+          <Drawer.Group screenOptions={{presentation: 'modal'} as any}>
+            <Drawer.Screen
+              name={NavigatorMap.Search}
+              component={SearchScreen}
+            />
+          </Drawer.Group>
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
