@@ -40,8 +40,8 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
     route.params.type === 'tvShow' ? 'TV Show Genres' : 'Movie Genres';
   const genres = route.params.type === 'tvShow' ? tvGenres : movieGenres;
 
-  return (
-    <Box color={colors.codGray}>
+  const renderListHeader = () => (
+    <>
       <HomeBackground height={responsiveSize(337)} />
       <AppBar onSearch={handleOpenSearch} />
 
@@ -50,15 +50,19 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
           {title}
         </Typography>
       </Box>
+    </>
+  );
 
-      <FlatList
-        data={genres.map(item => item.name)}
-        renderItem={renderItem}
-        keyExtractor={item => `${item}`}
-        numColumns={3}
-        showsVerticalScrollIndicator={false}
-      />
-    </Box>
+  return (
+    <FlatList
+      style={{backgroundColor: colors.codGray}}
+      ListHeaderComponent={renderListHeader}
+      data={genres.map(item => item.name)}
+      renderItem={renderItem}
+      keyExtractor={item => `${item}`}
+      numColumns={3}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 
