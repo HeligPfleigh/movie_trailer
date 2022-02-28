@@ -3,4 +3,7 @@ export type RootDrawerParamList = {
   Setting: undefined;
   Favorite: undefined;
   Search: undefined;
+  Genre: {
+    type: 'movie' | 'tvShow';
+  };
 };

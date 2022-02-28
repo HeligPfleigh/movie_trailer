@@ -34,7 +34,7 @@ const MovieTab = () => {
   return (
     <>
       <Box flex={false} ml={2} mr={2} mb={4} mt={4}>
-        <PopularGenres genres={genres} />
+        <PopularGenres genres={genres} type="movie" />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>

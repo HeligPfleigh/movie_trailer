@@ -21,9 +21,8 @@ import {
   fetchAringTodayTVShows,
   fetchRecommendationTVShows,
 } from '@movie_trailer/store/slices/tvShowSlice';
-import {DrawerScreenProps} from '@react-navigation/drawer';
-import {RootDrawerParamList} from '@movie_trailer/navigations/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {HomeScreenProps} from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,12 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type HomeScreenNavigationProps = DrawerScreenProps<
-  RootDrawerParamList,
-  NavigatorMap.Home
->;
-
-function HomeScreen({navigation}: HomeScreenNavigationProps) {
+function HomeScreen({navigation}: HomeScreenProps) {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState<string>('Movie');
 

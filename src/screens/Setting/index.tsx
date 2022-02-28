@@ -10,7 +10,8 @@ import {
 } from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
+import SettingItem from './SettingItem';
 
 const styles = StyleSheet.create({
   settings: {
@@ -18,19 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.oxfordBlue,
     margin: spacing(2),
     borderRadius: responsiveSize(16),
-  },
-  settingItem: {
-    width: responsiveSize(64),
-    height: responsiveSize(64),
-    backgroundColor: 'red',
-    borderRadius: responsiveSize(8),
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: spacing(1),
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
@@ -88,23 +76,7 @@ const SettingScreen: React.FC = () => {
         {settings.map((group, index) => (
           <Box row key={index}>
             {group.map(setting => (
-              <Box center middle>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={setting.onPress}>
-                  <Box
-                    flex={false}
-                    style={[
-                      styles.settingItem,
-                      {backgroundColor: setting.color},
-                    ]}>
-                    {setting.icon}
-                  </Box>
-                  <Typography color={colors.white} variant="h7">
-                    {setting.title}
-                  </Typography>
-                </TouchableOpacity>
-              </Box>
+              <SettingItem {...setting} />
             ))}
           </Box>
         ))}

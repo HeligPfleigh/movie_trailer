@@ -1,4 +1,3 @@
-import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
@@ -8,15 +7,10 @@ import MenuIcon from '@movie_trailer/assets/icons/Menu';
 import SettingIcon from '@movie_trailer/assets/icons/Setting';
 import {Box} from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {RootDrawerParamList} from '@movie_trailer/navigations/types';
-
-type NavigationProps = DrawerNavigationProp<
-  RootDrawerParamList,
-  NavigatorMap.Home
->;
+import {HomeNavigationProps} from './types';
 
 const AppBar: React.FC = () => {
-  const navigation = useNavigation<NavigationProps>();
+  const navigation = useNavigation<HomeNavigationProps>();
 
   const handleOpenDrawer = () => navigation.openDrawer();
   const handleOpenSetting = () => navigation.navigate(NavigatorMap.Setting);

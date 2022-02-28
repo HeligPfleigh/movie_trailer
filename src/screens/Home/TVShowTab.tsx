@@ -28,7 +28,7 @@ const TvShowTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <PopularGenres genres={genres} />
+        <PopularGenres genres={genres} type="tvShow" />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>

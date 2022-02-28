@@ -76,12 +76,12 @@ const LatestShows: React.FC<ILatestShowsProps> = ({
 
       <Box flex={false} color={colors.riverBed}>
         {rest.map((media, index) => (
-          <Box>
+          <Box key={media.id}>
             <Box ml={2}>
               <Typography
                 variant="caps1"
                 color={colors.white}
-                fontWeight="700">{`${index}.`}</Typography>
+                fontWeight="700">{`${index + 1}.`}</Typography>
             </Box>
             <MediaSearchCard {...media} isTVShow />
           </Box>

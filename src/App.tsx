@@ -12,6 +12,7 @@ import {RootDrawerParamList} from './navigations/types';
 import NavigatorMap from './navigations/NavigatorMap';
 import {store} from './store/rootReducer';
 import SettingScreen from './screens/Setting';
+import GenreScreen from './screens/Genres';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
@@ -30,6 +31,7 @@ function App() {
               name={NavigatorMap.Setting}
               component={SettingScreen}
             />
+            <Drawer.Screen name={NavigatorMap.Genre} component={GenreScreen} />
           </Drawer.Group>
 
           <Drawer.Group screenOptions={{presentation: 'modal'} as any}>
