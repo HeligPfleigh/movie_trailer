@@ -8,8 +8,7 @@ enum NavigatorMap {
   Search = 'Search',
 
   // home tabs
-  Movie = 'Movie',
-  TVShow = 'TVShow',
+  Overview = 'Overview',
 }
 
 export default NavigatorMap;

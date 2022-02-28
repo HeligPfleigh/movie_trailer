@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function HomeScreen({navigation}: HomeScreenProps) {
+function HomeScreen({navigation, route}: HomeScreenProps) {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState<string>('Movie');
 
@@ -44,6 +44,14 @@ function HomeScreen({navigation}: HomeScreenProps) {
     dispatch(fetchAringTodayTVShows());
     dispatch(fetchRecommendationTVShows());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (route.params.type === 'tv') {
+      setActiveTab('TV Show');
+    } else {
+      setActiveTab('Movie');
+    }
+  }, [route.params.type]);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 

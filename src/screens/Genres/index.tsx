@@ -11,13 +11,18 @@ import {
   Typography,
 } from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {RootDrawerParamList} from '@movie_trailer/navigations/types';
+import {
+  MainStackParamList,
+  RootDrawerParamList,
+} from '@movie_trailer/navigations/types';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {colors, responsiveSize} from '@movie_trailer/theme';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {CompositeScreenProps} from '@react-navigation/native';
 
-type GenreScreenNavigationProps = DrawerScreenProps<
-  RootDrawerParamList,
-  NavigatorMap.Genre
+type GenreScreenNavigationProps = CompositeScreenProps<
+  NativeStackScreenProps<MainStackParamList, NavigatorMap.Genre>,
+  DrawerScreenProps<RootDrawerParamList, NavigatorMap.Home>
 >;
 
 const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
@@ -36,9 +41,8 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
     </Box>
   );
 
-  const title =
-    route.params.type === 'tvShow' ? 'TV Show Genres' : 'Movie Genres';
-  const genres = route.params.type === 'tvShow' ? tvGenres : movieGenres;
+  const title = route.params.type === 'tv' ? 'TV Show Genres' : 'Movie Genres';
+  const genres = route.params.type === 'tv' ? tvGenres : movieGenres;
 
   const renderListHeader = () => (
     <>

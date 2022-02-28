@@ -31,8 +31,24 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
 ) => {
   const {navigation} = props;
 
-  const handlePressSetting = () => navigation.navigate(NavigatorMap.Setting);
   const handleClose = () => navigation.closeDrawer();
+
+  const items = [
+    {
+      title: 'Movie',
+      onPress: () =>
+        navigation.navigate(NavigatorMap.Overview, {type: 'movie'}),
+    },
+    {
+      title: 'TV Show',
+      onPress: () => navigation.navigate(NavigatorMap.Overview, {type: 'tv'}),
+    },
+    {title: 'Favorite', onPress: () => {}},
+    {
+      title: 'Setting',
+      onPress: () => navigation.navigate(NavigatorMap.Setting),
+    },
+  ];
 
   return (
     <DrawerContentScrollView {...props} style={styles.container}>
@@ -41,42 +57,18 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
           <CloseIcon />
         </TouchableOpacity>
       </Box>
-      <DrawerItem
-        label={() => (
-          <Typography variant="h4" color={colors.white} textAlign="center">
-            {NavigatorMap.Movie}
-          </Typography>
-        )}
-        onPress={() => {}}
-        style={styles.drawerItem}
-      />
-      <DrawerItem
-        label={() => (
-          <Typography variant="h4" color={colors.white} textAlign="center">
-            {NavigatorMap.TVShow}
-          </Typography>
-        )}
-        onPress={() => {}}
-        style={styles.drawerItem}
-      />
-      <DrawerItem
-        label={() => (
-          <Typography variant="h4" color={colors.white} textAlign="center">
-            {NavigatorMap.Favorite}
-          </Typography>
-        )}
-        onPress={() => {}}
-        style={styles.drawerItem}
-      />
-      <DrawerItem
-        label={() => (
-          <Typography variant="h4" color={colors.white} textAlign="center">
-            {NavigatorMap.Setting}
-          </Typography>
-        )}
-        onPress={handlePressSetting}
-        style={styles.drawerItem}
-      />
+      {items.map(item => (
+        <DrawerItem
+          key={item.title}
+          label={() => (
+            <Typography variant="h4" color={colors.white} textAlign="center">
+              {item.title}
+            </Typography>
+          )}
+          onPress={item.onPress}
+          style={styles.drawerItem}
+        />
+      ))}
     </DrawerContentScrollView>
   );
 };
