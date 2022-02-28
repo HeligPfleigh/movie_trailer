@@ -1,4 +1,4 @@
-import {IMediaItem} from '@movie_trailer/core/types';
+import {IMediaOverview} from '@movie_trailer/core/types';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
@@ -8,7 +8,7 @@ import StarIcon from '@movie_trailer/assets/icons/Star';
 import {Box, Typography} from '../common';
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 
-interface IMediaSearchCardProps extends IMediaItem {
+interface IMediaSearchCardProps extends IMediaOverview {
   isTVShow?: boolean;
 }
 

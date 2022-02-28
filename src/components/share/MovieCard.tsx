@@ -4,7 +4,7 @@ import {ImageBackground, StyleSheet} from 'react-native';
 
 import {Typography, Box} from '../common';
 import StarIcon from '@movie_trailer/assets/icons/Star';
-import {IMediaItem} from '@movie_trailer/core/types';
+import {IMediaOverview} from '@movie_trailer/core/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const MovieCard: React.FC<IMediaItem> = ({
+const MovieCard: React.FC<IMediaOverview> = ({
   title,
   genres,
   poster,
   rating,
-}: IMediaItem) => {
+}: IMediaOverview) => {
   return (
     <ImageBackground
       source={{uri: poster}}

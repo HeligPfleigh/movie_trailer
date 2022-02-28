@@ -3,14 +3,17 @@ export type IGenre = {
   name: string;
 };
 
-export interface IPagination {
+interface IPagination {
+  page: number;
+  total_pages: number;
+  total_results: number;
+}
+
+export interface IMediaPagination extends IPagination {
   dates: {
     maximum: string;
     minimum: string;
   };
-  page: number;
-  total_pages: number;
-  total_results: number;
 }
 
 export interface IMovieOverview {
@@ -30,7 +33,7 @@ export interface IMovieOverview {
   vote_count: number;
 }
 
-export interface ITVShowOverview {
+export interface ITVOverview {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: Array<number>;
@@ -46,7 +49,7 @@ export interface ITVShowOverview {
   vote_count: number;
 }
 
-export interface IMediaItem {
+export interface IMediaOverview {
   id: number;
   title: string;
   poster: string;

@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Box, MediaSearchCard, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import {IMediaItem} from '@movie_trailer/core/types';
+import {IMediaOverview} from '@movie_trailer/core/types';
 import LinearGradient from 'react-native-linear-gradient';
 import PlayCircleFill from '@movie_trailer/assets/icons/PlayCircleFill';
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 interface ILatestShowsProps {
-  medias: Array<IMediaItem>;
+  medias: Array<IMediaOverview>;
 }
 
 const LatestShows: React.FC<ILatestShowsProps> = ({

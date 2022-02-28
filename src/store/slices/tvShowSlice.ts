@@ -2,15 +2,15 @@ import {
   getAringTodayTVShows,
   getRecommendationTVShows,
 } from '@movie_trailer/core/apis';
-import {IPagination, ITVShowOverview} from '@movie_trailer/core/types';
+import {IMediaPagination, ITVOverview} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 export type ITVShowState = Record<
   'airingToday' | 'recommendation',
-  IPagination & {results: Array<ITVShowOverview>}
+  IMediaPagination & {results: Array<ITVOverview>}
 >;
 
-const defaultPage: IPagination & {results: Array<ITVShowOverview>} = {
+const defaultPage: IMediaPagination & {results: Array<ITVOverview>} = {
   dates: {
     maximum: '',
     minimum: '',

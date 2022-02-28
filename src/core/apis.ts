@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {IGenre, IMovieOverview, IPagination, ITVShowOverview} from './types';
+import {IGenre, IMovieOverview, IMediaPagination, ITVOverview} from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
 export const IMAGE_SERVER = 'https://image.tmdb.org/t/p/w500';
@@ -27,35 +27,35 @@ export const getListTVGenres = async (): Promise<{
 };
 
 export const getNowPlayingMovies = async (): Promise<
-  IPagination & {results: Array<IMovieOverview>}
+  IMediaPagination & {results: Array<IMovieOverview>}
 > => {
   const {data} = await instance.get('movie/now_playing');
   return data;
 };
 
 export const getUpcomingMovies = async (): Promise<
-  IPagination & {results: Array<IMovieOverview>}
+  IMediaPagination & {results: Array<IMovieOverview>}
 > => {
   const {data} = await instance.get('movie/upcoming');
   return data;
 };
 
 export const getRecommendationMovies = async (): Promise<
-  IPagination & {results: Array<IMovieOverview>}
+  IMediaPagination & {results: Array<IMovieOverview>}
 > => {
   const {data} = await instance.get('movie/top_rated');
   return data;
 };
 
 export const getAringTodayTVShows = async (): Promise<
-  IPagination & {results: Array<ITVShowOverview>}
+  IMediaPagination & {results: Array<ITVOverview>}
 > => {
   const {data} = await instance.get('tv/airing_today');
   return data;
 };
 
 export const getRecommendationTVShows = async (): Promise<
-  IPagination & {results: Array<ITVShowOverview>}
+  IMediaPagination & {results: Array<ITVOverview>}
 > => {
   const {data} = await instance.get('tv/top_rated');
   return data;

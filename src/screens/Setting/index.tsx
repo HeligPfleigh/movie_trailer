@@ -76,7 +76,7 @@ const SettingScreen: React.FC = () => {
         {settings.map((group, index) => (
           <Box row key={index}>
             {group.map(setting => (
-              <SettingItem {...setting} />
+              <SettingItem {...setting} key={setting.title} />
             ))}
           </Box>
         ))}

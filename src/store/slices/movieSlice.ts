@@ -3,15 +3,15 @@ import {
   getRecommendationMovies,
   getUpcomingMovies,
 } from '@movie_trailer/core/apis';
-import {IMovieOverview, IPagination} from '@movie_trailer/core/types';
+import {IMovieOverview, IMediaPagination} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 export type IMovieState = Record<
   'nowPlaying' | 'upcoming' | 'recommendation',
-  IPagination & {results: Array<IMovieOverview>}
+  IMediaPagination & {results: Array<IMovieOverview>}
 >;
 
-const defaultPage: IPagination & {results: Array<IMovieOverview>} = {
+const defaultPage: IMediaPagination & {results: Array<IMovieOverview>} = {
   dates: {
     maximum: '',
     minimum: '',

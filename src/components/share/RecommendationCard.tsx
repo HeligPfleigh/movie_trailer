@@ -4,12 +4,11 @@ import {ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Typography, Box} from '../common';
 import StarIcon from '@movie_trailer/assets/icons/Star';
-import {IMediaItem} from '@movie_trailer/core/types';
+import {IMediaOverview} from '@movie_trailer/core/types';
 
 const styles = StyleSheet.create({
   imageContainer: {
     height: responsiveSize(229),
-    width: '100%',
     position: 'relative',
   },
   badge: {
@@ -33,13 +32,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const RecommendationCard: React.FC<IMediaItem> = ({
+const RecommendationCard: React.FC<IMediaOverview> = ({
   title,
   genres,
   poster,
   rating,
   time,
-}: IMediaItem) => {
+}: IMediaOverview) => {
   return (
     <TouchableOpacity>
       <ImageBackground

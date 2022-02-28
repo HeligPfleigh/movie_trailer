@@ -1,6 +1,8 @@
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
-import {IMovieOverview, IMediaItem} from '@movie_trailer/core/types';
+import {IMovieOverview, IMediaOverview} from '@movie_trailer/core/types';
 import {createSelector} from '@reduxjs/toolkit';
+import chunk from 'lodash/chunk';
+
 import {RootState} from '../rootReducer';
 
 const getUpcommingMovies = (
@@ -33,7 +35,7 @@ export const todayMoviesSelector = createSelector(
     (state: RootState) => state.movie.nowPlaying.results,
     (state: RootState) => state.genre.movieGenres,
   ],
-  (movies, genres): Array<IMediaItem> => {
+  (movies, genres): Array<IMediaOverview> => {
     return movies.map(movie => {
       const genre = genres
         .filter(item => movie.genre_ids.includes(item.id))
@@ -57,8 +59,8 @@ export const recommendationMoviesSelector = createSelector(
     (state: RootState) => state.movie.recommendation.results,
     (state: RootState) => state.genre.movieGenres,
   ],
-  (movies, genres): Array<IMediaItem> => {
-    return movies.map(movie => {
+  (movies, genres): Array<Array<IMediaOverview>> => {
+    const medias = movies.map(movie => {
       const genre = genres
         .filter(item => movie.genre_ids.includes(item.id))
         .map(item => item.name)
@@ -73,5 +75,7 @@ export const recommendationMoviesSelector = createSelector(
         time: movie.release_date,
       };
     });
+
+    return chunk(medias, 2);
   },
 );
