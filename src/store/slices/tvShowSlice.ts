@@ -1,7 +1,4 @@
-import {
-  getAringTodayTVShows,
-  getRecommendationTVShows,
-} from '@movie_trailer/core/apis';
+import {getMediaOverview} from '@movie_trailer/core/apis';
 import {IMediaPagination, ITVOverview} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
@@ -29,7 +26,7 @@ export const initialState: ITVShowState = {
 export const fetchAringTodayTVShows = createAsyncThunk(
   'tvShow/fetchAringTodayTVShows',
   async () => {
-    const data = await getAringTodayTVShows();
+    const data = await getMediaOverview<ITVOverview>('tv', 'airing_today');
     return data;
   },
 );
@@ -37,7 +34,7 @@ export const fetchAringTodayTVShows = createAsyncThunk(
 export const fetchRecommendationTVShows = createAsyncThunk(
   'tvShow/fetchRecommendationTVShows',
   async () => {
-    const data = await getRecommendationTVShows();
+    const data = await getMediaOverview<ITVOverview>('tv', 'top_rated');
     return data;
   },
 );

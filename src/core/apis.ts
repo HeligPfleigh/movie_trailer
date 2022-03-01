@@ -19,52 +19,12 @@ const instance = axios.create({
   },
 });
 
-export const getListMovieGenres = async (): Promise<{
+export const getGenres = async (
+  type: 'movie' | 'tv',
+): Promise<{
   genres: Array<IGenre>;
 }> => {
-  const {data} = await instance.get('genre/movie/list');
-  return data;
-};
-
-export const getListTVGenres = async (): Promise<{
-  genres: Array<IGenre>;
-}> => {
-  const {data} = await instance.get('genre/tv/list');
-  return data;
-};
-
-export const getNowPlayingMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/now_playing');
-  return data;
-};
-
-export const getUpcomingMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/upcoming');
-  return data;
-};
-
-export const getRecommendationMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/top_rated');
-  return data;
-};
-
-export const getAringTodayTVShows = async (): Promise<
-  IMediaPagination & {results: Array<ITVOverview>}
-> => {
-  const {data} = await instance.get('tv/airing_today');
-  return data;
-};
-
-export const getRecommendationTVShows = async (): Promise<
-  IMediaPagination & {results: Array<ITVOverview>}
-> => {
-  const {data} = await instance.get('tv/top_rated');
+  const {data} = await instance.get(`genre/${type}/list`);
   return data;
 };
 
@@ -81,5 +41,14 @@ export const getSearch = async <
   const {data} = await instance.get(`search/${type}`, {
     params: {query: search},
   });
+  return data;
+};
+
+export const getMediaOverview = async <T extends IMovieOverview | ITVOverview>(
+  type: 'movie' | 'tv',
+  subroute: 'top_rated' | 'upcoming' | 'airing_today' | 'now_playing',
+  params?: Record<string, string | number>,
+): Promise<IMediaPagination & {results: Array<T>}> => {
+  const {data} = await instance.get(`${type}/${subroute}`, {params});
   return data;
 };
