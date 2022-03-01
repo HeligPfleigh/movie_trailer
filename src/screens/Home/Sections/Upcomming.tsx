@@ -11,7 +11,10 @@ import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {responsiveSize, spacing} from '@movie_trailer/theme';
 import {upcomingMoviesSelector} from '@movie_trailer/store/selectors/movie';
 
-const listDatesString = (maximum: string, minimum: string): string[] => {
+const listDatesString = (
+  maximum: string,
+  minimum: string,
+): Array<{value: string; title: string}> => {
   const dateArray = [];
   let currentDate = dayjs(minimum);
   const stopDate = dayjs(maximum);
@@ -19,7 +22,7 @@ const listDatesString = (maximum: string, minimum: string): string[] => {
     dateArray.push(dayjs(currentDate).format('YYYY-MM-DD'));
     currentDate = dayjs(currentDate).add(1, 'days');
   }
-  return dateArray;
+  return dateArray.map(item => ({value: item, title: item}));
 };
 
 const styles = StyleSheet.create({

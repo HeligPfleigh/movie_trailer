@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {useSelector} from 'react-redux';
+import React, {memo, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
@@ -14,6 +14,12 @@ import {
   recommendationMoviesSelector,
   todayMoviesSelector,
 } from '@movie_trailer/store/selectors/movie';
+import {fetchMovieGenres} from '@movie_trailer/store/slices/genreSlice';
+import {
+  fetchNowPlayingMovies,
+  fetchRecommendationMovies,
+  fetchUpcomingMovies,
+} from '@movie_trailer/store/slices/movieSlice';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -27,9 +33,16 @@ const styles = StyleSheet.create({
 
 const MovieTab = () => {
   const genres = useSelector((state: RootState) => state.genre.movieGenres);
-
   const moviesToday = useSelector(todayMoviesSelector);
   const recommendationMovies = useSelector(recommendationMoviesSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMovieGenres());
+    dispatch(fetchNowPlayingMovies());
+    dispatch(fetchUpcomingMovies());
+    dispatch(fetchRecommendationMovies());
+  }, [dispatch]);
 
   return (
     <>

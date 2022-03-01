@@ -3,7 +3,7 @@ export type IGenre = {
   name: string;
 };
 
-interface IPagination {
+export interface IPagination {
   page: number;
   total_pages: number;
   total_results: number;
@@ -56,4 +56,26 @@ export interface IMediaOverview {
   rating: number;
   genres: string;
   time: string;
+}
+
+export interface IPeopleOverview {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for: Array<
+    | (IMovieOverview & {media_type: 'movie'})
+    | (ITVOverview & {media_type: 'tv'})
+  >;
+  known_for_department: string;
+  name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export interface IActorOverview {
+  id: number;
+  name: string;
+  thumbnail: string;
+  department: string;
+  favorite?: boolean;
 }

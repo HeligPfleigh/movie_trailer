@@ -3,10 +3,10 @@ import {ScrollView, StyleSheet} from 'react-native';
 
 import TabItem from './TabItem';
 
-interface ITabsProps {
-  tabs: string[];
-  activeTab: string;
-  onTabChanged?: (tab: string) => void;
+interface ITabsProps<T> {
+  tabs: Array<{value: T; title: string}>;
+  activeTab: T;
+  onTabChanged?: (tab: T) => void;
   type?: 'medium' | 'small';
 }
 
@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Tabs: React.FC<ITabsProps> = ({
+function Tabs<T extends string | number>({
   tabs,
   onTabChanged,
   activeTab,
   type = 'medium',
-}: ITabsProps) => {
-  const handleTabPress = (tab: string) => {
+}: ITabsProps<T>) {
+  const handleTabPress = (tab: T) => {
     onTabChanged?.(tab);
   };
 
@@ -34,15 +34,15 @@ const Tabs: React.FC<ITabsProps> = ({
       showsHorizontalScrollIndicator={false}>
       {tabs.map(tab => (
         <TabItem
-          key={tab}
-          title={tab}
-          onPress={() => handleTabPress(tab)}
-          isActive={activeTab === tab}
+          key={tab.value}
+          title={tab.title}
+          onPress={() => handleTabPress(tab.value)}
+          isActive={activeTab === tab.value}
           type={type}
         />
       ))}
     </ScrollView>
   );
-};
+}
 
 export default Tabs;

@@ -43,36 +43,38 @@ const LatestShows: React.FC<ILatestShowsProps> = ({
   const [latestMedia, ...rest] = medias.slice(0, 4);
   return (
     <>
-      <Box flex={false}>
-        <FastImage
-          source={{uri: latestMedia.poster}}
-          style={styles.heroImage}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-        <LinearGradient
-          colors={['rgba(74, 85, 104, 0)', colors.riverBed]}
-          style={styles.heroTitleContainer}>
-          <Typography variant="h6" color={colors.zircon} fontWeight="700">
-            {latestMedia.title}
-          </Typography>
+      {latestMedia && (
+        <Box flex={false}>
+          <FastImage
+            source={{uri: latestMedia.poster}}
+            style={styles.heroImage}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <LinearGradient
+            colors={['rgba(74, 85, 104, 0)', colors.riverBed]}
+            style={styles.heroTitleContainer}>
+            <Typography variant="h6" color={colors.zircon} fontWeight="700">
+              {latestMedia.title}
+            </Typography>
 
-          <TouchableOpacity>
-            <LinearGradient
-              colors={[colors.torchRed, '#E1334E']}
-              useAngle={true}
-              angle={135}
-              angleCenter={{x: 0.5, y: 0.5}}
-              style={styles.watchNowBtn}>
-              <Box flex={false} mr={1}>
-                <PlayCircleFill />
-              </Box>
-              <Typography variant="caps2" color={colors.white}>
-                Watch video
-              </Typography>
-            </LinearGradient>
-          </TouchableOpacity>
-        </LinearGradient>
-      </Box>
+            <TouchableOpacity>
+              <LinearGradient
+                colors={[colors.torchRed, '#E1334E']}
+                useAngle={true}
+                angle={135}
+                angleCenter={{x: 0.5, y: 0.5}}
+                style={styles.watchNowBtn}>
+                <Box flex={false} mr={1}>
+                  <PlayCircleFill />
+                </Box>
+                <Typography variant="caps2" color={colors.white}>
+                  Watch video
+                </Typography>
+              </LinearGradient>
+            </TouchableOpacity>
+          </LinearGradient>
+        </Box>
+      )}
 
       <Box flex={false} color={colors.riverBed}>
         {rest.map((media, index) => (
