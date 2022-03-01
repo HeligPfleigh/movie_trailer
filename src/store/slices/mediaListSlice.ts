@@ -98,6 +98,10 @@ const mediaListSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder): void => {
+    builder.addCase(loadInitialMediaList.pending, () => {
+      return initialState;
+    });
+
     builder.addCase(loadInitialMediaList.fulfilled, (state, action) => {
       state.page = action.payload.page;
       state.total_pages = action.payload.total_pages;
