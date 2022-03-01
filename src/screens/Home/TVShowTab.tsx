@@ -36,15 +36,15 @@ const TvShowTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <Today medias={airingTodayShows} />
+        <Today medias={airingTodayShows} type="tv" />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <PopularGenres genres={genres} type="tvShow" />
+        <PopularGenres genres={genres} type="tv" />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
-        <Recommendation medias={recommendationShows} />
+        <Recommendation medias={recommendationShows} type="tv" />
       </Box>
     </>
   );

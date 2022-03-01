@@ -20,11 +20,13 @@ const AppBar: React.FC<IAppBarProps> = ({onShare, onSearch}: IAppBarProps) => {
 
   return (
     <Box row mt={2.5} pl={2} pr={2} flex={false}>
-      <Box>
+      <Box flex={false}>
         <TouchableOpacity onPress={handleBack}>
           <AngleLeftIcon />
         </TouchableOpacity>
       </Box>
+
+      <Box />
 
       <Box flex={false} row center>
         {onShare && (

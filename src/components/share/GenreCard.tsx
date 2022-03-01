@@ -1,3 +1,4 @@
+import {IGenre} from '@movie_trailer/core/types';
 import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
@@ -21,12 +22,13 @@ const styles = StyleSheet.create({
 
 interface IGenreCardProps {
   image?: string;
-  name: string;
+  genre: IGenre;
+  onPress?: () => void;
 }
 
-const GenreCard: React.FC<IGenreCardProps> = ({image, name}) => {
+const GenreCard: React.FC<IGenreCardProps> = ({image, genre, onPress}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box flex={false} style={styles.container}>
         {image ? (
           <FastImage source={{uri: image}} style={styles.image} />
@@ -34,7 +36,7 @@ const GenreCard: React.FC<IGenreCardProps> = ({image, name}) => {
           <Box flex={false} style={styles.image} />
         )}
         <Typography variant="caps1" color={colors.white} numberOfLines={1}>
-          {name}
+          {genre.name}
         </Typography>
       </Box>
     </TouchableOpacity>

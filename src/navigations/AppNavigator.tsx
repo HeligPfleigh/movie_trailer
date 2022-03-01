@@ -1,5 +1,6 @@
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
+import ListMediaScreen from '@movie_trailer/screens/ListMedia';
 import SearchScreen from '@movie_trailer/screens/Search';
 import SettingScreen from '@movie_trailer/screens/Setting';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -25,6 +26,7 @@ const MainNavigator = () => {
         initialParams={{type: 'movie'}}
       />
       <Stack.Screen name={NavigatorMap.Genre} component={GenreScreen} />
+      <Stack.Screen name={NavigatorMap.ListMedia} component={ListMediaScreen} />
     </Stack.Navigator>
   );
 };

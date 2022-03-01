@@ -1,8 +1,4 @@
-import {
-  getNowPlayingMovies,
-  getRecommendationMovies,
-  getUpcomingMovies,
-} from '@movie_trailer/core/apis';
+import {getMediaOverview} from '@movie_trailer/core/apis';
 import {IMovieOverview, IMediaPagination} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
@@ -31,7 +27,7 @@ export const initialState: IMovieState = {
 export const fetchNowPlayingMovies = createAsyncThunk(
   'movie/fetchNowPlayingMovies',
   async () => {
-    const data = await getNowPlayingMovies();
+    const data = await getMediaOverview<IMovieOverview>('movie', 'now_playing');
     return data;
   },
 );
@@ -39,7 +35,7 @@ export const fetchNowPlayingMovies = createAsyncThunk(
 export const fetchUpcomingMovies = createAsyncThunk(
   'movie/fetchUpcomingMovies',
   async () => {
-    const data = await getUpcomingMovies();
+    const data = await getMediaOverview<IMovieOverview>('movie', 'upcoming');
     return data;
   },
 );
@@ -47,7 +43,7 @@ export const fetchUpcomingMovies = createAsyncThunk(
 export const fetchRecommendationMovies = createAsyncThunk(
   'movie/fetchRecommendationMovies',
   async () => {
-    const data = await getRecommendationMovies();
+    const data = await getMediaOverview<IMovieOverview>('movie', 'top_rated');
     return data;
   },
 );

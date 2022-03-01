@@ -1,4 +1,4 @@
-import {getListMovieGenres, getListTVGenres} from '@movie_trailer/core/apis';
+import {getGenres} from '@movie_trailer/core/apis';
 import {IGenre} from '@movie_trailer/core/types';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
@@ -15,7 +15,7 @@ export const initialState: IGenreState = {
 export const fetchMovieGenres = createAsyncThunk(
   'genre/fetchMovieGenres',
   async () => {
-    const {genres} = await getListMovieGenres();
+    const {genres} = await getGenres('movie');
     return genres;
   },
 );
@@ -23,7 +23,7 @@ export const fetchMovieGenres = createAsyncThunk(
 export const fetchTVShowGenres = createAsyncThunk(
   'genre/fetchTVShowGenres',
   async () => {
-    const {genres} = await getListTVGenres();
+    const {genres} = await getGenres('tv');
     return genres;
   },
 );

@@ -2,13 +2,14 @@ enum NavigatorMap {
   Home = 'Home',
   Setting = 'Setting',
   Favorite = 'Favorite',
-  Genre = 'Genre',
 
   // modal
   Search = 'Search',
 
-  // home tabs
+  // home stack
   Overview = 'Overview',
+  Genre = 'Genre',
+  ListMedia = 'ListMedia',
 }
 
 export default NavigatorMap;

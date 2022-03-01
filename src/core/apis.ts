@@ -19,107 +19,36 @@ const instance = axios.create({
   },
 });
 
-export const getListMovieGenres = async (): Promise<{
+export const getGenres = async (
+  type: 'movie' | 'tv',
+): Promise<{
   genres: Array<IGenre>;
 }> => {
-  const {data} = await instance.get('genre/movie/list');
+  const {data} = await instance.get(`genre/${type}/list`);
   return data;
 };
 
-export const getListTVGenres = async (): Promise<{
-  genres: Array<IGenre>;
-}> => {
-  const {data} = await instance.get('genre/tv/list');
-  return data;
-};
-
-export const getNowPlayingMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/now_playing');
-  return data;
-};
-
-export const getUpcomingMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/upcoming');
-  return data;
-};
-
-export const getRecommendationMovies = async (): Promise<
-  IMediaPagination & {results: Array<IMovieOverview>}
-> => {
-  const {data} = await instance.get('movie/top_rated');
-  return data;
-};
-
-export const getAringTodayTVShows = async (): Promise<
-  IMediaPagination & {results: Array<ITVOverview>}
-> => {
-  const {data} = await instance.get('tv/airing_today');
-  return data;
-};
-
-export const getRecommendationTVShows = async (): Promise<
-  IMediaPagination & {results: Array<ITVOverview>}
-> => {
-  const {data} = await instance.get('tv/top_rated');
-  return data;
-};
-
-export const getSearchMulti = async (
+export const getSearch = async <
+  T extends IPeopleOverview | IMovieOverview | ITVOverview,
+>(
+  type: 'movie' | 'tv' | 'person',
   search: string,
 ): Promise<
   IPagination & {
-    results: Array<
-      | (IPeopleOverview & {media_type: undefined})
-      | (IMovieOverview & {media_type: 'movie'})
-      | (ITVOverview & {media_type: 'tv'})
-    >;
+    results: Array<T>;
   }
 > => {
-  const {data} = await instance.get('search/multi', {
+  const {data} = await instance.get(`search/${type}`, {
     params: {query: search},
   });
   return data;
 };
 
-export const getSearchPeople = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<IPeopleOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/person', {
-    params: {query: search},
-  });
-  return data;
-};
-
-export const getSearchMovie = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<IMovieOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/movie', {
-    params: {query: search},
-  });
-  return data;
-};
-
-export const getSearchTV = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<ITVOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/tv', {
-    params: {query: search},
-  });
+export const getMediaOverview = async <T extends IMovieOverview | ITVOverview>(
+  type: 'movie' | 'tv',
+  subroute: 'top_rated' | 'upcoming' | 'airing_today' | 'now_playing',
+  params?: Record<string, string | number | undefined>,
+): Promise<IMediaPagination & {results: Array<T>}> => {
+  const {data} = await instance.get(`${type}/${subroute}`, {params});
   return data;
 };

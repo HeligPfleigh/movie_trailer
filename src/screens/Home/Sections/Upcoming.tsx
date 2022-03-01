@@ -10,6 +10,9 @@ import {IMovieOverview} from '@movie_trailer/core/types';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {responsiveSize, spacing} from '@movie_trailer/theme';
 import {upcomingMoviesSelector} from '@movie_trailer/store/selectors/movie';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigationProps} from '../types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 const listDatesString = (
   maximum: string,
@@ -46,6 +49,15 @@ const Upcoming: React.FC = () => {
   const {dates} = useSelector((state: RootState) => state.movie.upcoming);
   const [activeTab, setActiveTab] = useState<string>('');
 
+  const navigation = useNavigation<HomeNavigationProps>();
+
+  const handleSeeAll = () => {
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type: 'movie',
+      subroute: 'upcoming',
+    });
+  };
+
   const renderItem = ({item}: {item: IMovieOverview[]}) => {
     if (item.length === 1) {
       return (
@@ -74,7 +86,7 @@ const Upcoming: React.FC = () => {
 
   return (
     <>
-      <SectionHeader title="Upcomming Movie" />
+      <SectionHeader title="Upcoming Movie" onPress={handleSeeAll} />
 
       <Tabs
         tabs={listDatesString(dates.maximum, dates.minimum)}
