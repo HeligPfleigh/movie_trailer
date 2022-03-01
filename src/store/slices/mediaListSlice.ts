@@ -17,81 +17,85 @@ export const initialState: IMediaListState = {
   results: [],
 };
 
-export const loadInitialMediaList = createAsyncThunk(
-  'mediaList/loadInitialMediaList',
-  async (
-    {
-      type,
+const loadData = async (
+  {
+    type,
+    subroute,
+    params,
+  }: {
+    type: 'movie' | 'tv';
+    subroute: 'top_rated' | 'upcoming' | 'airing_today' | 'now_playing';
+    params?: Record<string, string | number | undefined>;
+  },
+  {getState}: {getState: () => unknown},
+) => {
+  if (type === 'movie') {
+    const data = await getMediaOverview<IMovieOverview>(
+      'movie',
       subroute,
       params,
-    }: {
-      type: 'movie' | 'tv';
-      subroute: 'top_rated' | 'upcoming' | 'airing_today' | 'now_playing';
-      params?: Record<string, string | number | undefined>;
-    },
-    {getState},
-  ) => {
-    if (type === 'movie') {
-      const data = await getMediaOverview<IMovieOverview>(
-        'movie',
-        subroute,
-        params,
-      );
-      const genres = (getState() as RootState).genre.movieGenres;
+    );
+    const genres = (getState() as RootState).genre.movieGenres;
 
-      const movies = data.results.map(movie => {
-        const genre = genres
-          .filter(item => movie.genre_ids.includes(item.id))
-          .map(item => item.name)
-          .join('/ ');
-
-        return {
-          id: movie.id,
-          title: movie.title,
-          genres: genre,
-          poster: `${IMAGE_SERVER}${movie.poster_path}`,
-          rating: movie.vote_average,
-          time: movie.release_date,
-        };
-      });
+    const movies = data.results.map(movie => {
+      const genre = genres
+        .filter(item => movie.genre_ids.includes(item.id))
+        .map(item => item.name)
+        .join('/ ');
 
       return {
-        page: data.page,
-        total_pages: data.total_pages,
-        total_results: data.total_results,
-        results: movies,
+        id: movie.id,
+        title: movie.title,
+        genres: genre,
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        rating: movie.vote_average,
+        time: movie.release_date,
       };
-    } else if (type === 'tv') {
-      const data = await getMediaOverview<ITVOverview>('tv', subroute, params);
-      const genres = (getState() as RootState).genre.tvGenres;
+    });
 
-      const tvShows = data.results.map(show => {
-        const genre = genres
-          .filter(item => show.genre_ids.includes(item.id))
-          .map(item => item.name)
-          .join('/ ');
+    return {
+      page: data.page,
+      total_pages: data.total_pages,
+      total_results: data.total_results,
+      results: movies,
+    };
+  } else if (type === 'tv') {
+    const data = await getMediaOverview<ITVOverview>('tv', subroute, params);
+    const genres = (getState() as RootState).genre.tvGenres;
 
-        return {
-          id: show.id,
-          title: show.name,
-          genres: genre,
-          poster: `${IMAGE_SERVER}${show.poster_path}`,
-          rating: show.vote_average,
-          time: show.first_air_date,
-        };
-      });
+    const tvShows = data.results.map(show => {
+      const genre = genres
+        .filter(item => show.genre_ids.includes(item.id))
+        .map(item => item.name)
+        .join('/ ');
 
       return {
-        page: data.page,
-        total_pages: data.total_pages,
-        total_results: data.total_results,
-        results: tvShows,
+        id: show.id,
+        title: show.name,
+        genres: genre,
+        poster: `${IMAGE_SERVER}${show.poster_path}`,
+        rating: show.vote_average,
+        time: show.first_air_date,
       };
-    }
+    });
 
-    return initialState;
-  },
+    return {
+      page: data.page,
+      total_pages: data.total_pages,
+      total_results: data.total_results,
+      results: tvShows,
+    };
+  }
+
+  return initialState;
+};
+
+export const loadInitialMediaList = createAsyncThunk(
+  'mediaList/loadInitialMediaList',
+  loadData,
 );
+
+export const loadMore = createAsyncThunk('mediaList/loadMore', loadData);
 
 const mediaListSlice = createSlice({
   name: 'mediaList',
@@ -107,6 +111,13 @@ const mediaListSlice = createSlice({
       state.total_pages = action.payload.total_pages;
       state.total_results = action.payload.total_results;
       state.results = action.payload.results;
+    });
+
+    builder.addCase(loadMore.fulfilled, (state, action) => {
+      state.page = action.payload.page;
+      state.total_pages = action.payload.total_pages;
+      state.total_results = action.payload.total_results;
+      state.results = [...state.results, ...action.payload.results];
     });
   },
 });

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {
   AppBar,
@@ -12,8 +12,16 @@ import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {ListMediaScreenProps} from './types';
 import {useListMediaHeader} from './useListMediaHeader';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadInitialMediaList} from '@movie_trailer/store/slices/mediaListSlice';
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  loadInitialMediaList,
+  loadMore,
+} from '@movie_trailer/store/slices/mediaListSlice';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import Filter from '@movie_trailer/assets/icons/Filter';
@@ -51,6 +59,11 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   const totalResult = useSelector(
     (state: RootState) => state.mediaList.total_results,
   );
+  const currentPage = useSelector((state: RootState) => state.mediaList.page);
+  const totalPage = useSelector(
+    (state: RootState) => state.mediaList.total_pages,
+  );
+  const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -64,6 +77,24 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
       }),
     );
   }, [subroute, type, with_genres, dispatch]);
+
+  const handleLoadMore = () => {
+    if (
+      !onEndReachedCalledDuringMomentumRef.current &&
+      currentPage < totalPage
+    ) {
+      dispatch(
+        loadMore({
+          type,
+          subroute,
+          params: {
+            ...(with_genres ? {with_genres} : {}),
+            page: currentPage + 1,
+          },
+        }),
+      );
+    }
+  };
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2}>
@@ -105,6 +136,14 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           keyExtractor={item => `${item.id}`}
           showsVerticalScrollIndicator={false}
           numColumns={2}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.5}
+          onMomentumScrollBegin={() => {
+            onEndReachedCalledDuringMomentumRef.current = false;
+          }}
+          ListFooterComponent={
+            currentPage < totalPage ? <ActivityIndicator /> : null
+          }
         />
       </Box>
     </Box>
