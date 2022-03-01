@@ -1,5 +1,4 @@
 import React from 'react';
-import {DrawerScreenProps} from '@react-navigation/drawer';
 
 import {
   AppBar,
@@ -8,23 +7,15 @@ import {
   Typography,
 } from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {
-  MainStackParamList,
-  RootDrawerParamList,
-} from '@movie_trailer/navigations/types';
 import {colors, responsiveSize} from '@movie_trailer/theme';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {CompositeScreenProps} from '@react-navigation/native';
+import {ListMediaScreenProps} from './types';
+import {useListMediaHeader} from './useListMediaHeader';
 
-type ListMediaScreenNavigationProps = CompositeScreenProps<
-  NativeStackScreenProps<MainStackParamList, NavigatorMap.ListMedia>,
-  DrawerScreenProps<RootDrawerParamList, NavigatorMap.Home>
->;
-
-const ListMediaScreen: React.FC<ListMediaScreenNavigationProps> = ({
+const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   navigation,
   route,
-}: ListMediaScreenNavigationProps) => {
+}: ListMediaScreenProps) => {
+  const header = useListMediaHeader();
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   console.log(route.params);
@@ -36,7 +27,7 @@ const ListMediaScreen: React.FC<ListMediaScreenNavigationProps> = ({
 
       <Box mt={2.5} ml={2} mb={2} flex={false}>
         <Typography variant="h4" color={colors.white} fontWeight="600">
-          List Media
+          {header}
         </Typography>
       </Box>
     </Box>

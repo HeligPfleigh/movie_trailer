@@ -27,7 +27,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   const handleSeeAll = () => {
     navigation.navigate(NavigatorMap.ListMedia, {
       type,
-      subroute: type === 'movie' ? 'now_playing' : 'aring_today',
+      subroute: type === 'movie' ? 'now_playing' : 'airing_today',
     });
   };
 

@@ -5,7 +5,7 @@ import chunk from 'lodash/chunk';
 
 import {RootState} from '../rootReducer';
 
-const getUpcommingMovies = (
+const getUpcomingMovies = (
   movies: Array<IMovieOverview>,
 ): Array<Array<IMovieOverview>> => {
   const displayMovies: IMovieOverview[][] = [];
@@ -27,7 +27,7 @@ const getUpcommingMovies = (
 
 export const upcomingMoviesSelector = createSelector(
   [(state: RootState) => state.movie.upcoming],
-  upcoming => getUpcommingMovies(upcoming.results),
+  upcoming => getUpcomingMovies(upcoming.results),
 );
 
 export const todayMoviesSelector = createSelector(

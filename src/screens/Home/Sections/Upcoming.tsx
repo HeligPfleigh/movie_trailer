@@ -54,7 +54,7 @@ const Upcoming: React.FC = () => {
   const handleSeeAll = () => {
     navigation.navigate(NavigatorMap.ListMedia, {
       type: 'movie',
-      subroute: 'upcomming',
+      subroute: 'upcoming',
     });
   };
 
@@ -86,7 +86,7 @@ const Upcoming: React.FC = () => {
 
   return (
     <>
-      <SectionHeader title="Upcomming Movie" onPress={handleSeeAll} />
+      <SectionHeader title="Upcoming Movie" onPress={handleSeeAll} />
 
       <Tabs
         tabs={listDatesString(dates.maximum, dates.minimum)}
