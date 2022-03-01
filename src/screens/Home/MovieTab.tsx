@@ -51,7 +51,7 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
-        <Today medias={moviesToday} />
+        <Today medias={moviesToday} type="movie" />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
@@ -73,7 +73,7 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
-        <Recommendation medias={recommendationMovies} />
+        <Recommendation medias={recommendationMovies} type="movie" />
       </Box>
     </>
   );

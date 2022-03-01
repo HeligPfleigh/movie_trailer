@@ -10,7 +10,7 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 interface IPopularGenresProps {
   genres: IGenre[];
-  type: 'movie' | 'tvShow';
+  type: 'movie' | 'tv';
 }
 
 const PopularGenres: React.FC<IPopularGenresProps> = ({
@@ -19,9 +19,17 @@ const PopularGenres: React.FC<IPopularGenresProps> = ({
 }: IPopularGenresProps) => {
   const navigation = useNavigation<HomeNavigationProps>();
 
-  const renderItem = ({item}: {item: string}) => (
+  const handleSelectGenre = (genre: IGenre) => {
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type,
+      subroute: 'top_rated',
+      with_genres: genre.id,
+    });
+  };
+
+  const renderItem = ({item}: {item: IGenre}) => (
     <Box mr={2}>
-      <GenreCard name={item} />
+      <GenreCard genre={item} onPress={() => handleSelectGenre(item)} />
     </Box>
   );
 
@@ -33,9 +41,9 @@ const PopularGenres: React.FC<IPopularGenresProps> = ({
       <SectionHeader title="Popular Genres" onPress={handlePressSeeAll} />
 
       <FlatList
-        data={genres.map(item => item.name)}
+        data={genres}
         renderItem={renderItem}
-        keyExtractor={item => `${item}`}
+        keyExtractor={item => `${item.id}`}
         horizontal
         showsHorizontalScrollIndicator={false}
       />

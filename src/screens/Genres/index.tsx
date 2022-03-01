@@ -19,6 +19,7 @@ import {RootState} from '@movie_trailer/store/rootReducer';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {CompositeScreenProps} from '@react-navigation/native';
+import {IGenre} from '@movie_trailer/core/types';
 
 type GenreScreenNavigationProps = CompositeScreenProps<
   NativeStackScreenProps<MainStackParamList, NavigatorMap.Genre>,
@@ -35,9 +36,18 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
   const tvGenres = useSelector((state: RootState) => state.genre.tvGenres);
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
-  const renderItem = ({item, index}: {item: string; index: number}) => (
+  const handleSelectGenre = (genre: IGenre) => {
+    const {type} = route.params;
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type,
+      subroute: 'top_rated',
+      with_genres: genre.id,
+    });
+  };
+
+  const renderItem = ({item, index}: {item: IGenre; index: number}) => (
     <Box mr={2} mb={2} ml={index % 3 ? 0 : 2}>
-      <GenreCard name={item} />
+      <GenreCard genre={item} onPress={() => handleSelectGenre(item)} />
     </Box>
   );
 
@@ -61,9 +71,9 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
     <FlatList
       style={{backgroundColor: colors.codGray}}
       ListHeaderComponent={renderListHeader}
-      data={genres.map(item => item.name)}
+      data={genres}
       renderItem={renderItem}
-      keyExtractor={item => `${item}`}
+      keyExtractor={item => `${item.id}`}
       numColumns={3}
       showsVerticalScrollIndicator={false}
     />

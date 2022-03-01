@@ -1,19 +1,32 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {Box, RecommendationCard} from '@movie_trailer/components';
 import SectionHeader from './SectionHeader';
 import {IMediaOverview} from '@movie_trailer/core/types';
+import {HomeNavigationProps} from '../types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 interface IRecommendationProps {
   medias: Array<Array<IMediaOverview>>;
+  type: 'tv' | 'movie';
 }
 
 const Recommendation: React.FC<IRecommendationProps> = ({
   medias,
+  type,
 }: IRecommendationProps) => {
+  const navigation = useNavigation<HomeNavigationProps>();
+
+  const handleSeeAll = () => {
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type,
+      subroute: 'top_rated',
+    });
+  };
   return (
     <>
-      <SectionHeader title="Recommendation" />
+      <SectionHeader title="Recommendation" onPress={handleSeeAll} />
 
       {medias.map(group => {
         const [firstMedia, secondMedia] = group;
