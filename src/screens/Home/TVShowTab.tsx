@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {useSelector} from 'react-redux';
+import React, {memo, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Box} from '@movie_trailer/components';
 import PopularGenres from './Sections/PopularGenres';
@@ -11,11 +11,23 @@ import {
   recommendationTvShowsSelector,
 } from '@movie_trailer/store/selectors/tvShow';
 import LatestShows from './Sections/LatestShows';
+import {fetchTVShowGenres} from '@movie_trailer/store/slices/genreSlice';
+import {
+  fetchAringTodayTVShows,
+  fetchRecommendationTVShows,
+} from '@movie_trailer/store/slices/tvShowSlice';
 
 const TvShowTab = () => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
   const airingTodayShows = useSelector(aringTodayTvShowsSelector);
   const recommendationShows = useSelector(recommendationTvShowsSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTVShowGenres());
+    dispatch(fetchAringTodayTVShows());
+    dispatch(fetchRecommendationTVShows());
+  }, [dispatch]);
 
   return (
     <>

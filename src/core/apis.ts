@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {IGenre, IMovieOverview, IMediaPagination, ITVOverview} from './types';
+import {
+  IGenre,
+  IMovieOverview,
+  IMediaPagination,
+  ITVOverview,
+  IPagination,
+  IPeopleOverview,
+} from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
 export const IMAGE_SERVER = 'https://image.tmdb.org/t/p/w500';
@@ -58,5 +65,61 @@ export const getRecommendationTVShows = async (): Promise<
   IMediaPagination & {results: Array<ITVOverview>}
 > => {
   const {data} = await instance.get('tv/top_rated');
+  return data;
+};
+
+export const getSearchMulti = async (
+  search: string,
+): Promise<
+  IPagination & {
+    results: Array<
+      | (IPeopleOverview & {media_type: undefined})
+      | (IMovieOverview & {media_type: 'movie'})
+      | (ITVOverview & {media_type: 'tv'})
+    >;
+  }
+> => {
+  const {data} = await instance.get('search/multi', {
+    params: {query: search},
+  });
+  return data;
+};
+
+export const getSearchPeople = async (
+  search: string,
+): Promise<
+  IPagination & {
+    results: Array<IPeopleOverview>;
+  }
+> => {
+  const {data} = await instance.get('search/person', {
+    params: {query: search},
+  });
+  return data;
+};
+
+export const getSearchMovie = async (
+  search: string,
+): Promise<
+  IPagination & {
+    results: Array<IMovieOverview>;
+  }
+> => {
+  const {data} = await instance.get('search/movie', {
+    params: {query: search},
+  });
+  return data;
+};
+
+export const getSearchTV = async (
+  search: string,
+): Promise<
+  IPagination & {
+    results: Array<ITVOverview>;
+  }
+> => {
+  const {data} = await instance.get('search/tv', {
+    params: {query: search},
+  });
   return data;
 };
