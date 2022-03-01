@@ -1,8 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
+
 import genreReducer from './slices/genreSlice';
 import movieReducer from './slices/movieSlice';
 import tvShowReducer from './slices/tvShowSlice';
 import searchReducer from './slices/searchSlice';
+import mediaListReducer from './slices/mediaListSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,7 @@ export const store = configureStore({
     movie: movieReducer,
     tvShow: tvShowReducer,
     search: searchReducer,
+    mediaList: mediaListReducer,
   },
 });
 
