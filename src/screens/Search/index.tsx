@@ -12,7 +12,6 @@ import CloseIcon from '@movie_trailer/assets/icons/Close';
 import {RootDrawerParamList} from '@movie_trailer/navigations/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import {TextInput} from 'react-native-gesture-handler';
 import Search from '@movie_trailer/assets/icons/Search';
 import Micro from '@movie_trailer/assets/icons/Micro';
 import CloseFill from '@movie_trailer/assets/icons/CloseFill';
@@ -33,6 +32,7 @@ import {
 import {IActorOverview, IMediaOverview} from '@movie_trailer/core/types';
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import MovieIcon from '@movie_trailer/assets/icons/Movie';
+import {TextField} from 'react-native-material-textfield';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing(2),
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  textField: {
+    top: spacing(-1),
   },
 });
 
@@ -75,6 +78,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
       dispatch(requestSearchPeople(newValue));
     }, 500),
   );
+  const textFieldRef = useRef<TextField>(null);
 
   useEffect(() => {
     throttled.current(searchText);
@@ -84,6 +88,11 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
 
   const handleTabChanged = (tab: 'movie' | 'tv' | 'person') => {
     dispatch(setActiveSearchTab(tab));
+  };
+
+  const handleClearSearch = () => {
+    setSearchText('');
+    textFieldRef.current?.clear();
   };
 
   const renderItem = ({item}: {item: IMediaOverview}) => (
@@ -129,13 +138,20 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
       <Box flex={false} style={styles.searchContainer}>
         <Search fill={colors.white} />
         <Box middle ml={2}>
-          <TextInput
-            placeholder="Search movie, tv show, actor, ..."
+          <TextField
+            ref={textFieldRef}
+            label="Search movie, tv show, actor, ..."
             onChangeText={setSearchText}
             value={searchText}
+            lineType="none"
+            textColor={colors.white}
+            fontSize={responsiveSize(18)}
+            baseColor={colors.white}
+            tintColor={colors.white}
+            containerStyle={styles.textField}
           />
         </Box>
-        <TouchableOpacity onPress={() => setSearchText('')}>
+        <TouchableOpacity onPress={handleClearSearch}>
           <Box mr={2} flex={false}>
             <CloseFill />
           </Box>
