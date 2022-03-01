@@ -1,17 +1,24 @@
 import {IActorOverview} from '@movie_trailer/core/types';
-import {colors, responsiveSize} from '@movie_trailer/theme';
+import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {Box, Typography} from '../common';
-import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
+import Heart from '@movie_trailer/assets/icons/Heart';
+import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 
 const styles = StyleSheet.create({
   thumbnail: {
-    width: responsiveSize(155),
-    height: responsiveSize(104),
+    width: responsiveSize(94),
+    height: responsiveSize(94),
     borderRadius: responsiveSize(16),
+    backgroundColor: colors.cadetBlue,
+  },
+  favorite: {
+    ...round(24),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -19,7 +26,17 @@ const ActorSearchCard: React.FC<IActorOverview> = ({
   name,
   thumbnail,
   department,
+  favorite,
 }: IActorOverview) => {
+  const icon = favorite ? (
+    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+  ) : (
+    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+  );
+
+  const backgroundColor = favorite
+    ? 'rgba(255, 31, 31, 0.3)'
+    : 'rgba(255, 255, 255, 0.3)';
   return (
     <TouchableOpacity>
       <Box row mb={3} pl={2} pr={2}>
@@ -41,7 +58,9 @@ const ActorSearchCard: React.FC<IActorOverview> = ({
         </Box>
 
         <Box flex={false} middle>
-          <PlayCircleFill2 />
+          <Box flex={false} style={[styles.favorite, {backgroundColor}]}>
+            {icon}
+          </Box>
         </Box>
       </Box>
     </TouchableOpacity>

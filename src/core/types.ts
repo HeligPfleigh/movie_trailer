@@ -56,6 +56,7 @@ export interface IMediaOverview {
   rating: number;
   genres: string;
   time: string;
+  favorite?: boolean;
 }
 
 export interface IPeopleOverview {

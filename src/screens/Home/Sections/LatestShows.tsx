@@ -85,7 +85,7 @@ const LatestShows: React.FC<ILatestShowsProps> = ({
                 color={colors.white}
                 fontWeight="700">{`${index + 1}.`}</Typography>
             </Box>
-            <MediaSearchCard {...media} isTVShow />
+            <MediaSearchCard {...media} isLive />
           </Box>
         ))}
       </Box>

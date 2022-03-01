@@ -3,6 +3,7 @@ import {
   HomeBackground,
   MediaSearchCard,
   Tabs,
+  Typography,
 } from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React, {useEffect, useRef, useState} from 'react';
@@ -31,6 +32,7 @@ import {
 } from '@movie_trailer/store/selectors/search';
 import {IActorOverview, IMediaOverview} from '@movie_trailer/core/types';
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
+import MovieIcon from '@movie_trailer/assets/icons/Movie';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -92,6 +94,25 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
     <ActorSearchCard {...item} />
   );
 
+  const renderEmpty = (
+    <Box center middle mt={5}>
+      <MovieIcon />
+
+      <Typography variant="h6" color={colors.white}>
+        {'No search results found '}
+        <Typography variant="h6" fontWeight="bold" color={colors.white}>
+          {`“${searchText}“`}
+        </Typography>
+      </Typography>
+
+      <Box flex={false} mt={0.5}>
+        <Typography color={colors.cadetBlue}>
+          Please try another keyword
+        </Typography>
+      </Box>
+    </Box>
+  );
+
   const medias =
     activeTab === 'movie' ? movies : activeTab === 'tv' ? tvShows : [];
 
@@ -137,6 +158,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               data={medias}
               renderItem={renderItem}
               keyExtractor={item => `${item.id}`}
+              ListEmptyComponent={renderEmpty}
             />
           )}
 
@@ -145,6 +167,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               data={actors}
               renderItem={renderActorItem}
               keyExtractor={item => `${item.name}`}
+              ListEmptyComponent={renderEmpty}
             />
           )}
         </>

@@ -1,5 +1,5 @@
 import {IMediaOverview} from '@movie_trailer/core/types';
-import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -7,9 +7,11 @@ import FastImage from 'react-native-fast-image';
 import StarIcon from '@movie_trailer/assets/icons/Star';
 import {Box, Typography} from '../common';
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
+import Heart from '@movie_trailer/assets/icons/Heart';
+import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 
 interface IMediaSearchCardProps extends IMediaOverview {
-  isTVShow?: boolean;
+  isLive?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -18,6 +20,7 @@ const styles = StyleSheet.create({
     height: responsiveSize(104),
     borderRadius: responsiveSize(16),
     position: 'relative',
+    backgroundColor: colors.cadetBlue,
   },
   badge: {
     position: 'absolute',
@@ -47,6 +50,11 @@ const styles = StyleSheet.create({
     borderRadius: responsiveSize(8),
     maxWidth: responsiveSize(80),
   },
+  favorite: {
+    ...round(24),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
@@ -54,9 +62,22 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
   rating,
   title,
   genres,
-  isTVShow,
+  isLive,
   time,
+  favorite,
 }: IMediaSearchCardProps) => {
+  let icon = favorite ? (
+    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+  ) : (
+    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+  );
+
+  icon = isLive ? <PlayCircleFill2 /> : icon;
+
+  const backgroundColor = favorite
+    ? 'rgba(255, 31, 31, 0.3)'
+    : 'rgba(255, 255, 255, 0.3)';
+
   return (
     <TouchableOpacity>
       <Box row mb={3} pl={2} pr={2}>
@@ -76,7 +97,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
             </Box>
           </Box>
 
-          {isTVShow && (
+          {isLive && (
             <Box flex={false} style={styles.tvBadge}>
               <Typography variant="caps3" color={colors.white}>
                 TV Live
@@ -100,7 +121,9 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
         </Box>
 
         <Box flex={false} middle>
-          <PlayCircleFill2 />
+          <Box flex={false} style={[styles.favorite, {backgroundColor}]}>
+            {icon}
+          </Box>
         </Box>
       </Box>
     </TouchableOpacity>
