@@ -182,7 +182,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
             <FlatList
               data={actors}
               renderItem={renderActorItem}
-              keyExtractor={item => `${item.name}`}
+              keyExtractor={item => `${item.id}`}
               ListEmptyComponent={renderEmpty}
             />
           )}
