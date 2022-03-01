@@ -68,57 +68,17 @@ export const getRecommendationTVShows = async (): Promise<
   return data;
 };
 
-export const getSearchMulti = async (
+export const getSearch = async <
+  T extends IPeopleOverview | IMovieOverview | ITVOverview,
+>(
+  type: 'movie' | 'tv' | 'person',
   search: string,
 ): Promise<
   IPagination & {
-    results: Array<
-      | (IPeopleOverview & {media_type: undefined})
-      | (IMovieOverview & {media_type: 'movie'})
-      | (ITVOverview & {media_type: 'tv'})
-    >;
+    results: Array<T>;
   }
 > => {
-  const {data} = await instance.get('search/multi', {
-    params: {query: search},
-  });
-  return data;
-};
-
-export const getSearchPeople = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<IPeopleOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/person', {
-    params: {query: search},
-  });
-  return data;
-};
-
-export const getSearchMovie = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<IMovieOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/movie', {
-    params: {query: search},
-  });
-  return data;
-};
-
-export const getSearchTV = async (
-  search: string,
-): Promise<
-  IPagination & {
-    results: Array<ITVOverview>;
-  }
-> => {
-  const {data} = await instance.get('search/tv', {
+  const {data} = await instance.get(`search/${type}`, {
     params: {query: search},
   });
   return data;

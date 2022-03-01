@@ -1,8 +1,4 @@
-import {
-  getSearchMovie,
-  getSearchPeople,
-  getSearchTV,
-} from '@movie_trailer/core/apis';
+import {getSearch} from '@movie_trailer/core/apis';
 import {
   IMovieOverview,
   IPagination,
@@ -35,7 +31,7 @@ const initialState: ISearchState = {
 export const requestSearchPeople = createAsyncThunk(
   'search/requestSearchPeople',
   async (search: string) => {
-    const data = await getSearchPeople(search);
+    const data = await getSearch<IPeopleOverview>('person', search);
     return data;
   },
 );
@@ -43,7 +39,7 @@ export const requestSearchPeople = createAsyncThunk(
 export const requestSearchTV = createAsyncThunk(
   'search/requestSearchTV',
   async (search: string) => {
-    const data = await getSearchTV(search);
+    const data = await getSearch<ITVOverview>('tv', search);
     return data;
   },
 );
@@ -51,7 +47,7 @@ export const requestSearchTV = createAsyncThunk(
 export const requestSearchMovie = createAsyncThunk(
   'search/requestSearchMovie',
   async (search: string) => {
-    const data = await getSearchMovie(search);
+    const data = await getSearch<IMovieOverview>('movie', search);
     return data;
   },
 );
