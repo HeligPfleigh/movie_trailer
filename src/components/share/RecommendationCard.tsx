@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 
@@ -73,4 +73,4 @@ const RecommendationCard: React.FC<IMediaOverview> = ({
   );
 };
 
-export default RecommendationCard;
+export default memo(RecommendationCard);

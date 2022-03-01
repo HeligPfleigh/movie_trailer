@@ -96,6 +96,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     }
   };
 
+  const getItemLayout = (_data: unknown, index: number) => ({
+    length: 230,
+    offset: 230 * index,
+    index,
+  });
+
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2}>
       <RecommendationCard {...item} />
@@ -144,6 +150,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           ListFooterComponent={
             currentPage < totalPage ? <ActivityIndicator /> : null
           }
+          removeClippedSubviews
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          updateCellsBatchingPeriod={30}
+          windowSize={10}
+          getItemLayout={getItemLayout}
         />
       </Box>
     </Box>
