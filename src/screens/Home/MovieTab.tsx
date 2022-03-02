@@ -7,7 +7,6 @@ import {Box, Typography} from '@movie_trailer/components';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
 import Upcoming from './Sections/Upcoming';
-import ShowTime from './Sections/ShowTime';
 import Recommendation from './Sections/Recommendation';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {
@@ -20,6 +19,7 @@ import {
   fetchRecommendationMovies,
   fetchUpcomingMovies,
 } from '@movie_trailer/store/slices/movieSlice';
+import PersonPopular from './Sections/PersonPopular';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -69,7 +69,7 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={5}>
-        <ShowTime />
+        <PersonPopular />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
