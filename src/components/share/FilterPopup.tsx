@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Modal from 'react-native-modal';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
 type IFilterPopup = {
   top: number;
   open: boolean;
+  selected: 'rating.desc' | 'title.desc' | 'title.asc';
+  onSelectFilter: (filter: 'rating.desc' | 'title.desc' | 'title.asc') => void;
   onClose: () => void;
 };
 
@@ -34,21 +36,19 @@ const FilterPopup: React.FC<IFilterPopup> = ({
   open,
   onClose,
   top,
+  selected,
+  onSelectFilter,
 }: IFilterPopup) => {
-  const [mode, setMode] = useState<'rating.desc' | 'title.desc' | 'title.asc'>(
-    'title.asc',
-  );
-
   const handleSelectItem =
     (item: 'rating.desc' | 'title.desc' | 'title.asc') => () => {
-      setMode(item);
+      onSelectFilter(item);
       onClose();
     };
 
   const menus = [
-    {value: 'rating.desc' as const, label: 'Best rating'},
-    {value: 'title.desc' as const, label: 'Name Z-A'},
     {value: 'title.asc' as const, label: 'Name A-Z'},
+    {value: 'title.desc' as const, label: 'Name Z-A'},
+    {value: 'rating.desc' as const, label: 'Best rating'},
   ];
 
   return (
@@ -75,11 +75,11 @@ const FilterPopup: React.FC<IFilterPopup> = ({
               onPress={handleSelectItem(value)}>
               <Typography
                 variant="caps1"
-                color={mode === value ? colors.royalBlue : colors.mirage}
-                fontWeight={mode === value ? '600' : '400'}>
+                color={selected === value ? colors.royalBlue : colors.mirage}
+                fontWeight={selected === value ? '600' : '400'}>
                 {label}
               </Typography>
-              {mode === value && <Check />}
+              {selected === value && <Check />}
             </TouchableOpacity>
           ))}
         </Box>

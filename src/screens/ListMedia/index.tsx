@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import {
   AppBar,
@@ -66,11 +66,36 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     (state: RootState) => state.mediaList.total_pages,
   );
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
+  const [filterMode, setFilterMode] = useState<
+    'rating.desc' | 'title.desc' | 'title.asc'
+  >('title.asc');
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const sortBy = useMemo(() => {
+    if (filterMode === 'rating.desc') {
+      return 'vote_average.asc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'movie') {
+      return 'title.desc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'tv') {
+      return 'name.desc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'movie') {
+      return 'title.asc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'tv') {
+      return 'name.asc';
+    }
+  }, [filterMode, type]);
+
   useEffect(() => {
-    const params = with_genres ? {with_genres} : {};
+    const params = {with_genres, sort_by: sortBy};
     dispatch(
       loadInitialMediaList({
         type,
@@ -78,7 +103,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         params,
       }),
     );
-  }, [subroute, type, with_genres, dispatch]);
+  }, [subroute, type, with_genres, dispatch, sortBy]);
 
   const handleLoadMore = () => {
     if (
@@ -90,8 +115,9 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           type,
           subroute,
           params: {
-            ...(with_genres ? {with_genres} : {}),
+            with_genres,
             page: currentPage + 1,
+            sort_by: sortBy,
           },
         }),
       );
@@ -176,6 +202,8 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         open={openFilter}
         top={filterPosition}
         onClose={toggleFilter}
+        selected={filterMode}
+        onSelectFilter={setFilterMode}
       />
     </Box>
   );
