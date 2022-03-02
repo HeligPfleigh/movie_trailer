@@ -9,6 +9,11 @@ import MovieTab from './MovieTab';
 import TvShowTab from './TVShowTab';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {HomeScreenProps} from './types';
+import {useDispatch} from 'react-redux';
+import {
+  fetchMovieGenres,
+  fetchTVShowGenres,
+} from '@movie_trailer/store/slices/genreSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,10 +28,16 @@ const tabs = [
 
 function HomeScreen({navigation, route}: HomeScreenProps) {
   const [activeTab, setActiveTab] = useState<string>('movie');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setActiveTab(route.params.type);
   }, [route.params.type]);
+
+  useEffect(() => {
+    dispatch(fetchMovieGenres());
+    dispatch(fetchTVShowGenres());
+  }, [dispatch]);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 

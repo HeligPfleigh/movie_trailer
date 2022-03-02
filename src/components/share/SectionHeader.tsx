@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography} from '@movie_trailer/components';
+import {Box, Typography} from '../common';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {colors, spacing} from '@movie_trailer/theme';
 import AngleRightIcon from '@movie_trailer/assets/icons/AngleRight';
@@ -17,22 +17,22 @@ const styles = StyleSheet.create({
 
 interface ISectionHeaderProps {
   title: string;
+  subtitle?: string;
   onPress?: () => void;
 }
 
 const SectionHeader: React.FC<ISectionHeaderProps> = ({
   title,
+  subtitle,
   onPress,
 }: ISectionHeaderProps) => {
-  const [emphasizeWord, ...others] = title.split(' ');
-
   return (
     <Box flex={false} row center mb={2}>
       <Typography variant="h5" fontWeight="700" color={colors.white}>
-        {emphasizeWord}
-        {others.length ? (
+        {title}
+        {subtitle ? (
           <Typography variant="h5" fontWeight="400" color={colors.white}>
-            {` ${others.join(' ')}`}
+            {` ${subtitle}`}
           </Typography>
         ) : (
           ''

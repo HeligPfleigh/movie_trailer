@@ -13,7 +13,6 @@ import {
   recommendationMoviesSelector,
   todayMoviesSelector,
 } from '@movie_trailer/store/selectors/movie';
-import {fetchMovieGenres} from '@movie_trailer/store/slices/genreSlice';
 import {
   fetchNowPlayingMovies,
   fetchRecommendationMovies,
@@ -38,7 +37,6 @@ const MovieTab = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchMovieGenres());
     dispatch(fetchNowPlayingMovies());
     dispatch(fetchUpcomingMovies());
     dispatch(fetchRecommendationMovies());

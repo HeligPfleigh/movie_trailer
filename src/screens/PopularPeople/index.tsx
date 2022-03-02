@@ -68,8 +68,11 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   >('title.asc');
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
 
+  const handleNavigateToActorDetail = (id: number) => () =>
+    navigation.navigate(NavigatorMap.ActorDetail, {id});
+
   const renderItem = ({item}: {item: IActorOverview}) => (
-    <ActorSearchCard {...item} />
+    <ActorSearchCard {...item} onPress={handleNavigateToActorDetail(item.id)} />
   );
 
   useEffect(() => {

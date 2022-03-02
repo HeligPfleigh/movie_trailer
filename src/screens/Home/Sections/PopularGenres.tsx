@@ -2,8 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import {Box, GenreCard} from '@movie_trailer/components';
-import SectionHeader from './SectionHeader';
+import {Box, GenreCard, SectionHeader} from '@movie_trailer/components';
 import {IGenre} from '@movie_trailer/core/types';
 import {HomeNavigationProps} from '../types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
@@ -38,7 +37,11 @@ const PopularGenres: React.FC<IPopularGenresProps> = ({
 
   return (
     <>
-      <SectionHeader title="Popular Genres" onPress={handlePressSeeAll} />
+      <SectionHeader
+        title="Popular"
+        subtitle="Genres"
+        onPress={handlePressSeeAll}
+      />
 
       <FlatList
         data={genres}

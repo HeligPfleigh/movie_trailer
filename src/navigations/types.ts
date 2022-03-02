@@ -1,5 +1,7 @@
+import {NavigatorScreenParams} from '@react-navigation/native';
+
 export type RootDrawerParamList = {
-  Home: undefined;
+  Home: NavigatorScreenParams<MainStackParamList>;
   Setting: undefined;
   Favorite: undefined;
   Search: undefined;
@@ -18,4 +20,7 @@ export type MainStackParamList = {
     with_genres?: number;
   };
   PopularPeople: undefined;
+  ActorDetail: {
+    id: number;
+  };
 };

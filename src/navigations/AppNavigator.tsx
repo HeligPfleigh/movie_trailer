@@ -1,3 +1,4 @@
+import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
 import ListMediaScreen from '@movie_trailer/screens/ListMedia';
@@ -31,6 +32,10 @@ const MainNavigator = () => {
       <Stack.Screen
         name={NavigatorMap.PopularPeople}
         component={PopularPeopleScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.ActorDetail}
+        component={ActorDetailScreen}
       />
     </Stack.Navigator>
   );
