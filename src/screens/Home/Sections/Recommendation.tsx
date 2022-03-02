@@ -1,8 +1,11 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {Box, RecommendationCard} from '@movie_trailer/components';
-import SectionHeader from './SectionHeader';
+import {
+  Box,
+  RecommendationCard,
+  SectionHeader,
+} from '@movie_trailer/components';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import {HomeNavigationProps} from '../types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';

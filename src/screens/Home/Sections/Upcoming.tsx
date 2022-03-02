@@ -3,9 +3,8 @@ import {FlatList, Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 
-import {Box, Tabs} from '@movie_trailer/components';
+import {Box, Tabs, SectionHeader} from '@movie_trailer/components';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import SectionHeader from './SectionHeader';
 import {IMovieOverview} from '@movie_trailer/core/types';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {responsiveSize, spacing} from '@movie_trailer/theme';
@@ -86,7 +85,7 @@ const Upcoming: React.FC = () => {
 
   return (
     <>
-      <SectionHeader title="Upcoming Movie" onPress={handleSeeAll} />
+      <SectionHeader title="Upcoming" subtitle="Movie" onPress={handleSeeAll} />
 
       <Tabs
         tabs={listDatesString(dates.maximum, dates.minimum)}

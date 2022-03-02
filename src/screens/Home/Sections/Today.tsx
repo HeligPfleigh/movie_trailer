@@ -1,12 +1,10 @@
-import {Box, MovieCard} from '@movie_trailer/components';
+import {Box, MovieCard, SectionHeader} from '@movie_trailer/components';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {FlatList} from 'react-native';
 import {HomeNavigationProps} from '../types';
-
-import SectionHeader from './SectionHeader';
 
 interface ITodayProps {
   medias: Array<IMediaOverview>;

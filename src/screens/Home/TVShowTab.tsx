@@ -11,7 +11,6 @@ import {
   recommendationTvShowsSelector,
 } from '@movie_trailer/store/selectors/tvShow';
 import LatestShows from './Sections/LatestShows';
-import {fetchTVShowGenres} from '@movie_trailer/store/slices/genreSlice';
 import {
   fetchAringTodayTVShows,
   fetchRecommendationTVShows,
@@ -24,7 +23,6 @@ const TvShowTab = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTVShowGenres());
     dispatch(fetchAringTodayTVShows());
     dispatch(fetchRecommendationTVShows());
   }, [dispatch]);

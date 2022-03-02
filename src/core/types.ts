@@ -80,3 +80,31 @@ export interface IActorOverview {
   department: string;
   favorite?: boolean;
 }
+
+export interface IActorDetail {
+  adult: boolean;
+  also_known_as: Array<string>;
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  movie_credits: {
+    cast: Array<IMovieOverview>;
+    crew: Array<unknown>;
+  };
+  tv_credits: {
+    cast: Array<ITVOverview>;
+    crew: Array<unknown>;
+  };
+  images: {
+    profiles: Array<{file_path: string}>;
+  };
+}

@@ -20,6 +20,8 @@ const colors = <const>{
   scooter: '#26C6DA',
   whiteIce: '#E3F8FA',
   cinderella: '#FEE5E1',
+  geyser: '#CBD5E0',
+  slateGray: '#718096',
 };
 
 export default colors;
