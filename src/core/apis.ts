@@ -52,3 +52,10 @@ export const getMediaOverview = async <T extends IMovieOverview | ITVOverview>(
   const {data} = await instance.get(`${type}/${subroute}`, {params});
   return data;
 };
+
+export const getPopularPeople = async (
+  params?: Record<string, string | number | undefined>,
+): Promise<IPagination & {results: Array<IPeopleOverview>}> => {
+  const {data} = await instance.get('person/popular', {params});
+  return data;
+};

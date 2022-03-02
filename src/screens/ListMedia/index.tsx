@@ -121,6 +121,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           },
         }),
       );
+      onEndReachedCalledDuringMomentumRef.current = true;
     }
   };
 
