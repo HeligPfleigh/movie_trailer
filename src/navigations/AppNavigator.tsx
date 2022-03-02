@@ -1,6 +1,7 @@
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
 import ListMediaScreen from '@movie_trailer/screens/ListMedia';
+import PopularPeopleScreen from '@movie_trailer/screens/PopularPeople';
 import SearchScreen from '@movie_trailer/screens/Search';
 import SettingScreen from '@movie_trailer/screens/Setting';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -9,10 +10,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
-import {RootDrawerParamList} from './types';
+import {MainStackParamList, RootDrawerParamList} from './types';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MainStackParamList>();
 
 const MainNavigator = () => {
   return (
@@ -27,6 +28,10 @@ const MainNavigator = () => {
       />
       <Stack.Screen name={NavigatorMap.Genre} component={GenreScreen} />
       <Stack.Screen name={NavigatorMap.ListMedia} component={ListMediaScreen} />
+      <Stack.Screen
+        name={NavigatorMap.PopularPeople}
+        component={PopularPeopleScreen}
+      />
     </Stack.Navigator>
   );
 };

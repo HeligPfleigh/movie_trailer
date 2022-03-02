@@ -17,4 +17,5 @@ export type MainStackParamList = {
     subroute: 'now_playing' | 'upcoming' | 'top_rated' | 'airing_today';
     with_genres?: number;
   };
+  PopularPeople: undefined;
 };
