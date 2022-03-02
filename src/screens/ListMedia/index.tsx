@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {
   AppBar,
   Box,
+  FilterPopup,
   HomeBackground,
   RecommendationCard,
   Typography,
@@ -19,6 +20,7 @@ import {
 import {
   ActivityIndicator,
   FlatList,
+  LayoutChangeEvent,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -108,6 +110,17 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     </Box>
   );
 
+  const [filterPosition, setFilterPosition] = useState<number>(0);
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
+
+  const toggleFilter = () => {
+    setOpenFilter(prev => !prev);
+  };
+
+  const handleLayout = (event: LayoutChangeEvent) => {
+    setFilterPosition(event.nativeEvent.layout.y + 64);
+  };
+
   return (
     <Box color={colors.codGray}>
       <HomeBackground height={responsiveSize(337)} />
@@ -119,12 +132,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         </Typography>
       </Box>
 
-      <Box flex={false} style={styles.filterContainer}>
+      <Box flex={false} style={styles.filterContainer} onLayout={handleLayout}>
         <Typography variant="caps1" color={colors.white}>
           {`${totalResult} item${totalResult !== 1 ? '(s)' : ''}`}
         </Typography>
 
-        <TouchableOpacity style={styles.filterBtn}>
+        <TouchableOpacity style={styles.filterBtn} onPress={toggleFilter}>
           <Filter />
           <Box flex={false} ml={1} mr={1}>
             <Typography variant="caps1" color={colors.white}>
@@ -158,6 +171,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           getItemLayout={getItemLayout}
         />
       </Box>
+
+      <FilterPopup
+        open={openFilter}
+        top={filterPosition}
+        onClose={toggleFilter}
+      />
     </Box>
   );
 };
