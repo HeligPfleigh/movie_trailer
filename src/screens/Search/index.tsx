@@ -99,8 +99,14 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
     <MediaSearchCard {...item} />
   );
 
+  const handleNavigateToActorDetail = (id: number) => () =>
+    navigation.navigate(NavigatorMap.Home, {
+      screen: NavigatorMap.ActorDetail,
+      params: {id},
+    });
+
   const renderActorItem = ({item}: {item: IActorOverview}) => (
-    <ActorSearchCard {...item} />
+    <ActorSearchCard {...item} onPress={handleNavigateToActorDetail(item.id)} />
   );
 
   const renderEmpty = (

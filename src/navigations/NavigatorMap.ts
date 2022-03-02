@@ -11,6 +11,7 @@ enum NavigatorMap {
   Genre = 'Genre',
   ListMedia = 'ListMedia',
   PopularPeople = 'PopularPeople',
+  ActorDetail = 'ActorDetail',
 }
 
 export default NavigatorMap;

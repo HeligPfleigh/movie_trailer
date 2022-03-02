@@ -22,12 +22,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const ActorSearchCard: React.FC<IActorOverview> = ({
+interface IActorSearchCardProps extends IActorOverview {
+  onPress?: () => void;
+}
+
+const ActorSearchCard: React.FC<IActorSearchCardProps> = ({
   name,
   thumbnail,
   department,
   favorite,
-}: IActorOverview) => {
+  onPress,
+}: IActorSearchCardProps) => {
   const icon = favorite ? (
     <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
   ) : (
@@ -38,7 +43,7 @@ const ActorSearchCard: React.FC<IActorOverview> = ({
     ? 'rgba(255, 31, 31, 0.3)'
     : 'rgba(255, 255, 255, 0.3)';
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box row mb={3} pl={2} pr={2}>
         <Box flex={false} style={styles.thumbnail}>
           <Image
