@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import {
   AppBar,
   Box,
+  FilterPopup,
   HomeBackground,
   RecommendationCard,
   Typography,
@@ -19,6 +20,7 @@ import {
 import {
   ActivityIndicator,
   FlatList,
+  LayoutChangeEvent,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -64,11 +66,36 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     (state: RootState) => state.mediaList.total_pages,
   );
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
+  const [filterMode, setFilterMode] = useState<
+    'rating.desc' | 'title.desc' | 'title.asc'
+  >('title.asc');
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const sortBy = useMemo(() => {
+    if (filterMode === 'rating.desc') {
+      return 'vote_average.asc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'movie') {
+      return 'title.desc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'tv') {
+      return 'name.desc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'movie') {
+      return 'title.asc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'tv') {
+      return 'name.asc';
+    }
+  }, [filterMode, type]);
+
   useEffect(() => {
-    const params = with_genres ? {with_genres} : {};
+    const params = {with_genres, sort_by: sortBy};
     dispatch(
       loadInitialMediaList({
         type,
@@ -76,7 +103,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         params,
       }),
     );
-  }, [subroute, type, with_genres, dispatch]);
+  }, [subroute, type, with_genres, dispatch, sortBy]);
 
   const handleLoadMore = () => {
     if (
@@ -88,8 +115,9 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           type,
           subroute,
           params: {
-            ...(with_genres ? {with_genres} : {}),
+            with_genres,
             page: currentPage + 1,
+            sort_by: sortBy,
           },
         }),
       );
@@ -108,6 +136,17 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     </Box>
   );
 
+  const [filterPosition, setFilterPosition] = useState<number>(0);
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
+
+  const toggleFilter = () => {
+    setOpenFilter(prev => !prev);
+  };
+
+  const handleLayout = (event: LayoutChangeEvent) => {
+    setFilterPosition(event.nativeEvent.layout.y + 64);
+  };
+
   return (
     <Box color={colors.codGray}>
       <HomeBackground height={responsiveSize(337)} />
@@ -119,12 +158,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         </Typography>
       </Box>
 
-      <Box flex={false} style={styles.filterContainer}>
+      <Box flex={false} style={styles.filterContainer} onLayout={handleLayout}>
         <Typography variant="caps1" color={colors.white}>
           {`${totalResult} item${totalResult !== 1 ? '(s)' : ''}`}
         </Typography>
 
-        <TouchableOpacity style={styles.filterBtn}>
+        <TouchableOpacity style={styles.filterBtn} onPress={toggleFilter}>
           <Filter />
           <Box flex={false} ml={1} mr={1}>
             <Typography variant="caps1" color={colors.white}>
@@ -158,6 +197,14 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           getItemLayout={getItemLayout}
         />
       </Box>
+
+      <FilterPopup
+        open={openFilter}
+        top={filterPosition}
+        onClose={toggleFilter}
+        selected={filterMode}
+        onSelectFilter={setFilterMode}
+      />
     </Box>
   );
 };
