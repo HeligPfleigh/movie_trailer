@@ -1,7 +1,7 @@
 import {IActorOverview} from '@movie_trailer/core/types';
 import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {Box, Typography} from '../common';
@@ -41,14 +41,14 @@ const ActorSearchCard: React.FC<IActorOverview> = ({
     <TouchableOpacity>
       <Box row mb={3} pl={2} pr={2}>
         <Box flex={false} style={styles.thumbnail}>
-          <FastImage
+          <Image
             source={{uri: thumbnail}}
             style={styles.thumbnail}
             resizeMode={FastImage.resizeMode.cover}
           />
         </Box>
 
-        <Box ml={2}>
+        <Box ml={2} middle>
           <Typography variant="caps1" color={colors.zircon}>
             {name}
           </Typography>
