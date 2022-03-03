@@ -7,6 +7,7 @@ import {
   IPagination,
   IPeopleOverview,
   IActorDetail,
+  ITVDetail,
 } from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
@@ -75,6 +76,19 @@ export const getActorDetails = async (id: number): Promise<IActorDetail> => {
   const {data} = await instance.get(`person/${id}`, {
     params: {
       append_to_response: 'movie_credits,tv_credits,images',
+    },
+  });
+  return data;
+};
+
+export const getLatestTVShow = async (): Promise<ITVDetail> => {
+  const {
+    data: {id},
+  } = await instance.get('tv/latest');
+
+  const {data} = await instance.get(`tv/${id}`, {
+    params: {
+      append_to_response: 'videos',
     },
   });
   return data;

@@ -1,4 +1,3 @@
-import {IMediaOverview} from '@movie_trailer/core/types';
 import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
@@ -10,8 +9,15 @@ import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 import Heart from '@movie_trailer/assets/icons/Heart';
 import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 
-interface IMediaSearchCardProps extends IMediaOverview {
+interface IMediaSearchCardProps {
   isLive?: boolean;
+  id: string | number;
+  title: string;
+  poster: string;
+  rating: number;
+  genres: string;
+  time: string;
+  favorite?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -106,7 +112,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
           )}
         </Box>
 
-        <Box ml={2}>
+        <Box ml={2} mr={1}>
           <Box flex={false} style={styles.time}>
             <Typography variant="caps3" color={colors.white}>
               {time}
