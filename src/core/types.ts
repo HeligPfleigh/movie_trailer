@@ -122,3 +122,15 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
   };
   genres: Array<IGenre>;
 }
+
+export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
+  videos: {
+    results: Array<IVideo>;
+  };
+  genres: Array<IGenre>;
+  runtime: number;
+  credits: {
+    cast: Array<Omit<IPeopleOverview, 'known_for'>>;
+    crew: Array<Omit<IPeopleOverview, 'known_for'>>;
+  };
+}

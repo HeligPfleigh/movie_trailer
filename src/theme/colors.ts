@@ -22,6 +22,8 @@ const colors = <const>{
   cinderella: '#FEE5E1',
   geyser: '#CBD5E0',
   slateGray: '#718096',
+  catskillWhite: '#E2E8F0',
+  blackSqueeze: '#F7FAFC',
 };
 
 export default colors;
