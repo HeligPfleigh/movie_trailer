@@ -54,6 +54,16 @@ export const getMediaOverview = async <T extends IMovieOverview | ITVOverview>(
   return data;
 };
 
+export const getMediaOverviewByDiscover = async <
+  T extends IMovieOverview | ITVOverview,
+>(
+  type: 'movie' | 'tv',
+  params?: Record<string, string | number | undefined>,
+): Promise<IMediaPagination & {results: Array<T>}> => {
+  const {data} = await instance.get(`discover/${type}`, {params});
+  return data;
+};
+
 export const getPopularPeople = async (
   params?: Record<string, string | number | undefined>,
 ): Promise<IPagination & {results: Array<IPeopleOverview>}> => {

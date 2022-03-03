@@ -1,23 +1,30 @@
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import {
   AppBar,
   Box,
+  FilterPopup,
   HomeBackground,
   RecommendationCard,
   Typography,
 } from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import {ListMediaScreenProps} from './types';
+import {DiscoverScreenProps} from './types';
+import {useHeader} from './useHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  loadInitialMediaList,
-  loadMore,
-} from '@movie_trailer/store/slices/mediaListSlice';
-import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+  ActivityIndicator,
+  FlatList,
+  LayoutChangeEvent,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
+import Filter from '@movie_trailer/assets/icons/Filter';
+import ArrowDown from '@movie_trailer/assets/icons/ArrowDown';
+import {loadInitial, loadMore} from '@movie_trailer/store/slices/discoverSlice';
 
 const styles = StyleSheet.create({
   filterContainer: {
@@ -40,32 +47,59 @@ const styles = StyleSheet.create({
   },
 });
 
-const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
+const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   navigation,
   route,
-}: ListMediaScreenProps) => {
+}: DiscoverScreenProps) => {
+  const header = useHeader();
   const dispatch = useDispatch();
-  const {subroute, type} = route.params;
-  const medias = useSelector((state: RootState) => state.mediaList.results);
+  const {type, with_genres} = route.params;
+  const medias = useSelector((state: RootState) => state.discover.results);
   const totalResult = useSelector(
-    (state: RootState) => state.mediaList.total_results,
+    (state: RootState) => state.discover.total_results,
   );
-  const currentPage = useSelector((state: RootState) => state.mediaList.page);
+  const currentPage = useSelector((state: RootState) => state.discover.page);
   const totalPage = useSelector(
-    (state: RootState) => state.mediaList.total_pages,
+    (state: RootState) => state.discover.total_pages,
   );
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
+  const [filterMode, setFilterMode] = useState<
+    'rating.desc' | 'title.desc' | 'title.asc'
+  >('rating.desc');
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const sortBy = useMemo(() => {
+    if (filterMode === 'rating.desc') {
+      return 'vote_average.desc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'movie') {
+      return 'title.desc';
+    }
+
+    if (filterMode === 'title.desc' && type === 'tv') {
+      return 'name.desc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'movie') {
+      return 'title.asc';
+    }
+
+    if (filterMode === 'title.asc' && type === 'tv') {
+      return 'name.asc';
+    }
+  }, [filterMode, type]);
+
   useEffect(() => {
+    const params = {with_genres, sort_by: sortBy};
     dispatch(
-      loadInitialMediaList({
+      loadInitial({
         type,
-        subroute,
+        params,
       }),
     );
-  }, [subroute, type, dispatch]);
+  }, [type, with_genres, dispatch, sortBy]);
 
   const handleLoadMore = () => {
     if (
@@ -75,9 +109,10 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
       dispatch(
         loadMore({
           type,
-          subroute,
           params: {
+            with_genres,
             page: currentPage + 1,
+            sort_by: sortBy,
           },
         }),
       );
@@ -97,21 +132,16 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     </Box>
   );
 
-  const header = useMemo(() => {
-    if (subroute === 'airing_today' || subroute === 'now_playing') {
-      return 'Today';
-    }
+  const [filterPosition, setFilterPosition] = useState<number>(0);
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
 
-    if (subroute === 'upcoming') {
-      return 'Upcoming';
-    }
+  const toggleFilter = () => {
+    setOpenFilter(prev => !prev);
+  };
 
-    if (subroute === 'top_rated') {
-      return 'Recommendation';
-    }
-
-    return 'List Media';
-  }, [subroute]);
+  const handleLayout = (event: LayoutChangeEvent) => {
+    setFilterPosition(event.nativeEvent.layout.y + 64);
+  };
 
   return (
     <Box color={colors.codGray}>
@@ -124,10 +154,20 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
         </Typography>
       </Box>
 
-      <Box flex={false} style={styles.filterContainer}>
+      <Box flex={false} style={styles.filterContainer} onLayout={handleLayout}>
         <Typography variant="caps1" color={colors.white}>
           {`${totalResult} item${totalResult !== 1 ? '(s)' : ''}`}
         </Typography>
+
+        <TouchableOpacity style={styles.filterBtn} onPress={toggleFilter}>
+          <Filter />
+          <Box flex={false} ml={1} mr={1}>
+            <Typography variant="caps1" color={colors.white}>
+              Filter
+            </Typography>
+          </Box>
+          <ArrowDown />
+        </TouchableOpacity>
       </Box>
 
       <Box ml={2} mr={2}>
@@ -153,8 +193,16 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           getItemLayout={getItemLayout}
         />
       </Box>
+
+      <FilterPopup
+        open={openFilter}
+        top={filterPosition}
+        onClose={toggleFilter}
+        selected={filterMode}
+        onSelectFilter={setFilterMode}
+      />
     </Box>
   );
 };
 
-export default ListMediaScreen;
+export default DiscoverScreen;

@@ -6,6 +6,7 @@ import tvShowReducer from './slices/tvShowSlice';
 import searchReducer from './slices/searchSlice';
 import mediaListReducer from './slices/mediaListSlice';
 import popularPeopleReducer from './slices/popularPeopleSlice';
+import discoverReducer from './slices/discoverSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     search: searchReducer,
     mediaList: mediaListReducer,
     popularPeople: popularPeopleReducer,
+    discover: discoverReducer,
   },
 });
 

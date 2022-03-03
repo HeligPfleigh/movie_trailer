@@ -1,4 +1,5 @@
 import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
+import DiscoverScreen from '@movie_trailer/screens/Discover';
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
 import ListMediaScreen from '@movie_trailer/screens/ListMedia';
@@ -37,6 +38,7 @@ const MainNavigator = () => {
         name={NavigatorMap.ActorDetail}
         component={ActorDetailScreen}
       />
+      <Stack.Screen name={NavigatorMap.Discover} component={DiscoverScreen} />
     </Stack.Navigator>
   );
 };

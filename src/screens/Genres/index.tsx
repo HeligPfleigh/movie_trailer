@@ -38,9 +38,8 @@ const GenreScreen: React.FC<GenreScreenNavigationProps> = ({
 
   const handleSelectGenre = (genre: IGenre) => {
     const {type} = route.params;
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.navigate(NavigatorMap.Discover, {
       type,
-      subroute: 'top_rated',
       with_genres: genre.id,
     });
   };

@@ -19,9 +19,8 @@ const PopularGenres: React.FC<IPopularGenresProps> = ({
   const navigation = useNavigation<HomeNavigationProps>();
 
   const handleSelectGenre = (genre: IGenre) => {
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.navigate(NavigatorMap.Discover, {
       type,
-      subroute: 'top_rated',
       with_genres: genre.id,
     });
   };

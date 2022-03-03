@@ -17,10 +17,13 @@ export type MainStackParamList = {
   ListMedia: {
     type: 'movie' | 'tv';
     subroute: 'now_playing' | 'upcoming' | 'top_rated' | 'airing_today';
-    with_genres?: number;
   };
   PopularPeople: undefined;
   ActorDetail: {
     id: number;
+  };
+  Discover: {
+    type: 'movie' | 'tv';
+    with_genres?: number;
   };
 };
