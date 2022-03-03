@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import FastImage from 'react-native-fast-image';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Box, MediaSearchCard, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import {IMediaOverview} from '@movie_trailer/core/types';
 import LinearGradient from 'react-native-linear-gradient';
 import PlayCircleFill from '@movie_trailer/assets/icons/PlayCircleFill';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@movie_trailer/store/rootReducer';
+import {fetchLatestTVShow} from '@movie_trailer/store/slices/tvShowSlice';
+import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 
 const styles = StyleSheet.create({
   heroImage: {
@@ -33,20 +36,26 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ILatestShowsProps {
-  medias: Array<IMediaOverview>;
-}
+const LatestShows: React.FC = () => {
+  const latestShow = useSelector((state: RootState) => state.tvShow.latest);
+  const dispatch = useDispatch();
 
-const LatestShows: React.FC<ILatestShowsProps> = ({
-  medias,
-}: ILatestShowsProps) => {
-  const [latestMedia, ...rest] = medias.slice(0, 4);
+  useEffect(() => {
+    dispatch(fetchLatestTVShow());
+  }, [dispatch]);
+
+  if (!latestShow) {
+    return null;
+  }
+
+  const genres = latestShow.genres.map(genre => genre.name).join(', ');
+
   return (
     <>
-      {latestMedia && (
-        <Box flex={false}>
+      {latestShow && (
+        <Box flex={false} color={colors.codGray}>
           <FastImage
-            source={{uri: latestMedia.poster}}
+            source={{uri: `${IMAGE_SERVER}${latestShow.poster_path}`}}
             style={styles.heroImage}
             resizeMode={FastImage.resizeMode.cover}
           />
@@ -54,7 +63,7 @@ const LatestShows: React.FC<ILatestShowsProps> = ({
             colors={['rgba(74, 85, 104, 0)', colors.riverBed]}
             style={styles.heroTitleContainer}>
             <Typography variant="h6" color={colors.zircon} fontWeight="700">
-              {latestMedia.title}
+              {latestShow.name}
             </Typography>
 
             <TouchableOpacity>
@@ -77,15 +86,28 @@ const LatestShows: React.FC<ILatestShowsProps> = ({
       )}
 
       <Box flex={false} color={colors.riverBed}>
-        {rest.map((media, index) => (
+        {latestShow.videos.results.map((media, index) => (
           <Box key={media.id}>
             <Box ml={2}>
-              <Typography
-                variant="caps1"
-                color={colors.white}
-                fontWeight="700">{`${index + 1}.`}</Typography>
+              <Typography variant="caps1" color={colors.white} fontWeight="700">
+                {`${String(index + 1).padStart(2, '0')}.`}
+              </Typography>
             </Box>
-            <MediaSearchCard {...media} isLive />
+            <MediaSearchCard
+              id={media.id}
+              genres={genres}
+              isLive
+              title={media.name}
+              poster={
+                media.site === 'YouTube'
+                  ? `https://img.youtube.com/vi/${media.key}/default.jpg`
+                  : ''
+              }
+              rating={latestShow.vote_average}
+              time={`${Math.floor(media.size / 3600)}h${Math.round(
+                (media.size % 3600) / 60,
+              )}p`}
+            />
           </Box>
         ))}
       </Box>

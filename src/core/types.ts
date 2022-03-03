@@ -108,3 +108,17 @@ export interface IActorDetail {
     profiles: Array<{file_path: string}>;
   };
 }
+
+interface IVideo {
+  name: string;
+  key: string;
+  site: 'YouTube' | string;
+  size: number;
+  id: string;
+}
+export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
+  videos: {
+    results: Array<IVideo>;
+  };
+  genres: Array<IGenre>;
+}
