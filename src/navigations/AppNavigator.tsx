@@ -3,6 +3,7 @@ import DiscoverScreen from '@movie_trailer/screens/Discover';
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
 import ListMediaScreen from '@movie_trailer/screens/ListMedia';
+import MediaDetailScreen from '@movie_trailer/screens/MediaDetail';
 import PopularPeopleScreen from '@movie_trailer/screens/PopularPeople';
 import SearchScreen from '@movie_trailer/screens/Search';
 import SettingScreen from '@movie_trailer/screens/Setting';
@@ -39,6 +40,10 @@ const MainNavigator = () => {
         component={ActorDetailScreen}
       />
       <Stack.Screen name={NavigatorMap.Discover} component={DiscoverScreen} />
+      <Stack.Screen
+        name={NavigatorMap.MediaDetail}
+        component={MediaDetailScreen}
+      />
     </Stack.Navigator>
   );
 };

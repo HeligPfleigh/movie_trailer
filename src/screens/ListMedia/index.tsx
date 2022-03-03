@@ -58,6 +58,9 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const handlePressMedia = (id: number) => () =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+
   useEffect(() => {
     dispatch(
       loadInitialMediaList({
@@ -93,7 +96,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2}>
-      <RecommendationCard {...item} />
+      <RecommendationCard {...item} onPress={handlePressMedia(item.id)} />
     </Box>
   );
 
