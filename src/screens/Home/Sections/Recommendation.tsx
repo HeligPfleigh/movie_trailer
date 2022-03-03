@@ -27,6 +27,10 @@ const Recommendation: React.FC<IRecommendationProps> = ({
       subroute: 'top_rated',
     });
   };
+
+  const handlePressMedia = (id: number) => () =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+
   return (
     <>
       <SectionHeader title="Recommendation" onPress={handleSeeAll} />
@@ -36,11 +40,17 @@ const Recommendation: React.FC<IRecommendationProps> = ({
         return (
           <Box mb={2} key={firstMedia.id} row>
             <Box mr={1}>
-              <RecommendationCard {...firstMedia} />
+              <RecommendationCard
+                {...firstMedia}
+                onPress={handlePressMedia(firstMedia.id)}
+              />
             </Box>
             {secondMedia ? (
               <Box ml={1}>
-                <RecommendationCard {...secondMedia} />
+                <RecommendationCard
+                  {...secondMedia}
+                  onPress={handlePressMedia(secondMedia.id)}
+                />
               </Box>
             ) : (
               <Box ml={1} />

@@ -8,10 +8,9 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CompositeScreenProps} from '@react-navigation/native';
 
-export type ActorDetailScreenProps = CompositeScreenProps<
-  NativeStackScreenProps<MainStackParamList, NavigatorMap.ActorDetail>,
+export type MediaDetailScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<MainStackParamList, NavigatorMap.MediaDetail>,
   DrawerScreenProps<RootDrawerParamList, NavigatorMap.Home>
 >;
 
-export type ActorDetailRouteProps = ActorDetailScreenProps['route'];
-export type ActorDetailNavigationProps = ActorDetailScreenProps['navigation'];
+export type MediaDetailRouteProps = MediaDetailScreenProps['route'];

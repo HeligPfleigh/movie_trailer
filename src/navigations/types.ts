@@ -26,4 +26,8 @@ export type MainStackParamList = {
     type: 'movie' | 'tv';
     with_genres?: number;
   };
+  MediaDetail: {
+    type: 'movie' | 'tv';
+    id: number;
+  };
 };

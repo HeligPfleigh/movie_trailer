@@ -34,15 +34,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const RecommendationCard: React.FC<IMediaOverview> = ({
+interface IRecommendationCardProps extends IMediaOverview {
+  onPress?: () => void;
+}
+
+const RecommendationCard: React.FC<IRecommendationCardProps> = ({
   title,
   genres,
   poster,
   rating,
   time,
-}: IMediaOverview) => {
+  onPress,
+}: IRecommendationCardProps) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box flex={false} style={styles.imageContainer}>
         <ImageBackground
           source={{uri: poster}}

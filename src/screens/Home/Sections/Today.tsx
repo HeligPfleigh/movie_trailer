@@ -14,13 +14,16 @@ interface ITodayProps {
 // TODO: progress of scroll
 
 const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
+  const navigation = useNavigation<HomeNavigationProps>();
+
+  const handlePressMedia = (id: number) => () =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+
   const renderItem = ({item}: {item: IMediaOverview}) => (
     <Box mr={2}>
-      <MovieCard {...item} />
+      <MovieCard {...item} onPress={handlePressMedia(item.id)} />
     </Box>
   );
-
-  const navigation = useNavigation<HomeNavigationProps>();
 
   const handleSeeAll = () => {
     navigation.navigate(NavigatorMap.ListMedia, {

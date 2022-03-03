@@ -69,6 +69,9 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const handlePressMedia = (id: number) => () =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+
   const sortBy = useMemo(() => {
     if (filterMode === 'rating.desc') {
       return 'vote_average.desc';
@@ -128,7 +131,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2}>
-      <RecommendationCard {...item} />
+      <RecommendationCard {...item} onPress={handlePressMedia(item.id)} />
     </Box>
   );
 

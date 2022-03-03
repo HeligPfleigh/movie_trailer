@@ -39,11 +39,14 @@ const Upcoming: React.FC = () => {
     });
   };
 
+  const handlePressMedia = (id: number) => () =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'movie'});
+
   const renderItem = ({item}: {item: IMovieOverview[]}) => {
     if (item.length === 1) {
       return (
         <Box mr={2}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handlePressMedia(item[0].id)}>
             <Image
               source={{uri: `${IMAGE_SERVER}${item[0].poster_path}`}}
               style={styles.singleImage}
@@ -55,13 +58,13 @@ const Upcoming: React.FC = () => {
 
     return (
       <Box mr={2}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePressMedia(item[0].id)}>
           <Image
             source={{uri: `${IMAGE_SERVER}${item[0].poster_path}`}}
             style={[styles.multiImage, styles.firstImage]}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePressMedia(item[1].id)}>
           <Image
             source={{uri: `${IMAGE_SERVER}${item[1].poster_path}`}}
             style={styles.multiImage}
