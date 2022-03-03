@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: responsiveSize(229),
     position: 'relative',
+    borderRadius: responsiveSize(16),
+    backgroundColor: colors.cadetBlue,
   },
   badge: {
     position: 'absolute',
@@ -41,26 +43,30 @@ const RecommendationCard: React.FC<IMediaOverview> = ({
 }: IMediaOverview) => {
   return (
     <TouchableOpacity>
-      <ImageBackground
-        source={{uri: poster}}
-        resizeMode="cover"
-        style={styles.imageContainer}
-        imageStyle={{borderRadius: responsiveSize(16)}}>
-        <Box flex={false} style={styles.badge}>
-          <StarIcon />
-          <Box flex={false} ml={0.5}>
-            <Typography variant="caps3" color={colors.white}>
-              {rating}
-            </Typography>
+      <Box flex={false} style={styles.imageContainer}>
+        <ImageBackground
+          source={{uri: poster}}
+          resizeMode="cover"
+          style={styles.imageContainer}
+          imageStyle={{borderRadius: responsiveSize(16)}}>
+          <Box flex={false} style={styles.badge}>
+            <StarIcon />
+            <Box flex={false} ml={0.5}>
+              <Typography variant="caps3" color={colors.white}>
+                {rating}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
 
-        <Box flex={false} style={styles.time}>
-          <Typography variant="caps3" color={colors.white}>
-            {time}
-          </Typography>
-        </Box>
-      </ImageBackground>
+          {Boolean(time) && (
+            <Box flex={false} style={styles.time}>
+              <Typography variant="caps3" color={colors.white}>
+                {time}
+              </Typography>
+            </Box>
+          )}
+        </ImageBackground>
+      </Box>
 
       <Typography variant="caps1" color={colors.zircon} fontWeight="700">
         {title}
