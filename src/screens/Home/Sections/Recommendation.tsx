@@ -31,7 +31,7 @@ const Recommendation: React.FC<IRecommendationProps> = ({
     <>
       <SectionHeader title="Recommendation" onPress={handleSeeAll} />
 
-      {medias.map(group => {
+      {medias.slice(0, 3).map(group => {
         const [firstMedia, secondMedia] = group;
         return (
           <Box mb={2} key={firstMedia.id} row>

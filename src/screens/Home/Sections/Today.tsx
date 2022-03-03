@@ -34,7 +34,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
       <SectionHeader title="Today" onPress={handleSeeAll} />
 
       <FlatList
-        data={medias}
+        data={medias.slice(0, 5)}
         renderItem={renderItem}
         keyExtractor={item => `${item.id}`}
         horizontal
