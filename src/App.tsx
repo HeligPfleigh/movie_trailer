@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {Provider} from 'react-redux';
 import {LogBox} from 'react-native';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import 'react-native-gesture-handler';
 
-import {store} from './store/rootReducer';
+import {persistor, store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
@@ -16,9 +17,11 @@ LogBox.ignoreLogs([
 function App() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <AppNavigator />
-      </SafeAreaProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider>
+          <AppNavigator />
+        </SafeAreaProvider>
+      </PersistGate>
     </Provider>
   );
 }
