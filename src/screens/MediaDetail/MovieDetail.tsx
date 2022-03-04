@@ -14,6 +14,7 @@ import Calendar from '@movie_trailer/assets/icons/Calendar';
 import AccessTime from '@movie_trailer/assets/icons/AccessTime';
 import Credit from './Sections/Credit';
 import PosterCarousel from './Sections/PosterCarousel';
+import Trailers from './Sections/Trailers';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -73,6 +74,7 @@ const MovieDetail: React.FC = () => {
           {movie.title}
         </Typography>
       </Box>
+
       <Box mt={0.5} ml={2} mr={2} flex={false} row middle>
         <Calendar />
         <Box flex={false} mr={2}>
@@ -87,12 +89,17 @@ const MovieDetail: React.FC = () => {
           </Typography>
         </Box>
       </Box>
+
       <Credit cast={movie.credits.cast} crew={movie.credits.crew} />
+
       <Box flex={false} ml={2} mr={2}>
         <Typography variant="b5" color={colors.white}>
           {movie.overview}
         </Typography>
       </Box>
+
+      <Trailers videos={movie.videos.results} />
+
       <Box flex={false} ml={2} mr={2} mt={2}>
         <SectionB medias={medias} onPressMedia={handlePressMedia} />
       </Box>

@@ -109,10 +109,10 @@ export interface IActorDetail {
   };
 }
 
-interface IVideo {
+export interface IVideo {
   name: string;
   key: string;
-  site: 'YouTube' | string;
+  site: 'YouTube' | 'Vimeo' | string;
   size: number;
   id: string;
 }
@@ -125,12 +125,11 @@ export interface IImage {
   vote_count: number;
   width: number;
 }
-export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
+export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
   videos: {
     results: Array<IVideo>;
   };
   genres: Array<IGenre>;
-  runtime: number;
   credits: {
     cast: Array<Omit<IPeopleOverview, 'known_for'>>;
     crew: Array<Omit<IPeopleOverview, 'known_for'>>;
@@ -143,7 +142,8 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
   };
 }
 
-export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
+export interface IMovieDetail
+  extends Omit<IMovieOverview, 'genre_ids' | 'video'> {
   videos: {
     results: Array<IVideo>;
   };
