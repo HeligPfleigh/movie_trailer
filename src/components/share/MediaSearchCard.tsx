@@ -18,6 +18,7 @@ interface IMediaSearchCardProps {
   genres: string;
   time: string;
   favorite?: boolean;
+  onPress?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -71,6 +72,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
   isLive,
   time,
   favorite,
+  onPress,
 }: IMediaSearchCardProps) => {
   let icon = favorite ? (
     <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
@@ -85,7 +87,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
     : 'rgba(255, 255, 255, 0.3)';
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box row mb={3} pl={2} pr={2}>
         <Box flex={false} style={styles.thumbnail}>
           <FastImage

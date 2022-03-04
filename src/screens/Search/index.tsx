@@ -95,8 +95,17 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
     textFieldRef.current?.clear();
   };
 
+  const handleNavigateToMediaDetail = (id: number) => () => {
+    if (activeTab !== 'person') {
+      navigation.navigate(NavigatorMap.Home, {
+        screen: NavigatorMap.MediaDetail,
+        params: {id, type: activeTab},
+      });
+    }
+  };
+
   const renderItem = ({item}: {item: IMediaOverview}) => (
-    <MediaSearchCard {...item} />
+    <MediaSearchCard {...item} onPress={handleNavigateToMediaDetail(item.id)} />
   );
 
   const handleNavigateToActorDetail = (id: number) => () =>
