@@ -30,4 +30,5 @@ export type MainStackParamList = {
     type: 'movie' | 'tv';
     id: number;
   };
+  Favorite: undefined;
 };

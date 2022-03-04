@@ -1,5 +1,6 @@
 import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
 import DiscoverScreen from '@movie_trailer/screens/Discover';
+import FavoriteScreen from '@movie_trailer/screens/Favorite';
 import GenreScreen from '@movie_trailer/screens/Genres';
 import HomeScreen from '@movie_trailer/screens/Home';
 import ListMediaScreen from '@movie_trailer/screens/ListMedia';
@@ -61,6 +62,10 @@ const AppNavigator = () => {
           <Drawer.Screen
             name={NavigatorMap.Setting}
             component={SettingScreen}
+          />
+          <Drawer.Screen
+            name={NavigatorMap.Favorite}
+            component={FavoriteScreen}
           />
         </Drawer.Group>
 

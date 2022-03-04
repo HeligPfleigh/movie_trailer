@@ -14,6 +14,7 @@ const AppBar: React.FC = () => {
 
   const handleOpenDrawer = () => navigation.openDrawer();
   const handleOpenSetting = () => navigation.navigate(NavigatorMap.Setting);
+  const handleOpenFavorite = () => navigation.navigate(NavigatorMap.Favorite);
 
   return (
     <Box row mt={2.5} pl={2} pr={2} flex={false}>
@@ -27,7 +28,7 @@ const AppBar: React.FC = () => {
 
       <Box flex={false} row>
         <Box flex={false} mr={2}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenFavorite}>
             <HeartIcon />
           </TouchableOpacity>
         </Box>
