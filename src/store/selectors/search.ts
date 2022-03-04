@@ -52,14 +52,19 @@ export const tvSearchResultSelector = createSelector(
 );
 
 export const actorSearchResultSelector = createSelector(
-  [(state: RootState) => state.search.person.results],
-  (results): Array<IActorOverview> => {
+  [
+    (state: RootState) => state.search.person.results,
+    (state: RootState) => state.favorite.person,
+  ],
+  (results, favoritePeople): Array<IActorOverview> => {
+    const favoritePeopleIds = favoritePeople.map(person => person.id);
+
     return results.map(actor => ({
       id: actor.id,
       name: actor.name,
       thumbnail: `${IMAGE_SERVER}${actor.profile_path}`,
       department: actor.known_for_department,
-      favorite: false,
+      favorite: favoritePeopleIds.indexOf(actor.id) !== -1,
     }));
   },
 );

@@ -7,6 +7,7 @@ import searchReducer from './slices/searchSlice';
 import mediaListReducer from './slices/mediaListSlice';
 import popularPeopleReducer from './slices/popularPeopleSlice';
 import discoverReducer from './slices/discoverSlice';
+import favoriteReducer from './slices/favoriteSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     mediaList: mediaListReducer,
     popularPeople: popularPeopleReducer,
     discover: discoverReducer,
+    favorite: favoriteReducer,
   },
 });
 

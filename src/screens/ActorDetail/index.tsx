@@ -1,8 +1,13 @@
 import chunk from 'lodash/chunk';
 import FastImage from 'react-native-fast-image';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
   AppBar,
@@ -14,11 +19,14 @@ import {
 import {getActorDetails, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {IActorDetail} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {colors, responsiveSize} from '@movie_trailer/theme';
+import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import InfoBox from './InfoBox';
 import {ActorDetailScreenProps} from './types';
 import TVSection from './TVSection';
 import {RootState} from '@movie_trailer/store/rootReducer';
+import Heart from '@movie_trailer/assets/icons/Heart';
+import HeartFill from '@movie_trailer/assets/icons/HeartFill';
+import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +41,15 @@ const styles = StyleSheet.create({
     height: responsiveSize(264),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,
+    position: 'relative',
+  },
+  favorite: {
+    ...round(24),
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: responsiveSize(8),
+    right: responsiveSize(8),
   },
 });
 
@@ -43,6 +60,10 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
   const [actor, setActor] = useState<IActorDetail>();
   const {id} = route.params;
   const genres = useSelector((state: RootState) => state.genre.movieGenres);
+  const favoriteActors = useSelector(
+    (state: RootState) => state.favorite.person,
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadData = async () => {
@@ -65,6 +86,19 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
   const handlePressMovie = (movieID: number) =>
     navigation.navigate(NavigatorMap.MediaDetail, {id: movieID, type: 'movie'});
 
+  const handleToggleFavorite = () => {
+    if (actor) {
+      dispatch(
+        togglePersonFavorite({
+          id: actor.id,
+          name: actor.name,
+          department: actor.known_for_department,
+          thumbnail: actor.profile_path,
+        }),
+      );
+    }
+  };
+
   const movies = chunk(
     (actor?.movie_credits?.cast || []).map(movie => {
       const genre = genres
@@ -84,6 +118,18 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
     2,
   );
 
+  const favorite = Boolean(favoriteActors.find(item => item.id === id));
+
+  let icon = favorite ? (
+    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+  ) : (
+    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+  );
+
+  const backgroundColor = favorite
+    ? 'rgba(255, 31, 31, 0.3)'
+    : 'rgba(255, 255, 255, 0.3)';
+
   return (
     <ScrollView
       style={styles.container}
@@ -101,11 +147,18 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           </Box>
 
           <Box flex={false} center mt={5}>
-            <FastImage
-              source={{uri: `${IMAGE_SERVER}${actor.profile_path}`}}
-              style={styles.profileImage}
-              resizeMode={FastImage.resizeMode.cover}
-            />
+            <Box flex={false} style={styles.profileImage}>
+              <FastImage
+                source={{uri: `${IMAGE_SERVER}${actor.profile_path}`}}
+                style={styles.profileImage}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+              <TouchableOpacity
+                style={[styles.favorite, {backgroundColor}]}
+                onPress={handleToggleFavorite}>
+                {icon}
+              </TouchableOpacity>
+            </Box>
           </Box>
 
           <Box mt={1.5} center flex={false}>
