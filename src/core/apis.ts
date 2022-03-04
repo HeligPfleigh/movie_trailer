@@ -103,3 +103,12 @@ export const getMovieDetail = async (id: number): Promise<IMovieDetail> => {
   });
   return data;
 };
+
+export const getTVDetail = async (id: number): Promise<ITVDetail> => {
+  const {data} = await instance.get(`tv/${id}`, {
+    params: {
+      append_to_response: 'videos,credits,recommendations',
+    },
+  });
+  return data;
+};

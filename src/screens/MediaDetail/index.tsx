@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AppBar, Box, HomeBackground} from '@movie_trailer/components';
+import {AppBar, HomeBackground} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {MediaDetailScreenProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
@@ -8,6 +8,7 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {ScrollView, StyleSheet} from 'react-native';
 
 import MovieDetail from './MovieDetail';
+import TVDetail from './TVDetail';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,7 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
     // TODO
   };
 
-  const content = type === 'movie' ? <MovieDetail /> : <Box />;
+  const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;
 
   return (
     <ScrollView

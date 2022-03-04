@@ -121,6 +121,12 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
     results: Array<IVideo>;
   };
   genres: Array<IGenre>;
+  runtime: number;
+  credits: {
+    cast: Array<Omit<IPeopleOverview, 'known_for'>>;
+    crew: Array<Omit<IPeopleOverview, 'known_for'>>;
+  };
+  recommendations: IMediaPagination & {results: Array<ITVOverview>};
 }
 
 export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
