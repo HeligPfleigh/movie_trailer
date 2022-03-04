@@ -8,6 +8,7 @@ import {
   IPeopleOverview,
   IActorDetail,
   ITVDetail,
+  IMovieDetail,
 } from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
@@ -89,6 +90,24 @@ export const getLatestTVShow = async (): Promise<ITVDetail> => {
   const {data} = await instance.get(`tv/${id}`, {
     params: {
       append_to_response: 'videos',
+    },
+  });
+  return data;
+};
+
+export const getMovieDetail = async (id: number): Promise<IMovieDetail> => {
+  const {data} = await instance.get(`movie/${id}`, {
+    params: {
+      append_to_response: 'videos,credits,recommendations,images',
+    },
+  });
+  return data;
+};
+
+export const getTVDetail = async (id: number): Promise<ITVDetail> => {
+  const {data} = await instance.get(`tv/${id}`, {
+    params: {
+      append_to_response: 'videos,credits,recommendations,images',
     },
   });
   return data;

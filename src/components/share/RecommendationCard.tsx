@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     top: spacing(1),
     left: spacing(1),
     flexDirection: 'row',
-    backgroundColor: colors.black,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     paddingHorizontal: spacing(1),
     paddingVertical: spacing(0.5),
     borderRadius: responsiveSize(8),

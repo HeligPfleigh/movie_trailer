@@ -1,5 +1,4 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
 
 import {
   Box,
@@ -7,35 +6,27 @@ import {
   SectionHeader,
 } from '@movie_trailer/components';
 import {IMediaOverview} from '@movie_trailer/core/types';
-import {HomeNavigationProps} from '../types';
-import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
-interface IRecommendationProps {
+interface ISectionBProps {
   medias: Array<Array<IMediaOverview>>;
-  type: 'tv' | 'movie';
+  title?: string;
+  onPressMedia?: (id: number) => void;
+  onSeeAll?: () => void;
 }
 
-const Recommendation: React.FC<IRecommendationProps> = ({
+const SectionB: React.FC<ISectionBProps> = ({
   medias,
-  type,
-}: IRecommendationProps) => {
-  const navigation = useNavigation<HomeNavigationProps>();
-
-  const handleSeeAll = () => {
-    navigation.navigate(NavigatorMap.ListMedia, {
-      type,
-      subroute: 'top_rated',
-    });
-  };
-
-  const handlePressMedia = (id: number) => () =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+  title = 'Recommendation',
+  onPressMedia,
+  onSeeAll,
+}: ISectionBProps) => {
+  const handlePressMedia = (id: number) => () => onPressMedia?.(id);
 
   return (
     <>
-      <SectionHeader title="Recommendation" onPress={handleSeeAll} />
+      <SectionHeader title={title} onPress={onSeeAll} />
 
-      {medias.slice(0, 3).map(group => {
+      {medias.map(group => {
         const [firstMedia, secondMedia] = group;
         return (
           <Box mb={2} key={firstMedia.id} row>
@@ -62,4 +53,4 @@ const Recommendation: React.FC<IRecommendationProps> = ({
   );
 };
 
-export default Recommendation;
+export default SectionB;

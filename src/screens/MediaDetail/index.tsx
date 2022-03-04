@@ -1,35 +1,48 @@
 import React from 'react';
 
-import {
-  AppBar,
-  Box,
-  HomeBackground,
-  Typography,
-} from '@movie_trailer/components';
+import {AppBar, HomeBackground} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {MediaDetailScreenProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
+import {ScrollView, StyleSheet} from 'react-native';
+
+import MovieDetail from './MovieDetail';
+import TVDetail from './TVDetail';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.codGray,
+    flex: 1,
+  },
+  scrollview: {
+    flexGrow: 1,
+  },
+});
+
 const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   navigation,
+  route,
 }: MediaDetailScreenProps) => {
+  const {type} = route.params;
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handleShareMedia = () => {
     // TODO
   };
 
+  const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;
+
   return (
-    <Box color={colors.codGray}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollview}>
       <HomeBackground height={responsiveSize(337)} />
       <AppBar onSearch={handleOpenSearch} onShare={handleShareMedia} />
 
-      <Box mt={2.5} ml={2} mb={2} flex={false}>
-        <Typography variant="h4" color={colors.white} fontWeight="600">
-          Detail
-        </Typography>
-      </Box>
-    </Box>
+      {content}
+    </ScrollView>
   );
 };
 

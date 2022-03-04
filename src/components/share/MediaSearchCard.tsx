@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   badge: {
     position: 'absolute',
     flexDirection: 'row',
-    backgroundColor: colors.black,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     top: spacing(1),
     left: spacing(1),
     paddingHorizontal: spacing(1),

@@ -14,3 +14,4 @@ export type MediaDetailScreenProps = CompositeScreenProps<
 >;
 
 export type MediaDetailRouteProps = MediaDetailScreenProps['route'];
+export type MediaDetailNavigationProps = MediaDetailScreenProps['navigation'];

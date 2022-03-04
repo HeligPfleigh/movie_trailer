@@ -1,20 +1,24 @@
+import chunk from 'lodash/chunk';
+import FastImage from 'react-native-fast-image';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
+
 import {
   AppBar,
   Box,
   HomeBackground,
+  SectionB,
   Typography,
 } from '@movie_trailer/components';
 import {getActorDetails, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {IActorDetail} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize} from '@movie_trailer/theme';
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import InfoBox from './InfoBox';
 import {ActorDetailScreenProps} from './types';
 import TVSection from './TVSection';
-import MovieSection from './MovieSection';
+import {RootState} from '@movie_trailer/store/rootReducer';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +42,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
 }: ActorDetailScreenProps) => {
   const [actor, setActor] = useState<IActorDetail>();
   const {id} = route.params;
+  const genres = useSelector((state: RootState) => state.genre.movieGenres);
 
   useEffect(() => {
     const loadData = async () => {
@@ -56,6 +61,28 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
   }, [id]);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
+
+  const handlePressMovie = (movieID: number) =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id: movieID, type: 'movie'});
+
+  const movies = chunk(
+    (actor?.movie_credits?.cast || []).map(movie => {
+      const genre = genres
+        .filter(item => movie.genre_ids.includes(item.id))
+        .map(item => item.name)
+        .join('/ ');
+
+      return {
+        id: movie.id,
+        title: movie.title,
+        genres: genre,
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        rating: movie.vote_average,
+        time: movie.release_date,
+      };
+    }),
+    2,
+  );
 
   return (
     <ScrollView
@@ -107,7 +134,11 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           </Box>
 
           <Box mt={5.5} ml={2} mb={2} flex={false}>
-            <MovieSection movies={actor.movie_credits.cast} />
+            <SectionB
+              medias={movies}
+              title="Movie"
+              onPressMedia={handlePressMovie}
+            />
           </Box>
         </>
       ) : (
