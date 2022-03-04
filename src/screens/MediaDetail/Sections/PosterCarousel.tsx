@@ -1,16 +1,20 @@
 import React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import {Box, Typography} from '@movie_trailer/components';
 import {IImage} from '@movie_trailer/core/types';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import FastImage from 'react-native-fast-image';
-import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import Star from '@movie_trailer/assets/icons/Star';
+import HeartFill from '@movie_trailer/assets/icons/HeartFill';
+import Heart from '@movie_trailer/assets/icons/Heart';
 
 interface IPosterCarouselProps {
   posters: IImage[];
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 const {width: viewportWidth} = Dimensions.get('window');
@@ -32,11 +36,31 @@ const styles = StyleSheet.create({
     borderRadius: responsiveSize(8),
     alignItems: 'center',
   },
+  favorite: {
+    ...round(24),
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: responsiveSize(8),
+    right: responsiveSize(8),
+  },
 });
 
 const PosterCarousel: React.FC<IPosterCarouselProps> = ({
   posters,
+  isFavorite,
+  onToggleFavorite,
 }: IPosterCarouselProps) => {
+  let icon = isFavorite ? (
+    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+  ) : (
+    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+  );
+
+  const backgroundColor = isFavorite
+    ? 'rgba(255, 31, 31, 0.3)'
+    : 'rgba(255, 255, 255, 0.3)';
+
   const renderCarouselItem = ({item}: {item: IImage}) => {
     return (
       <Box flex={false} style={styles.carouselItemContainer}>
@@ -45,6 +69,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
           style={styles.carouselItemContainer}
           resizeMode={FastImage.resizeMode.cover}
         />
+
         <Box flex={false} style={styles.badge}>
           <Star />
           <Box flex={false} ml={0.5}>
@@ -58,6 +83,12 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
             </Typography>
           </Box>
         </Box>
+
+        <TouchableOpacity
+          style={[styles.favorite, {backgroundColor}]}
+          onPress={onToggleFavorite}>
+          {icon}
+        </TouchableOpacity>
       </Box>
     );
   };

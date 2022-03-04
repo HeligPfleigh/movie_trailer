@@ -93,7 +93,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           id: actor.id,
           name: actor.name,
           department: actor.known_for_department,
-          thumbnail: actor.profile_path,
+          thumbnail: `${IMAGE_SERVER}${actor.profile_path}`,
         }),
       );
     }
