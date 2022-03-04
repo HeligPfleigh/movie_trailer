@@ -2,12 +2,12 @@ import {Box, Typography} from '@movie_trailer/components';
 import {IPeopleOverview} from '@movie_trailer/core/types';
 import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import truncate from 'lodash/truncate';
 import FastImage from 'react-native-fast-image';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 
-interface ICreditSectionProps {
+interface ICreditProps {
   cast: Array<Omit<IPeopleOverview, 'known_for'>>;
   crew: Array<Omit<IPeopleOverview, 'known_for'>>;
 }
@@ -40,10 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CreditSection: React.FC<ICreditSectionProps> = ({
-  cast,
-  crew,
-}: ICreditSectionProps) => {
+const Credit: React.FC<ICreditProps> = ({cast, crew}: ICreditProps) => {
   const information = [
     {title: 'Directors:', departments: ['Directing']},
     {title: 'Producers:', departments: ['Writing']},
@@ -61,7 +58,10 @@ const CreditSection: React.FC<ICreditSectionProps> = ({
     ].join(', '),
   }));
 
-  const images = cast.map(person => `${IMAGE_SERVER}${person.profile_path}`);
+  const images = cast.map(person => ({
+    id: person.id,
+    value: `${IMAGE_SERVER}${person.profile_path}`,
+  }));
 
   const moreImage = (
     <Box flex={false} style={[styles.image, styles.moreImage]}>
@@ -72,7 +72,7 @@ const CreditSection: React.FC<ICreditSectionProps> = ({
   );
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <Box flex={false} style={styles.container}>
       <Box
         row
         style={[
@@ -85,13 +85,13 @@ const CreditSection: React.FC<ICreditSectionProps> = ({
           <Box
             flex={false}
             style={[styles.image, {left: -20 * index}]}
-            key={image}>
-            <FastImage source={{uri: image}} style={styles.image} />
+            key={image.id}>
+            <FastImage source={{uri: image.value}} style={styles.image} />
           </Box>
         ))}
         {images.length === 5 && (
           <Box flex={false} style={[styles.image, styles.moreImage]}>
-            <FastImage source={{uri: images[4]}} style={styles.image} />
+            <FastImage source={{uri: images[4].value}} style={styles.image} />
           </Box>
         )}
         {images.length > 5 && moreImage}
@@ -114,8 +114,8 @@ const CreditSection: React.FC<ICreditSectionProps> = ({
           </Box>
         </Box>
       ))}
-    </TouchableOpacity>
+    </Box>
   );
 };
 
-export default CreditSection;
+export default Credit;

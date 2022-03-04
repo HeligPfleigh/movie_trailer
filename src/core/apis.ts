@@ -98,7 +98,7 @@ export const getLatestTVShow = async (): Promise<ITVDetail> => {
 export const getMovieDetail = async (id: number): Promise<IMovieDetail> => {
   const {data} = await instance.get(`movie/${id}`, {
     params: {
-      append_to_response: 'videos,credits',
+      append_to_response: 'videos,credits,recommendations',
     },
   });
   return data;

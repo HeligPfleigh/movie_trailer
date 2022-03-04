@@ -133,4 +133,5 @@ export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
     cast: Array<Omit<IPeopleOverview, 'known_for'>>;
     crew: Array<Omit<IPeopleOverview, 'known_for'>>;
   };
+  recommendations: IMediaPagination & {results: Array<IMovieOverview>};
 }
