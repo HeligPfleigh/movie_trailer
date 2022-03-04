@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import {Box, Typography} from '@movie_trailer/components';
+import {Box, SectionB, Typography} from '@movie_trailer/components';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
 import Upcoming from './Sections/Upcoming';
-import Recommendation from './Sections/Recommendation';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {
   recommendationMoviesSelector,
@@ -19,6 +18,9 @@ import {
   fetchUpcomingMovies,
 } from '@movie_trailer/store/slices/movieSlice';
 import PersonPopular from './Sections/PersonPopular';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigationProps} from './types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -35,12 +37,23 @@ const MovieTab = () => {
   const moviesToday = useSelector(todayMoviesSelector);
   const recommendationMovies = useSelector(recommendationMoviesSelector);
   const dispatch = useDispatch();
+  const navigation = useNavigation<HomeNavigationProps>();
 
   useEffect(() => {
     dispatch(fetchNowPlayingMovies());
     dispatch(fetchUpcomingMovies());
     dispatch(fetchRecommendationMovies());
   }, [dispatch]);
+
+  const handleSeeAll = () => {
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type: 'movie',
+      subroute: 'top_rated',
+    });
+  };
+
+  const handlePressMedia = (id: number) =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'movie'});
 
   return (
     <>
@@ -71,7 +84,11 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
-        <Recommendation medias={recommendationMovies} type="movie" />
+        <SectionB
+          medias={recommendationMovies.slice(0, 3)}
+          onSeeAll={handleSeeAll}
+          onPressMedia={handlePressMedia}
+        />
       </Box>
     </>
   );

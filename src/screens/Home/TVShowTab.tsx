@@ -1,10 +1,9 @@
 import React, {memo, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {Box} from '@movie_trailer/components';
+import {Box, SectionB} from '@movie_trailer/components';
 import PopularGenres from './Sections/PopularGenres';
 import Today from './Sections/Today';
-import Recommendation from './Sections/Recommendation';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {
   aringTodayTvShowsSelector,
@@ -15,22 +14,36 @@ import {
   fetchAringTodayTVShows,
   fetchRecommendationTVShows,
 } from '@movie_trailer/store/slices/tvShowSlice';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigationProps} from './types';
 
 const TvShowTab = () => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
   const airingTodayShows = useSelector(aringTodayTvShowsSelector);
   const recommendationShows = useSelector(recommendationTvShowsSelector);
   const dispatch = useDispatch();
+  const navigation = useNavigation<HomeNavigationProps>();
 
   useEffect(() => {
     dispatch(fetchAringTodayTVShows());
     dispatch(fetchRecommendationTVShows());
   }, [dispatch]);
 
+  const handleSeeAll = () => {
+    navigation.navigate(NavigatorMap.ListMedia, {
+      type: 'tv',
+      subroute: 'top_rated',
+    });
+  };
+
+  const handlePressMedia = (id: number) =>
+    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'tv'});
+
   return (
     <>
       <Box flex={false} mb={4} mt={2}>
-        <LatestShows medias={airingTodayShows} />
+        <LatestShows />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>
@@ -42,7 +55,11 @@ const TvShowTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
-        <Recommendation medias={recommendationShows} type="tv" />
+        <SectionB
+          medias={recommendationShows.slice(0, 3)}
+          onSeeAll={handleSeeAll}
+          onPressMedia={handlePressMedia}
+        />
       </Box>
     </>
   );
