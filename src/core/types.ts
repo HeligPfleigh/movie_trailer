@@ -116,6 +116,15 @@ interface IVideo {
   size: number;
   id: string;
 }
+
+export interface IImage {
+  aspect_ratio: number;
+  height: number;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
 export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
   videos: {
     results: Array<IVideo>;
@@ -127,6 +136,11 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids'> {
     crew: Array<Omit<IPeopleOverview, 'known_for'>>;
   };
   recommendations: IMediaPagination & {results: Array<ITVOverview>};
+  images: {
+    backdrops: Array<IImage>;
+    posters: Array<IImage>;
+    logos: Array<IImage>;
+  };
 }
 
 export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
@@ -140,4 +154,9 @@ export interface IMovieDetail extends Omit<IMovieOverview, 'genre_ids'> {
     crew: Array<Omit<IPeopleOverview, 'known_for'>>;
   };
   recommendations: IMediaPagination & {results: Array<IMovieOverview>};
+  images: {
+    backdrops: Array<IImage>;
+    posters: Array<IImage>;
+    logos: Array<IImage>;
+  };
 }

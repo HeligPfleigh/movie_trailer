@@ -13,6 +13,7 @@ import {getMovieDetail, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import Calendar from '@movie_trailer/assets/icons/Calendar';
 import AccessTime from '@movie_trailer/assets/icons/AccessTime';
 import Credit from './Sections/Credit';
+import PosterCarousel from './Sections/PosterCarousel';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -39,9 +40,17 @@ const MovieDetail: React.FC = () => {
   const handlePressMedia = (movieId: number) =>
     navigation.push(NavigatorMap.MediaDetail, {id: movieId, type: 'movie'});
 
+  if (!movie) {
+    return (
+      <Box color="transparent" middle>
+        <ActivityIndicator />
+      </Box>
+    );
+  }
+
   const medias = chunk(
-    (movie?.recommendations.results || []).map(item => {
-      const genre = (movie?.genres || []).map(g => g.name).join('/ ');
+    movie.recommendations.results.map(item => {
+      const genre = movie.genres.map(g => g.name).join('/ ');
 
       return {
         id: item.id,
@@ -57,46 +66,36 @@ const MovieDetail: React.FC = () => {
 
   return (
     <Box>
-      {movie ? (
-        <>
-          <Box mt={2} ml={2} mr={2} center flex={false}>
-            <Typography variant="h4" color={colors.white} fontWeight="600">
-              {movie.title}
-            </Typography>
-          </Box>
+      <PosterCarousel posters={movie.images.posters} />
 
-          <Box mt={0.5} ml={2} mr={2} flex={false} row middle>
-            <Calendar />
-            <Box flex={false} mr={2}>
-              <Typography variant="h1" color={colors.catskillWhite}>
-                {dayjs(movie.release_date).format('MMM DD, YYYY')}
-              </Typography>
-            </Box>
-            <AccessTime />
-            <Box flex={false}>
-              <Typography variant="h1" color={colors.catskillWhite}>
-                {`${Math.round(movie.runtime / 60)}h${movie.runtime % 60}`}
-              </Typography>
-            </Box>
-          </Box>
-
-          <Credit cast={movie.credits.cast} crew={movie.credits.crew} />
-
-          <Box flex={false} ml={2} mr={2}>
-            <Typography variant="b5" color={colors.white}>
-              {movie.overview}
-            </Typography>
-          </Box>
-
-          <Box flex={false} ml={2} mr={2} mt={2}>
-            <SectionB medias={medias} onPressMedia={handlePressMedia} />
-          </Box>
-        </>
-      ) : (
-        <Box color="transparent" middle>
-          <ActivityIndicator />
+      <Box mt={2} ml={2} mr={2} center flex={false}>
+        <Typography variant="h4" color={colors.white} fontWeight="600">
+          {movie.title}
+        </Typography>
+      </Box>
+      <Box mt={0.5} ml={2} mr={2} flex={false} row middle>
+        <Calendar />
+        <Box flex={false} mr={2}>
+          <Typography variant="h1" color={colors.catskillWhite}>
+            {dayjs(movie.release_date).format('MMM DD, YYYY')}
+          </Typography>
         </Box>
-      )}
+        <AccessTime />
+        <Box flex={false}>
+          <Typography variant="h1" color={colors.catskillWhite}>
+            {`${Math.round(movie.runtime / 60)}h${movie.runtime % 60}`}
+          </Typography>
+        </Box>
+      </Box>
+      <Credit cast={movie.credits.cast} crew={movie.credits.crew} />
+      <Box flex={false} ml={2} mr={2}>
+        <Typography variant="b5" color={colors.white}>
+          {movie.overview}
+        </Typography>
+      </Box>
+      <Box flex={false} ml={2} mr={2} mt={2}>
+        <SectionB medias={medias} onPressMedia={handlePressMedia} />
+      </Box>
     </Box>
   );
 };

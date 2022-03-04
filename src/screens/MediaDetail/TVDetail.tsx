@@ -13,6 +13,7 @@ import {getTVDetail, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import Calendar from '@movie_trailer/assets/icons/Calendar';
 // import AccessTime from '@movie_trailer/assets/icons/AccessTime';
 import Credit from './Sections/Credit';
+import PosterCarousel from './Sections/PosterCarousel';
 
 const TVDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -59,6 +60,7 @@ const TVDetail: React.FC = () => {
     <Box>
       {tvShow ? (
         <>
+          <PosterCarousel posters={tvShow.images.posters} />
           <Box mt={2} ml={2} mr={2} center flex={false}>
             <Typography variant="h4" color={colors.white} fontWeight="600">
               {tvShow.name}
@@ -72,12 +74,6 @@ const TVDetail: React.FC = () => {
                 {dayjs(tvShow.first_air_date).format('MMM DD, YYYY')}
               </Typography>
             </Box>
-            {/* <AccessTime />
-            <Box flex={false}>
-              <Typography variant="h1" color={colors.catskillWhite}>
-                {`${Math.round(movie.runtime / 60)}h${movie.runtime % 60}`}
-              </Typography>
-            </Box> */}
           </Box>
 
           <Credit cast={tvShow.credits.cast} crew={tvShow.credits.crew} />
