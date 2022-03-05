@@ -14,6 +14,7 @@ import {
   fetchMovieGenres,
   fetchTVShowGenres,
 } from '@movie_trailer/store/slices/genreSlice';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,16 +47,18 @@ function HomeScreen({navigation, route}: HomeScreenProps) {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <HomeBackground height={responsiveSize(540)} />
-      <AppBar />
-      <Box flex={false} ml={2} mr={2} mt={2.5}>
-        <Tabs tabs={tabs} onTabChanged={setActiveTab} activeTab={activeTab} />
-      </Box>
+      <SafeAreaView>
+        <AppBar />
+        <Box flex={false} ml={2} mr={2} mt={2.5}>
+          <Tabs tabs={tabs} onTabChanged={setActiveTab} activeTab={activeTab} />
+        </Box>
 
-      <Box flex={false} ml={2} mr={2} mt={2.5}>
-        <SearchBox onPress={handleOpenSearch} />
-      </Box>
+        <Box flex={false} ml={2} mr={2} mt={2.5}>
+          <SearchBox onPress={handleOpenSearch} />
+        </Box>
 
-      {content}
+        {content}
+      </SafeAreaView>
     </ScrollView>
   );
 }

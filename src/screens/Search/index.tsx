@@ -33,6 +33,7 @@ import {IActorOverview, IMediaOverview} from '@movie_trailer/core/types';
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import MovieIcon from '@movie_trailer/assets/icons/Movie';
 import {TextField} from 'react-native-material-textfield';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -143,66 +144,67 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
   return (
     <Box color={colors.codGray}>
       <HomeBackground height={responsiveSize(337)} />
-
-      <Box row mt={2.5} pl={2} pr={2} flex={false}>
-        <TouchableOpacity onPress={handleBack}>
-          <CloseIcon />
-        </TouchableOpacity>
-      </Box>
-
-      <Box flex={false} style={styles.searchContainer}>
-        <Search fill={colors.white} />
-        <Box middle ml={2}>
-          <TextField
-            ref={textFieldRef}
-            label="Search movie, tv show, actor, ..."
-            onChangeText={setSearchText}
-            value={searchText}
-            lineType="none"
-            textColor={colors.white}
-            fontSize={responsiveSize(18)}
-            baseColor={colors.white}
-            tintColor={colors.white}
-            containerStyle={styles.textField}
-          />
+      <SafeAreaView>
+        <Box row mt={2.5} pl={2} pr={2} flex={false}>
+          <TouchableOpacity onPress={handleBack}>
+            <CloseIcon />
+          </TouchableOpacity>
         </Box>
-        <TouchableOpacity onPress={handleClearSearch}>
-          <Box mr={2} flex={false}>
-            <CloseFill />
-          </Box>
-        </TouchableOpacity>
-        <Micro fill={colors.white} />
-      </Box>
 
-      {Boolean(searchText) && (
-        <>
-          <Box flex={false} ml={2} mb={3}>
-            <Tabs
-              tabs={tabs}
-              onTabChanged={handleTabChanged}
-              activeTab={activeTab ?? 'movie'}
+        <Box flex={false} style={styles.searchContainer}>
+          <Search fill={colors.white} />
+          <Box middle ml={2}>
+            <TextField
+              ref={textFieldRef}
+              label="Search movie, tv show, actor, ..."
+              onChangeText={setSearchText}
+              value={searchText}
+              lineType="none"
+              textColor={colors.white}
+              fontSize={responsiveSize(18)}
+              baseColor={colors.white}
+              tintColor={colors.white}
+              containerStyle={styles.textField}
             />
           </Box>
+          <TouchableOpacity onPress={handleClearSearch}>
+            <Box mr={2} flex={false}>
+              <CloseFill />
+            </Box>
+          </TouchableOpacity>
+          <Micro fill={colors.white} />
+        </Box>
 
-          {['tv', 'movie'].includes(activeTab ?? '') && (
-            <FlatList
-              data={medias}
-              renderItem={renderItem}
-              keyExtractor={item => `${item.id}`}
-              ListEmptyComponent={renderEmpty}
-            />
-          )}
+        {Boolean(searchText) && (
+          <>
+            <Box flex={false} ml={2} mb={3}>
+              <Tabs
+                tabs={tabs}
+                onTabChanged={handleTabChanged}
+                activeTab={activeTab ?? 'movie'}
+              />
+            </Box>
 
-          {activeTab === 'person' && (
-            <FlatList
-              data={actors}
-              renderItem={renderActorItem}
-              keyExtractor={item => `${item.id}`}
-              ListEmptyComponent={renderEmpty}
-            />
-          )}
-        </>
-      )}
+            {['tv', 'movie'].includes(activeTab ?? '') && (
+              <FlatList
+                data={medias}
+                renderItem={renderItem}
+                keyExtractor={item => `${item.id}`}
+                ListEmptyComponent={renderEmpty}
+              />
+            )}
+
+            {activeTab === 'person' && (
+              <FlatList
+                data={actors}
+                renderItem={renderActorItem}
+                keyExtractor={item => `${item.id}`}
+                ListEmptyComponent={renderEmpty}
+              />
+            )}
+          </>
+        )}
+      </SafeAreaView>
     </Box>
   );
 };
