@@ -9,12 +9,10 @@ import {IActorOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {popularPeopleSelector} from '@movie_trailer/store/selectors/popularPeople';
-import {
-  loadInitial,
-  loadMore,
-} from '@movie_trailer/store/slices/popularPeopleSlice';
+import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
+import {loadMore} from '@movie_trailer/store/slices/popularPeopleSlice';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {PopularPeopleScreenProps} from './types';
@@ -46,13 +44,10 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
   const dispatch = useDispatch();
   const totalResult = useSelector(
-    (state: RootState) => state.popularPeople.total_results,
+    (state: RootState) => state.popularPeople.data.total_results,
   );
-  const currentPage = useSelector(
-    (state: RootState) => state.popularPeople.page,
-  );
-  const totalPage = useSelector(
-    (state: RootState) => state.popularPeople.total_pages,
+  const loading = useSelector(
+    (state: RootState) => state.popularPeople.loading,
   );
   const people = useSelector(popularPeopleSelector);
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
@@ -60,26 +55,21 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   const handleNavigateToActorDetail = (id: number) => () =>
     navigation.navigate(NavigatorMap.ActorDetail, {id});
 
+  const handleToggleFavorite = (actor: IActorOverview) => () => {
+    dispatch(togglePersonFavorite(actor));
+  };
+
   const renderItem = ({item}: {item: IActorOverview}) => (
-    <ActorSearchCard {...item} onPress={handleNavigateToActorDetail(item.id)} />
+    <ActorSearchCard
+      {...item}
+      onPress={handleNavigateToActorDetail(item.id)}
+      onPressFavorite={handleToggleFavorite(item)}
+    />
   );
 
-  useEffect(() => {
-    dispatch(loadInitial({}));
-  }, [dispatch]);
-
   const handleLoadMore = () => {
-    if (
-      !onEndReachedCalledDuringMomentumRef.current &&
-      currentPage < totalPage
-    ) {
-      dispatch(
-        loadMore({
-          params: {
-            page: currentPage + 1,
-          },
-        }),
-      );
+    if (!onEndReachedCalledDuringMomentumRef.current) {
+      dispatch(loadMore());
       onEndReachedCalledDuringMomentumRef.current = true;
     }
   };
@@ -111,9 +101,7 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
         onMomentumScrollBegin={() => {
           onEndReachedCalledDuringMomentumRef.current = false;
         }}
-        ListFooterComponent={
-          currentPage < totalPage ? <ActivityIndicator /> : null
-        }
+        ListFooterComponent={loading ? <ActivityIndicator /> : null}
       />
     </Box>
   );

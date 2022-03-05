@@ -106,7 +106,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
 
       navigation.push(NavigatorMap.ListMedia, {
         type: 'tv',
-        title: 'Recommendation',
+        title: `${actor.name}'s TV Credits`,
       });
     }
   };
@@ -117,7 +117,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
 
       navigation.push(NavigatorMap.ListMedia, {
         type: 'movie',
-        title: 'Recommendation',
+        title: `${actor.name}'s Movie Credits`,
       });
     }
   };
