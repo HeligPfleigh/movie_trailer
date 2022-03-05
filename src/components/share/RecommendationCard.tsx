@@ -58,7 +58,7 @@ const RecommendationCard: React.FC<IRecommendationCardProps> = ({
             <StarIcon />
             <Box flex={false} ml={0.5}>
               <Typography variant="caps3" color={colors.white}>
-                {rating}
+                {Number(rating).toFixed(1)}
               </Typography>
             </Box>
           </Box>
