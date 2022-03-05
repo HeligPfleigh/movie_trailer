@@ -82,7 +82,7 @@ export const loadMore = createAsyncThunk(
         convertTVOverviewToMediaOverview(show, genres),
       );
     } else {
-      const genres = (getState() as RootState).genre.tvGenres;
+      const genres = (getState() as RootState).genre.movieGenres;
       medias = data.results.map(movie =>
         convertMovieOverviewToMediaOverview(movie as IMovieOverview, genres),
       );
