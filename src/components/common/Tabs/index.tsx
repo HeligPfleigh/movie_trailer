@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import Box from '../Box';
 
 import TabItem from './TabItem';
 
@@ -9,13 +9,6 @@ interface ITabsProps<T> {
   onTabChanged?: (tab: T) => void;
   type?: 'medium' | 'small';
 }
-
-const styles = StyleSheet.create({
-  scrollview: {
-    flexGrow: 1,
-    alignItems: 'center',
-  },
-});
 
 function Tabs<T extends string | number>({
   tabs,
@@ -28,10 +21,7 @@ function Tabs<T extends string | number>({
   };
 
   return (
-    <ScrollView
-      horizontal
-      contentContainerStyle={styles.scrollview}
-      showsHorizontalScrollIndicator={false}>
+    <Box flex={false} row center>
       {tabs.map(tab => (
         <TabItem
           key={tab.value}
@@ -41,7 +31,7 @@ function Tabs<T extends string | number>({
           type={type}
         />
       ))}
-    </ScrollView>
+    </Box>
   );
 }
 

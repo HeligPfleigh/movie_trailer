@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
 interface IActorSearchCardProps extends IActorOverview {
   onPress?: () => void;
+  onPressFavorite?: () => void;
 }
 
 const ActorSearchCard: React.FC<IActorSearchCardProps> = ({
@@ -32,6 +33,7 @@ const ActorSearchCard: React.FC<IActorSearchCardProps> = ({
   department,
   favorite,
   onPress,
+  onPressFavorite,
 }: IActorSearchCardProps) => {
   const icon = favorite ? (
     <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
@@ -63,9 +65,11 @@ const ActorSearchCard: React.FC<IActorSearchCardProps> = ({
         </Box>
 
         <Box flex={false} middle>
-          <Box flex={false} style={[styles.favorite, {backgroundColor}]}>
+          <TouchableOpacity
+            style={[styles.favorite, {backgroundColor}]}
+            onPress={onPressFavorite}>
             {icon}
-          </Box>
+          </TouchableOpacity>
         </Box>
       </Box>
     </TouchableOpacity>
