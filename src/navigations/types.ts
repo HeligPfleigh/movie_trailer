@@ -18,7 +18,9 @@ export type MainStackParamList = {
     type: 'movie' | 'tv';
     title?: string;
   };
-  PopularPeople: undefined;
+  PopularPeople: {
+    title?: string;
+  };
   ActorDetail: {
     id: number;
   };

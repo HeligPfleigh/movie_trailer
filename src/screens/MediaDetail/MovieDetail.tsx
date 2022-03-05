@@ -131,7 +131,11 @@ const MovieDetail: React.FC = () => {
         </Box>
       </Box>
 
-      <Credit cast={movie.credits.cast} crew={movie.credits.crew} />
+      <Credit
+        cast={movie.credits.cast}
+        crew={movie.credits.crew}
+        name={movie.title}
+      />
 
       <Box flex={false} ml={2} mr={2}>
         <Typography variant="b5" color={colors.white}>

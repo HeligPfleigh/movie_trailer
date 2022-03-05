@@ -7,6 +7,8 @@ import PopularPersonIcon from '@movie_trailer/assets/icons/PopularPerson';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from '../types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {useDispatch} from 'react-redux';
+import {loadInitial} from '@movie_trailer/store/slices/popularPeopleSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +30,12 @@ const styles = StyleSheet.create({
 
 const PersonPopular: React.FC = () => {
   const navigation = useNavigation<HomeNavigationProps>();
+  const dispatch = useDispatch();
 
-  const handleNavigateToPersonPopular = () =>
-    navigation.navigate(NavigatorMap.PopularPeople);
+  const handleNavigateToPersonPopular = () => {
+    dispatch(loadInitial());
+    navigation.push(NavigatorMap.PopularPeople, {title: 'Popular People'});
+  };
 
   return (
     <TouchableOpacity onPress={handleNavigateToPersonPopular}>

@@ -4,7 +4,7 @@ import {RootState} from '../rootReducer';
 
 export const popularPeopleSelector = createSelector(
   [
-    (state: RootState) => state.popularPeople.results,
+    (state: RootState) => state.popularPeople.data.results,
     (state: RootState) => state.favorite.person,
   ],
   (popularPeople, favoritePeople): Array<IActorOverview> => {

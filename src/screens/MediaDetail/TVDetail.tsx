@@ -121,7 +121,11 @@ const TVDetail: React.FC = () => {
         </Box>
       </Box>
 
-      <Credit cast={tvShow.credits.cast} crew={tvShow.credits.crew} />
+      <Credit
+        cast={tvShow.credits.cast}
+        crew={tvShow.credits.crew}
+        name={tvShow.name}
+      />
 
       <Box flex={false} ml={2} mr={2}>
         <Typography variant="b5" color={colors.white}>
