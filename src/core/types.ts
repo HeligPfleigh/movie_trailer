@@ -126,6 +126,17 @@ export interface IImage {
   vote_count: number;
   width: number;
 }
+
+export interface ISeasonOverview {
+  air_date: string;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+}
+
 export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
   videos: {
     results: Array<IVideo>;
@@ -141,6 +152,7 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
     posters: Array<IImage>;
     logos: Array<IImage>;
   };
+  seasons: Array<ISeasonOverview>;
 }
 
 export interface IMovieDetail

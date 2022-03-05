@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
+import Seasons from './Sections/Seasons';
 
 const TVDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -132,6 +133,8 @@ const TVDetail: React.FC = () => {
           {tvShow.overview}
         </Typography>
       </Box>
+
+      <Seasons seasons={tvShow.seasons} />
 
       <Trailers videos={tvShow.videos.results} />
 
