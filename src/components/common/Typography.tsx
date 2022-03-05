@@ -43,7 +43,7 @@ export interface TypographyProps extends TextProps {
 
 const styles = StyleSheet.create({
   root: {
-    fontFamily: 'SF Pro Text',
+    // fontFamily: 'SF Pro Text',
   },
   h1: {},
   h2: {},

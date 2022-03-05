@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 
 import {store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 // temporary comment the warning for react-native-gesture-handler
 LogBox.ignoreLogs([
@@ -15,7 +16,9 @@ LogBox.ignoreLogs([
 function App() {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <SafeAreaProvider>
+        <AppNavigator />
+      </SafeAreaProvider>
     </Provider>
   );
 }
