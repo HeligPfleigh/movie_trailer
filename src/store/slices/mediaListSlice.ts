@@ -1,7 +1,6 @@
-import {getMediaOverview} from '@movie_trailer/core/apis';
+import {getActorCredits, getMediaOverview} from '@movie_trailer/core/apis';
 import {
   IMediaOverview,
-  IMediaPagination,
   IMovieOverview,
   IPagination,
   ITVOverview,
@@ -31,26 +30,23 @@ export const initialState: IMediaListState = {
 };
 
 const isTV = (
-  data: IMediaPagination & {
-    results: (IMovieOverview | ITVOverview)[];
-  },
-): data is IMediaPagination & {results: ITVOverview[]} =>
-  data.results?.[0]?.first_air_date !== undefined;
+  data: Array<IMovieOverview | ITVOverview>,
+): data is ITVOverview[] => data?.[0]?.first_air_date !== undefined;
 
 export const loadInitial = createAsyncThunk(
   'mediaList/loadInitial',
   async ({url}: {url: string}, {getState}) => {
-    const genres = (getState() as RootState).genre.movieGenres;
-
     const data = await getMediaOverview(url);
 
     let medias: Array<IMediaOverview> = [];
 
-    if (isTV(data)) {
+    if (isTV(data.results)) {
+      const genres = (getState() as RootState).genre.tvGenres;
       medias = data.results.map(show =>
         convertTVOverviewToMediaOverview(show, genres),
       );
     } else {
+      const genres = (getState() as RootState).genre.movieGenres;
       medias = data.results.map(movie =>
         convertMovieOverviewToMediaOverview(movie as IMovieOverview, genres),
       );
@@ -68,7 +64,6 @@ export const loadInitial = createAsyncThunk(
 export const loadMore = createAsyncThunk(
   'mediaList/loadMore',
   async (_, {getState}) => {
-    const genres = (getState() as RootState).genre.movieGenres;
     const url = (getState() as RootState).mediaList.requestURL;
     const currentPage = (getState() as RootState).mediaList.data.page;
     const totalPage = (getState() as RootState).mediaList.data.total_pages;
@@ -81,11 +76,13 @@ export const loadMore = createAsyncThunk(
 
     let medias: Array<IMediaOverview> = [];
 
-    if (isTV(data)) {
+    if (isTV(data.results)) {
+      const genres = (getState() as RootState).genre.tvGenres;
       medias = data.results.map(show =>
         convertTVOverviewToMediaOverview(show, genres),
       );
     } else {
+      const genres = (getState() as RootState).genre.tvGenres;
       medias = data.results.map(movie =>
         convertMovieOverviewToMediaOverview(movie as IMovieOverview, genres),
       );
@@ -95,6 +92,32 @@ export const loadMore = createAsyncThunk(
       page: data.page,
       total_pages: data.total_pages,
       total_results: data.total_results,
+      results: medias,
+    };
+  },
+);
+
+export const loadCredits = createAsyncThunk(
+  'mediaList/loadCredits',
+  async ({url}: {url: string}, {getState}) => {
+    const data = await getActorCredits(url);
+
+    let medias: Array<IMediaOverview> = [];
+
+    if (isTV(data)) {
+      const genres = (getState() as RootState).genre.tvGenres;
+      medias = data.map(show => convertTVOverviewToMediaOverview(show, genres));
+    } else {
+      const genres = (getState() as RootState).genre.movieGenres;
+      medias = data.map(movie =>
+        convertMovieOverviewToMediaOverview(movie as IMovieOverview, genres),
+      );
+    }
+
+    return {
+      page: 1,
+      total_pages: 1,
+      total_results: medias.length,
       results: medias,
     };
   },
@@ -130,6 +153,19 @@ const mediaListSlice = createSlice({
 
     builder.addCase(loadMore.rejected, state => {
       state.loading = false;
+    });
+
+    builder.addCase(loadCredits.pending, () => {
+      return {
+        ...initialState,
+        loading: true,
+      };
+    });
+
+    builder.addCase(loadCredits.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.loading = false;
+      state.requestURL = action.meta.arg.url;
     });
   },
 });

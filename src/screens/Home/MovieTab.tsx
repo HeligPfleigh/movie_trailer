@@ -49,7 +49,7 @@ const MovieTab = () => {
   const handleSeeAll = () => {
     dispatch(loadInitial({url: 'movie/top_rated'}));
 
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.push(NavigatorMap.ListMedia, {
       type: 'movie',
       title: 'Recommendation',
     });

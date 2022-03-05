@@ -34,7 +34,7 @@ const TvShowTab = () => {
   const handleSeeAll = () => {
     dispatch(loadInitial({url: 'tv/top_rated'}));
 
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.push(NavigatorMap.ListMedia, {
       type: 'tv',
       title: 'Recommendation',
     });

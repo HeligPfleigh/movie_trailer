@@ -11,14 +11,18 @@ import {ActorDetailNavigationProps} from './types';
 
 interface ITVSectionProps {
   tvs: Array<ITVOverview>;
+  onSeeAllTVCredits?: () => void;
 }
 
-const TVSection: React.FC<ITVSectionProps> = ({tvs}: ITVSectionProps) => {
+const TVSection: React.FC<ITVSectionProps> = ({
+  tvs,
+  onSeeAllTVCredits,
+}: ITVSectionProps) => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
   const navigation = useNavigation<ActorDetailNavigationProps>();
 
   const handlePressMedia = (id: number) => () =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'tv'});
+    navigation.push(NavigatorMap.MediaDetail, {id, type: 'tv'});
 
   const renderItem = ({item}: {item: IMediaOverview}) => (
     <Box mr={2}>
@@ -44,7 +48,7 @@ const TVSection: React.FC<ITVSectionProps> = ({tvs}: ITVSectionProps) => {
 
   return (
     <>
-      <SectionHeader title="TV Show" />
+      <SectionHeader title="TV Show" onPress={onSeeAllTVCredits} />
 
       <FlatList
         data={medias}

@@ -66,7 +66,7 @@ const TVDetail: React.FC = () => {
     if (tvShow) {
       dispatch(loadInitial({url: `tv/${id}/recommendations`}));
 
-      navigation.navigate(NavigatorMap.ListMedia, {
+      navigation.push(NavigatorMap.ListMedia, {
         type: 'tv',
         title: 'Recommendation',
       });

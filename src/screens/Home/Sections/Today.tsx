@@ -35,7 +35,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
       }),
     );
 
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.push(NavigatorMap.ListMedia, {
       type,
       title: 'Today',
     });

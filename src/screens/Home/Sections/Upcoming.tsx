@@ -37,7 +37,7 @@ const Upcoming: React.FC = () => {
   const handleSeeAll = () => {
     dispatch(loadInitial({url: 'movie/upcoming'}));
 
-    navigation.navigate(NavigatorMap.ListMedia, {
+    navigation.push(NavigatorMap.ListMedia, {
       type: 'movie',
       title: 'Upcoming Movies',
     });

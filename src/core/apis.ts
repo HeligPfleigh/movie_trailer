@@ -111,3 +111,10 @@ export const getTVDetail = async (id: number): Promise<ITVDetail> => {
   });
   return data;
 };
+
+export const getActorCredits = async <T extends IMovieOverview | ITVOverview>(
+  url: string,
+): Promise<Array<T>> => {
+  const {data} = await instance.get(url);
+  return [...data.cast, ...data.crew];
+};

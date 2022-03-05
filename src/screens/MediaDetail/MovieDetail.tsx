@@ -69,7 +69,7 @@ const MovieDetail: React.FC = () => {
     if (movie) {
       dispatch(loadInitial({url: `movie/${id}/recommendations`}));
 
-      navigation.navigate(NavigatorMap.ListMedia, {
+      navigation.push(NavigatorMap.ListMedia, {
         type: 'movie',
         title: 'Recommendation',
       });
