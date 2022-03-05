@@ -48,11 +48,10 @@ export const getSearch = async <
 };
 
 export const getMediaOverview = async <T extends IMovieOverview | ITVOverview>(
-  type: 'movie' | 'tv',
-  subroute: 'top_rated' | 'upcoming' | 'airing_today' | 'now_playing',
+  url: string,
   params?: Record<string, string | number | undefined>,
 ): Promise<IMediaPagination & {results: Array<T>}> => {
-  const {data} = await instance.get(`${type}/${subroute}`, {params});
+  const {data} = await instance.get(url, {params});
   return data;
 };
 

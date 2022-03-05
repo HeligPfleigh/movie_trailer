@@ -17,6 +17,7 @@ import {
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
+import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 
 const TvShowTab = () => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
@@ -31,9 +32,11 @@ const TvShowTab = () => {
   }, [dispatch]);
 
   const handleSeeAll = () => {
+    dispatch(loadInitial({url: 'tv/top_rated'}));
+
     navigation.navigate(NavigatorMap.ListMedia, {
       type: 'tv',
-      subroute: 'top_rated',
+      title: 'Recommendation',
     });
   };
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useRef} from 'react';
 
 import {
   AppBar,
@@ -11,10 +11,7 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {ListMediaScreenProps} from './types';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  loadInitialMediaList,
-  loadMore,
-} from '@movie_trailer/store/slices/mediaListSlice';
+import {loadMore} from '@movie_trailer/store/slices/mediaListSlice';
 import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
@@ -45,15 +42,14 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   route,
 }: ListMediaScreenProps) => {
   const dispatch = useDispatch();
-  const {subroute, type} = route.params;
-  const medias = useSelector((state: RootState) => state.mediaList.results);
+  const {title, type} = route.params;
+  const medias = useSelector(
+    (state: RootState) => state.mediaList.data.results,
+  );
   const totalResult = useSelector(
-    (state: RootState) => state.mediaList.total_results,
+    (state: RootState) => state.mediaList.data.total_results,
   );
-  const currentPage = useSelector((state: RootState) => state.mediaList.page);
-  const totalPage = useSelector(
-    (state: RootState) => state.mediaList.total_pages,
-  );
+  const loading = useSelector((state: RootState) => state.mediaList.loading);
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
@@ -61,29 +57,9 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   const handlePressMedia = (id: number) => () =>
     navigation.navigate(NavigatorMap.MediaDetail, {id, type});
 
-  useEffect(() => {
-    dispatch(
-      loadInitialMediaList({
-        type,
-        subroute,
-      }),
-    );
-  }, [subroute, type, dispatch]);
-
   const handleLoadMore = () => {
-    if (
-      !onEndReachedCalledDuringMomentumRef.current &&
-      currentPage < totalPage
-    ) {
-      dispatch(
-        loadMore({
-          type,
-          subroute,
-          params: {
-            page: currentPage + 1,
-          },
-        }),
-      );
+    if (!onEndReachedCalledDuringMomentumRef.current) {
+      dispatch(loadMore());
       onEndReachedCalledDuringMomentumRef.current = true;
     }
   };
@@ -100,22 +76,6 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     </Box>
   );
 
-  const header = useMemo(() => {
-    if (subroute === 'airing_today' || subroute === 'now_playing') {
-      return 'Today';
-    }
-
-    if (subroute === 'upcoming') {
-      return 'Upcoming';
-    }
-
-    if (subroute === 'top_rated') {
-      return 'Recommendation';
-    }
-
-    return 'List Media';
-  }, [subroute]);
-
   return (
     <Box color={colors.codGray}>
       <HomeBackground height={responsiveSize(337)} />
@@ -123,7 +83,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
 
       <Box mt={2.5} ml={2} mb={2} flex={false}>
         <Typography variant="h4" color={colors.white} fontWeight="600">
-          {header}
+          {title ?? 'List Media'}
         </Typography>
       </Box>
 
@@ -145,9 +105,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
           onMomentumScrollBegin={() => {
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
-          ListFooterComponent={
-            currentPage < totalPage ? <ActivityIndicator /> : null
-          }
+          ListFooterComponent={loading ? <ActivityIndicator /> : null}
           removeClippedSubviews
           initialNumToRender={10}
           maxToRenderPerBatch={10}

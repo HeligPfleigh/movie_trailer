@@ -16,7 +16,7 @@ export type MainStackParamList = {
   };
   ListMedia: {
     type: 'movie' | 'tv';
-    subroute: 'now_playing' | 'upcoming' | 'top_rated' | 'airing_today';
+    title?: string;
   };
   PopularPeople: undefined;
   ActorDetail: {

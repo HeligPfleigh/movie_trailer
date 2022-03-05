@@ -1,9 +1,11 @@
 import {Box, MovieCard, SectionHeader} from '@movie_trailer/components';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {FlatList} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {HomeNavigationProps} from '../types';
 
 interface ITodayProps {
@@ -15,6 +17,7 @@ interface ITodayProps {
 
 const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   const navigation = useNavigation<HomeNavigationProps>();
+  const dispatch = useDispatch();
 
   const handlePressMedia = (id: number) => () =>
     navigation.navigate(NavigatorMap.MediaDetail, {id, type});
@@ -26,9 +29,15 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   );
 
   const handleSeeAll = () => {
+    dispatch(
+      loadInitial({
+        url: `${type}/${type === 'movie' ? 'now_playing' : 'airing_today'}`,
+      }),
+    );
+
     navigation.navigate(NavigatorMap.ListMedia, {
       type,
-      subroute: type === 'movie' ? 'now_playing' : 'airing_today',
+      title: 'Today',
     });
   };
 

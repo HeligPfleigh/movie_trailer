@@ -31,6 +31,7 @@ export interface IMovieOverview {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  first_air_date?: string; // tv only
 }
 
 export interface ITVOverview {
