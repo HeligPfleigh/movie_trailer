@@ -15,13 +15,18 @@ import {
   RootDrawerParamList,
 } from '@movie_trailer/navigations/types';
 import {RootState} from '@movie_trailer/store/rootReducer';
+import {
+  toggleMediaFavorite,
+  togglePersonFavorite,
+} from '@movie_trailer/store/slices/favoriteSlice';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import RemoveFavoritePopup from './RemoveFavoritePopup';
 
 type FavoriteScreenNavigationProps = CompositeScreenProps<
   NativeStackScreenProps<MainStackParamList, NavigatorMap.Favorite>,
@@ -40,10 +45,17 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
   const movies = useSelector((state: RootState) => state.favorite.movie);
   const tvShows = useSelector((state: RootState) => state.favorite.tv);
   const actors = useSelector((state: RootState) => state.favorite.person);
+  const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState<'movie' | 'person' | 'tv'>(
     'movie',
   );
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<
+    IMediaOverview | IActorOverview
+  >();
+
+  const toggleRemoveFavoritePopup = () => setOpenPopup(prev => !prev);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -56,8 +68,17 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
     }
   };
 
+  const handlePressFavoriteMedia = (item: IMediaOverview) => () => {
+    setSelectedItem(item);
+    toggleRemoveFavoritePopup();
+  };
+
   const renderItem = ({item}: {item: IMediaOverview}) => (
-    <MediaSearchCard {...item} onPress={handleNavigateToMediaDetail(item.id)} />
+    <MediaSearchCard
+      {...item}
+      onPress={handleNavigateToMediaDetail(item.id)}
+      onAction={handlePressFavoriteMedia(item)}
+    />
   );
 
   const handleNavigateToActorDetail = (id: number) => () =>
@@ -66,9 +87,39 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
       params: {id},
     });
 
+  const handlePressFavoriteActor = (item: IActorOverview) => () => {
+    setSelectedItem(item);
+    toggleRemoveFavoritePopup();
+  };
+
   const renderActorItem = ({item}: {item: IActorOverview}) => (
-    <ActorSearchCard {...item} onPress={handleNavigateToActorDetail(item.id)} />
+    <ActorSearchCard
+      {...item}
+      onPress={handleNavigateToActorDetail(item.id)}
+      onPressFavorite={handlePressFavoriteActor(item)}
+    />
   );
+
+  const handleConfirmRemoveFavorite = () => {
+    if (!selectedItem) {
+      return;
+    }
+
+    if (activeTab === 'movie' || activeTab === 'tv') {
+      dispatch(
+        toggleMediaFavorite({
+          ...(selectedItem as unknown as IMediaOverview),
+          type: activeTab,
+        }),
+      );
+    }
+
+    if (activeTab === 'person') {
+      dispatch(togglePersonFavorite(selectedItem as unknown as IActorOverview));
+    }
+
+    toggleRemoveFavoritePopup();
+  };
 
   const renderEmpty = (
     <Box center middle mt={5}>
@@ -142,6 +193,12 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
           ListEmptyComponent={renderEmpty}
         />
       )}
+
+      <RemoveFavoritePopup
+        open={openPopup}
+        onClose={toggleRemoveFavoritePopup}
+        onConfirm={handleConfirmRemoveFavorite}
+      />
     </Box>
   );
 };
