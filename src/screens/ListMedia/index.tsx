@@ -71,7 +71,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   });
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
-    <Box mr={index % 2 ? 0 : 1} mb={2}>
+    <Box mr={index % 2 ? 0 : 1} mb={2} flex={0.5}>
       <RecommendationCard {...item} onPress={handlePressMedia(item.id)} />
     </Box>
   );
