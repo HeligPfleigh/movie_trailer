@@ -33,7 +33,7 @@ export const initialState: ITVShowState = {
 export const fetchAringTodayTVShows = createAsyncThunk(
   'tvShow/fetchAringTodayTVShows',
   async () => {
-    const data = await getMediaOverview<ITVOverview>('tv', 'airing_today');
+    const data = await getMediaOverview<ITVOverview>('tv/airing_today');
     return data;
   },
 );
@@ -41,7 +41,7 @@ export const fetchAringTodayTVShows = createAsyncThunk(
 export const fetchRecommendationTVShows = createAsyncThunk(
   'tvShow/fetchRecommendationTVShows',
   async () => {
-    const data = await getMediaOverview<ITVOverview>('tv', 'top_rated');
+    const data = await getMediaOverview<ITVOverview>('tv/top_rated');
     return data;
   },
 );

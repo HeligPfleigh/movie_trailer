@@ -21,6 +21,7 @@ import PersonPopular from './Sections/PersonPopular';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -46,9 +47,11 @@ const MovieTab = () => {
   }, [dispatch]);
 
   const handleSeeAll = () => {
-    navigation.navigate(NavigatorMap.ListMedia, {
+    dispatch(loadInitial({url: 'movie/top_rated'}));
+
+    navigation.push(NavigatorMap.ListMedia, {
       type: 'movie',
-      subroute: 'top_rated',
+      title: 'Recommendation',
     });
   };
 

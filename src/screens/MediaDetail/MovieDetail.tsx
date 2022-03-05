@@ -18,6 +18,7 @@ import Trailers from './Sections/Trailers';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
+import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -61,6 +62,17 @@ const MovieDetail: React.FC = () => {
           genres: movie.genres.map(item => item.name).join('/ '),
         }),
       );
+    }
+  };
+
+  const handleSeeAll = () => {
+    if (movie) {
+      dispatch(loadInitial({url: `movie/${id}/recommendations`}));
+
+      navigation.push(NavigatorMap.ListMedia, {
+        type: 'movie',
+        title: 'Recommendation',
+      });
     }
   };
 
@@ -130,7 +142,11 @@ const MovieDetail: React.FC = () => {
       <Trailers videos={movie.videos.results} />
 
       <Box flex={false} ml={2} mr={2} mt={2}>
-        <SectionB medias={medias} onPressMedia={handlePressMedia} />
+        <SectionB
+          medias={medias}
+          onPressMedia={handlePressMedia}
+          onSeeAll={handleSeeAll}
+        />
       </Box>
     </Box>
   );

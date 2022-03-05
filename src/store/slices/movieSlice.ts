@@ -27,7 +27,7 @@ export const initialState: IMovieState = {
 export const fetchNowPlayingMovies = createAsyncThunk(
   'movie/fetchNowPlayingMovies',
   async () => {
-    const data = await getMediaOverview<IMovieOverview>('movie', 'now_playing');
+    const data = await getMediaOverview<IMovieOverview>('movie/now_playing');
     return data;
   },
 );
@@ -35,7 +35,7 @@ export const fetchNowPlayingMovies = createAsyncThunk(
 export const fetchUpcomingMovies = createAsyncThunk(
   'movie/fetchUpcomingMovies',
   async () => {
-    const data = await getMediaOverview<IMovieOverview>('movie', 'upcoming');
+    const data = await getMediaOverview<IMovieOverview>('movie/upcoming');
     return data;
   },
 );
@@ -43,7 +43,7 @@ export const fetchUpcomingMovies = createAsyncThunk(
 export const fetchRecommendationMovies = createAsyncThunk(
   'movie/fetchRecommendationMovies',
   async () => {
-    const data = await getMediaOverview<IMovieOverview>('movie', 'top_rated');
+    const data = await getMediaOverview<IMovieOverview>('movie/top_rated');
     return data;
   },
 );

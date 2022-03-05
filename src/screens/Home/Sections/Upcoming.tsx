@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Box, SectionHeader} from '@movie_trailer/components';
 import {IMovieOverview} from '@movie_trailer/core/types';
@@ -10,6 +10,7 @@ import {upcomingMoviesSelector} from '@movie_trailer/store/selectors/movie';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from '../types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 
 const styles = StyleSheet.create({
   singleImage: {
@@ -31,11 +32,14 @@ const Upcoming: React.FC = () => {
   const movies = useSelector(upcomingMoviesSelector);
 
   const navigation = useNavigation<HomeNavigationProps>();
+  const dispatch = useDispatch();
 
   const handleSeeAll = () => {
-    navigation.navigate(NavigatorMap.ListMedia, {
+    dispatch(loadInitial({url: 'movie/upcoming'}));
+
+    navigation.push(NavigatorMap.ListMedia, {
       type: 'movie',
-      subroute: 'upcoming',
+      title: 'Upcoming Movies',
     });
   };
 

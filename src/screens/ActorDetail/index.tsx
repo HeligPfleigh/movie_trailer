@@ -27,6 +27,7 @@ import {RootState} from '@movie_trailer/store/rootReducer';
 import Heart from '@movie_trailer/assets/icons/Heart';
 import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
+import {loadCredits} from '@movie_trailer/store/slices/mediaListSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -96,6 +97,28 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           thumbnail: `${IMAGE_SERVER}${actor.profile_path}`,
         }),
       );
+    }
+  };
+
+  const handleSeeAllTVCredits = () => {
+    if (actor) {
+      dispatch(loadCredits({url: `/person/${actor.id}/tv_credits`}));
+
+      navigation.push(NavigatorMap.ListMedia, {
+        type: 'tv',
+        title: 'Recommendation',
+      });
+    }
+  };
+
+  const handleSeeAllMovieCredits = () => {
+    if (actor) {
+      dispatch(loadCredits({url: `/person/${actor.id}/movie_credits`}));
+
+      navigation.push(NavigatorMap.ListMedia, {
+        type: 'movie',
+        title: 'Recommendation',
+      });
     }
   };
 
@@ -183,7 +206,10 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           {/** TODO: add galery section */}
 
           <Box mt={5.5} ml={2} mb={2} flex={false}>
-            <TVSection tvs={actor.tv_credits.cast} />
+            <TVSection
+              tvs={actor.tv_credits.cast}
+              onSeeAllTVCredits={handleSeeAllTVCredits}
+            />
           </Box>
 
           <Box mt={5.5} ml={2} mb={2} flex={false}>
@@ -191,6 +217,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
               medias={movies}
               title="Movie"
               onPressMedia={handlePressMovie}
+              onSeeAll={handleSeeAllMovieCredits}
             />
           </Box>
         </>
