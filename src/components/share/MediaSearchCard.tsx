@@ -19,6 +19,7 @@ interface IMediaSearchCardProps {
   time: string;
   favorite?: boolean;
   onPress?: () => void;
+  onAction?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -73,6 +74,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
   time,
   favorite,
   onPress,
+  onAction,
 }: IMediaSearchCardProps) => {
   let icon = favorite ? (
     <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
@@ -129,9 +131,11 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
         </Box>
 
         <Box flex={false} middle>
-          <Box flex={false} style={[styles.favorite, {backgroundColor}]}>
+          <TouchableOpacity
+            style={[styles.favorite, {backgroundColor}]}
+            onPress={onAction}>
             {icon}
-          </Box>
+          </TouchableOpacity>
         </Box>
       </Box>
     </TouchableOpacity>

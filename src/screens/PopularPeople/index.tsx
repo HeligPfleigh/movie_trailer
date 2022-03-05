@@ -1,9 +1,6 @@
-import ArrowDown from '@movie_trailer/assets/icons/ArrowDown';
-import Filter from '@movie_trailer/assets/icons/Filter';
 import {
   AppBar,
   Box,
-  FilterPopup,
   HomeBackground,
   Typography,
 } from '@movie_trailer/components';
@@ -11,19 +8,14 @@ import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import {IActorOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {RootState} from '@movie_trailer/store/rootReducer';
+import {popularPeopleSelector} from '@movie_trailer/store/selectors/popularPeople';
 import {
   loadInitial,
   loadMore,
 } from '@movie_trailer/store/slices/popularPeopleSlice';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  LayoutChangeEvent,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {PopularPeopleScreenProps} from './types';
 
@@ -62,10 +54,7 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   const totalPage = useSelector(
     (state: RootState) => state.popularPeople.total_pages,
   );
-  const people = useSelector((state: RootState) => state.popularPeople.results);
-  const [filterMode, setFilterMode] = useState<
-    'rating.desc' | 'title.desc' | 'title.asc'
-  >('title.asc');
+  const people = useSelector(popularPeopleSelector);
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
 
   const handleNavigateToActorDetail = (id: number) => () =>
@@ -78,17 +67,6 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   useEffect(() => {
     dispatch(loadInitial({}));
   }, [dispatch]);
-
-  const [filterPosition, setFilterPosition] = useState<number>(0);
-  const [openFilter, setOpenFilter] = useState<boolean>(false);
-
-  const toggleFilter = () => {
-    setOpenFilter(prev => !prev);
-  };
-
-  const handleLayout = (event: LayoutChangeEvent) => {
-    setFilterPosition(event.nativeEvent.layout.y + 64);
-  };
 
   const handleLoadMore = () => {
     if (
@@ -117,20 +95,10 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
         </Typography>
       </Box>
 
-      <Box flex={false} style={styles.filterContainer} onLayout={handleLayout}>
+      <Box flex={false} style={styles.filterContainer}>
         <Typography variant="caps1" color={colors.white}>
           {`${totalResult} item${totalResult !== 1 ? '(s)' : ''}`}
         </Typography>
-
-        <TouchableOpacity style={styles.filterBtn} onPress={toggleFilter}>
-          <Filter />
-          <Box flex={false} ml={1} mr={1}>
-            <Typography variant="caps1" color={colors.white}>
-              Filter
-            </Typography>
-          </Box>
-          <ArrowDown />
-        </TouchableOpacity>
       </Box>
 
       <FlatList
@@ -146,14 +114,6 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
         ListFooterComponent={
           currentPage < totalPage ? <ActivityIndicator /> : null
         }
-      />
-
-      <FilterPopup
-        open={openFilter}
-        top={filterPosition}
-        onClose={toggleFilter}
-        selected={filterMode}
-        onSelectFilter={setFilterMode}
       />
     </Box>
   );

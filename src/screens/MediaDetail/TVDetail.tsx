@@ -11,16 +11,20 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {ITVDetail} from '@movie_trailer/core/types';
 import {getTVDetail, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import Calendar from '@movie_trailer/assets/icons/Calendar';
-// import AccessTime from '@movie_trailer/assets/icons/AccessTime';
 import Credit from './Sections/Credit';
 import PosterCarousel from './Sections/PosterCarousel';
 import Trailers from './Sections/Trailers';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@movie_trailer/store/rootReducer';
+import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 
 const TVDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
   const navigation = useNavigation<MediaDetailNavigationProps>();
   const [tvShow, setTVShow] = useState<ITVDetail>();
   const {id} = route.params;
+  const favoriteTVs = useSelector((state: RootState) => state.favorite.tv);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadData = async () => {
@@ -38,8 +42,24 @@ const TVDetail: React.FC = () => {
     loadData();
   }, [id]);
 
-  const handlePressMedia = (movieId: number) =>
-    navigation.push(NavigatorMap.MediaDetail, {id: movieId, type: 'movie'});
+  const handlePressMedia = (tvId: number) =>
+    navigation.push(NavigatorMap.MediaDetail, {id: tvId, type: 'tv'});
+
+  const handleToggleFavorite = () => {
+    if (tvShow) {
+      dispatch(
+        toggleMediaFavorite({
+          id: tvShow.id,
+          type: 'tv',
+          poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
+          title: tvShow.name,
+          rating: tvShow.vote_average,
+          time: tvShow.first_air_date,
+          genres: tvShow.genres.map(item => item.name).join('/ '),
+        }),
+      );
+    }
+  };
 
   if (!tvShow) {
     return (
@@ -65,9 +85,15 @@ const TVDetail: React.FC = () => {
     2,
   ).slice(0, 3);
 
+  const isFavorite = Boolean(favoriteTVs.find(item => item.id === id));
+
   return (
     <Box>
-      <PosterCarousel posters={tvShow.images.posters} />
+      <PosterCarousel
+        posters={tvShow.images.posters}
+        isFavorite={isFavorite}
+        onToggleFavorite={handleToggleFavorite}
+      />
       <Box mt={2} ml={2} mr={2} center flex={false}>
         <Typography variant="h4" color={colors.white} fontWeight="600">
           {tvShow.name}

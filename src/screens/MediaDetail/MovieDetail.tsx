@@ -15,12 +15,19 @@ import AccessTime from '@movie_trailer/assets/icons/AccessTime';
 import Credit from './Sections/Credit';
 import PosterCarousel from './Sections/PosterCarousel';
 import Trailers from './Sections/Trailers';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@movie_trailer/store/rootReducer';
+import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
   const navigation = useNavigation<MediaDetailNavigationProps>();
   const [movie, setMovie] = useState<IMovieDetail>();
   const {id} = route.params;
+  const favoriteMovies = useSelector(
+    (state: RootState) => state.favorite.movie,
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadData = async () => {
@@ -40,6 +47,22 @@ const MovieDetail: React.FC = () => {
 
   const handlePressMedia = (movieId: number) =>
     navigation.push(NavigatorMap.MediaDetail, {id: movieId, type: 'movie'});
+
+  const handleToggleFavorite = () => {
+    if (movie) {
+      dispatch(
+        toggleMediaFavorite({
+          id: movie.id,
+          type: 'movie',
+          poster: `${IMAGE_SERVER}${movie.poster_path}`,
+          title: movie.title,
+          rating: movie.vote_average,
+          time: movie.release_date,
+          genres: movie.genres.map(item => item.name).join('/ '),
+        }),
+      );
+    }
+  };
 
   if (!movie) {
     return (
@@ -65,9 +88,15 @@ const MovieDetail: React.FC = () => {
     2,
   ).slice(0, 3);
 
+  const isFavorite = Boolean(favoriteMovies.find(item => item.id === id));
+
   return (
     <Box>
-      <PosterCarousel posters={movie.images.posters} />
+      <PosterCarousel
+        posters={movie.images.posters}
+        isFavorite={isFavorite}
+        onToggleFavorite={handleToggleFavorite}
+      />
 
       <Box mt={2} ml={2} mr={2} center flex={false}>
         <Typography variant="h4" color={colors.white} fontWeight="600">
