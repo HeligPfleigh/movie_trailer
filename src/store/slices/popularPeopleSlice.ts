@@ -1,6 +1,6 @@
 import {getPopularPeople, IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {IActorOverview, IPagination} from '@movie_trailer/core/types';
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
 
 export type IPopularPeopleState = {
@@ -71,7 +71,14 @@ export const initialState: IPopularPeopleState = {
 const popularPeopleSlice = createSlice({
   name: 'popularPeople',
   initialState,
-  reducers: {},
+  reducers: {
+    loadCredits: (state, action: PayloadAction<Array<IActorOverview>>) => {
+      state.data.page = 1;
+      state.data.results = action.payload;
+      state.data.total_pages = 1;
+      state.data.total_results = action.payload.length;
+    },
+  },
   extraReducers: (builder): void => {
     builder.addCase(loadInitial.pending, () => {
       return {...initialState, loading: true};
@@ -98,6 +105,6 @@ const popularPeopleSlice = createSlice({
   },
 });
 
-export const {} = popularPeopleSlice.actions;
+export const {loadCredits} = popularPeopleSlice.actions;
 
 export default popularPeopleSlice.reducer;

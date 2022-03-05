@@ -9,10 +9,13 @@ import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useNavigation} from '@react-navigation/native';
 import {MediaDetailNavigationProps} from '../types';
+import {loadCredits} from '@movie_trailer/store/slices/popularPeopleSlice';
+import {useDispatch} from 'react-redux';
 
 interface ICreditProps {
   cast: Array<Omit<IPeopleOverview, 'known_for'>>;
   crew: Array<Omit<IPeopleOverview, 'known_for'>>;
+  name: string;
 }
 
 const styles = StyleSheet.create({
@@ -43,11 +46,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const Credit: React.FC<ICreditProps> = ({cast, crew}: ICreditProps) => {
+const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
   const navigation = useNavigation<MediaDetailNavigationProps>();
+  const dispatch = useDispatch();
 
   const handlePressImage = (id: number) => () => {
     navigation.push(NavigatorMap.ActorDetail, {id});
+  };
+
+  const handleSeeAll = () => {
+    dispatch(
+      loadCredits(
+        [...cast, ...crew].map(item => ({
+          id: item.id,
+          department: item.known_for_department,
+          name: item.name,
+          thumbnail: `${IMAGE_SERVER}${item.profile_path}`,
+        })),
+      ),
+    );
+    navigation.push(NavigatorMap.PopularPeople, {title: `${name}'s credits`});
   };
 
   const information = [
@@ -73,11 +91,13 @@ const Credit: React.FC<ICreditProps> = ({cast, crew}: ICreditProps) => {
   }));
 
   const moreImage = (
-    <Box flex={false} style={[styles.image, styles.moreImage]}>
+    <TouchableOpacity
+      style={[styles.image, styles.moreImage]}
+      onPress={handleSeeAll}>
       <Typography variant="b4" color={colors.white}>
         {`+${images.length - 4}`}
       </Typography>
-    </Box>
+    </TouchableOpacity>
   );
 
   return (

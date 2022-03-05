@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
 
 const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   navigation,
+  route,
 }: PopularPeopleScreenProps) => {
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
   );
   const people = useSelector(popularPeopleSelector);
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
+  const {title} = route.params;
 
   const handleNavigateToActorDetail = (id: number) => () =>
     navigation.navigate(NavigatorMap.ActorDetail, {id});
@@ -81,7 +83,7 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
 
       <Box mt={2.5} ml={2} mb={2} flex={false}>
         <Typography variant="h4" color={colors.white} fontWeight="600">
-          Popular People
+          {title || 'Popular People'}
         </Typography>
       </Box>
 

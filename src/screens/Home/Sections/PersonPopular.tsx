@@ -34,7 +34,7 @@ const PersonPopular: React.FC = () => {
 
   const handleNavigateToPersonPopular = () => {
     dispatch(loadInitial());
-    navigation.push(NavigatorMap.PopularPeople);
+    navigation.push(NavigatorMap.PopularPeople, {title: 'Popular People'});
   };
 
   return (
