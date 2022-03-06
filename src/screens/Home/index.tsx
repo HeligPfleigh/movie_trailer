@@ -15,6 +15,7 @@ import {
   fetchTVShowGenres,
 } from '@movie_trailer/store/slices/genreSlice';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import SplashScreen from 'react-native-splash-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +35,10 @@ function HomeScreen({navigation, route}: HomeScreenProps) {
   useEffect(() => {
     setActiveTab(route.params.type);
   }, [route.params.type]);
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchMovieGenres());
