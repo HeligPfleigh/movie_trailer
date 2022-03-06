@@ -106,7 +106,7 @@ export interface IActorDetail {
     crew: Array<unknown>;
   };
   images: {
-    profiles: Array<{file_path: string}>;
+    profiles: Array<IImage>;
   };
 }
 

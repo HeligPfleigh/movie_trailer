@@ -28,6 +28,7 @@ import Heart from '@movie_trailer/assets/icons/Heart';
 import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {loadCredits} from '@movie_trailer/store/slices/mediaListSlice';
+import Gallery from './Gallery';
 
 const styles = StyleSheet.create({
   container: {
@@ -203,7 +204,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
             value={actor.movie_credits.cast.length}
           />
 
-          {/** TODO: add galery section */}
+          <Gallery images={actor.images.profiles} />
 
           <Box mt={5.5} ml={2} mb={2} flex={false}>
             <TVSection
