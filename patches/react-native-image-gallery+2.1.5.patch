@@ -1,0 +1,71 @@
+diff --git a/node_modules/react-native-image-gallery/src/Gallery.js b/node_modules/react-native-image-gallery/src/Gallery.js
+index 5cc4835..4955fc5 100644
+--- a/node_modules/react-native-image-gallery/src/Gallery.js
++++ b/node_modules/react-native-image-gallery/src/Gallery.js
+@@ -55,7 +55,7 @@ export default class Gallery extends PureComponent {
+         this.activeImageResponder = this.activeImageResponder.bind(this);
+     }
+ 
+-    componentWillMount () {
++    UNSAFE_componentWillMount () {
+         let onResponderReleaseOrTerminate = (evt, gestureState) => {
+             if (this.activeResponder) {
+                 if (this.activeResponder === this.viewPagerResponder &&
+diff --git a/node_modules/react-native-image-gallery/src/libraries/TransformableImage/index.js b/node_modules/react-native-image-gallery/src/libraries/TransformableImage/index.js
+index 8ff8469..a691492 100644
+--- a/node_modules/react-native-image-gallery/src/libraries/TransformableImage/index.js
++++ b/node_modules/react-native-image-gallery/src/libraries/TransformableImage/index.js
+@@ -51,7 +51,7 @@ export default class TransformableImage extends PureComponent {
+         };
+     }
+ 
+-    componentWillMount () {
++    UNSAFE_componentWillMount () {
+         if (!this.state.imageDimensions) {
+             this.getImageSize(this.props.image);
+         }
+@@ -61,7 +61,7 @@ export default class TransformableImage extends PureComponent {
+         this._mounted = true;
+     }
+ 
+-    componentWillReceiveProps (nextProps) {
++    UNSAFE_componentWillReceiveProps (nextProps) {
+         if (!sameImage(this.props.image, nextProps.image)) {
+             // image source changed, clear last image's imageDimensions info if any
+             this.setState({ imageDimensions: nextProps.image.dimensions, keyAcumulator: this.state.keyAcumulator + 1 });
+diff --git a/node_modules/react-native-image-gallery/src/libraries/ViewPager/index.js b/node_modules/react-native-image-gallery/src/libraries/ViewPager/index.js
+index b786ad1..508caa2 100644
+--- a/node_modules/react-native-image-gallery/src/libraries/ViewPager/index.js
++++ b/node_modules/react-native-image-gallery/src/libraries/ViewPager/index.js
+@@ -87,7 +87,7 @@ export default class ViewPager extends PureComponent {
+         });
+     }
+ 
+-    componentWillMount () {
++    UNSAFE_componentWillMount () {
+         this.gestureResponder = createResponder({
+             onStartShouldSetResponder: (evt, gestureState) => true,
+             onResponderGrant: this.onResponderGrant,
+diff --git a/node_modules/react-native-image-gallery/src/libraries/ViewTransformer/index.js b/node_modules/react-native-image-gallery/src/libraries/ViewTransformer/index.js
+index f919e99..1378f23 100644
+--- a/node_modules/react-native-image-gallery/src/libraries/ViewTransformer/index.js
++++ b/node_modules/react-native-image-gallery/src/libraries/ViewTransformer/index.js
+@@ -95,7 +95,7 @@ export default class ViewTransformer extends React.Component {
+         return new Transform(this.state.scale, this.state.translateX, this.state.translateY);
+     }
+ 
+-    componentWillMount () {
++    UNSAFE_componentWillMount () {
+         this.gestureResponder = createResponder({
+             onStartShouldSetResponder: (evt, gestureState) => true,
+             onMoveShouldSetResponderCapture: (evt, gestureState) => true,
+@@ -375,7 +375,8 @@ export default class ViewTransformer extends React.Component {
+             {
+                 toValue: 1,
+                 duration: duration,
+-                easing: Easing.inOut(Easing.ease)
++                easing: Easing.inOut(Easing.ease),
++                useNativeDriver: false,
+             }
+         ).start();
+     }
