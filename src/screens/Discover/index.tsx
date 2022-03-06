@@ -54,14 +54,12 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   const header = useHeader();
   const dispatch = useDispatch();
   const {type, with_genres} = route.params;
-  const medias = useSelector((state: RootState) => state.discover.results);
+  const medias = useSelector((state: RootState) => state.discover.data.results);
   const totalResult = useSelector(
-    (state: RootState) => state.discover.total_results,
+    (state: RootState) => state.discover.data.total_results,
   );
-  const currentPage = useSelector((state: RootState) => state.discover.page);
-  const totalPage = useSelector(
-    (state: RootState) => state.discover.total_pages,
-  );
+  const loading = useSelector((state: RootState) => state.discover.loading);
+
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
   const [filterMode, setFilterMode] = useState<
     'rating.desc' | 'title.desc' | 'title.asc'
@@ -92,33 +90,23 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
     if (filterMode === 'title.asc' && type === 'tv') {
       return 'name.asc';
     }
+
+    return 'vote_average.desc';
   }, [filterMode, type]);
 
   useEffect(() => {
-    const params = {with_genres, sort_by: sortBy};
     dispatch(
       loadInitial({
         type,
-        params,
+        genre: with_genres,
+        sortBy,
       }),
     );
   }, [type, with_genres, dispatch, sortBy]);
 
   const handleLoadMore = () => {
-    if (
-      !onEndReachedCalledDuringMomentumRef.current &&
-      currentPage < totalPage
-    ) {
-      dispatch(
-        loadMore({
-          type,
-          params: {
-            with_genres,
-            page: currentPage + 1,
-            sort_by: sortBy,
-          },
-        }),
-      );
+    if (!onEndReachedCalledDuringMomentumRef.current) {
+      dispatch(loadMore());
       onEndReachedCalledDuringMomentumRef.current = true;
     }
   };
@@ -185,10 +173,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
           onMomentumScrollBegin={() => {
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
-          ListFooterComponent={
-            currentPage < totalPage ? <ActivityIndicator /> : null
-          }
-          removeClippedSubviews
+          ListFooterComponent={loading ? <ActivityIndicator /> : null}
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           updateCellsBatchingPeriod={30}
