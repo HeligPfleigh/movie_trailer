@@ -55,6 +55,15 @@ const MovieTab = () => {
     });
   };
 
+  const handleSeeAllUpcoming = () => {
+    dispatch(loadInitial({url: 'movie/upcoming'}));
+
+    navigation.push(NavigatorMap.ListMedia, {
+      type: 'movie',
+      title: 'Upcoming',
+    });
+  };
+
   const handlePressMedia = (id: number) =>
     navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'movie'});
 
@@ -73,7 +82,7 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} center mb={5}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSeeAllUpcoming}>
           <Box flex={false} center style={styles.seeAllBtn}>
             <Typography variant="caps1" color={colors.white}>
               See All

@@ -4,7 +4,7 @@ import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {IImage} from '@movie_trailer/core/types';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-gallery';
 import Modal from 'react-native-modal';
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   closeIcon: {
     position: 'absolute',
     left: spacing(2),
-    top: spacing(2),
+    top: spacing(Platform.OS === 'ios' ? 5 : 2),
     zIndex: 2,
   },
 });
