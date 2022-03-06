@@ -41,6 +41,8 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+# temporary save this file
+!movie-trailer.keystore
 
 # fastlane
 #
