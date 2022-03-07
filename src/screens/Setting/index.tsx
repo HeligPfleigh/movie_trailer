@@ -10,7 +10,7 @@ import {
 } from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Linking, Platform, Share, StyleSheet} from 'react-native';
 import SettingItem from './SettingItem';
 
 const styles = StyleSheet.create({
@@ -22,7 +22,28 @@ const styles = StyleSheet.create({
   },
 });
 
+const APP_ID = 'demo';
+const googlePlayLink =
+  'https://play.google.com/store/apps/details?id=com.movie.trailer';
+const appleStoreLink = `https://itunes.apple.com/us/app/id/${APP_ID}`;
+
+const sharelink = Platform.OS === 'ios' ? appleStoreLink : googlePlayLink;
+const rateLink =
+  Platform.OS === 'ios'
+    ? `${appleStoreLink}&action=write-review`
+    : googlePlayLink;
+
 const SettingScreen: React.FC = () => {
+  const handlePressShare = () => {
+    Share.share({
+      message: `Check out this app! ${sharelink}`,
+    });
+  };
+
+  const handlePressRateAndReview = () => {
+    Linking.openURL(rateLink);
+  };
+
   const settings = [
     [
       {
@@ -32,7 +53,7 @@ const SettingScreen: React.FC = () => {
         color: colors.selago,
       },
       {
-        onPress: () => {},
+        onPress: handlePressRateAndReview,
         icon: (
           <StarIcon width={responsiveSize(32)} height={responsiveSize(32)} />
         ),
@@ -42,7 +63,7 @@ const SettingScreen: React.FC = () => {
     ],
     [
       {
-        onPress: () => {},
+        onPress: handlePressShare,
         icon: (
           <ShareIcon
             fill={colors.scooter}
@@ -54,7 +75,7 @@ const SettingScreen: React.FC = () => {
         color: colors.whiteIce,
       },
       {
-        onPress: () => {},
+        onPress: handlePressRateAndReview,
         icon: <HeartFillIcon />,
         title: 'Feedback',
         color: colors.cinderella,
