@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
+import {Dimensions, Linking, StyleSheet, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import {Box, Typography} from '@movie_trailer/components';
@@ -10,10 +10,12 @@ import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import Star from '@movie_trailer/assets/icons/Star';
 import HeartFill from '@movie_trailer/assets/icons/HeartFill';
 import Heart from '@movie_trailer/assets/icons/Heart';
+import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 
 interface IPosterCarouselProps {
   posters: IImage[];
   isFavorite?: boolean;
+  homepage: string | null;
   onToggleFavorite?: () => void;
 }
 
@@ -44,13 +46,25 @@ const styles = StyleSheet.create({
     bottom: responsiveSize(8),
     right: responsiveSize(8),
   },
+  playBtn: {
+    top: responsiveSize(170),
+    left: responsiveSize(115),
+    position: 'absolute',
+  },
 });
 
 const PosterCarousel: React.FC<IPosterCarouselProps> = ({
   posters,
   isFavorite,
+  homepage,
   onToggleFavorite,
 }: IPosterCarouselProps) => {
+  const handleOpenHomepage = () => {
+    if (homepage) {
+      Linking.openURL(homepage);
+    }
+  };
+
   let icon = isFavorite ? (
     <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
   ) : (
@@ -61,7 +75,8 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
     ? 'rgba(255, 31, 31, 0.3)'
     : 'rgba(255, 255, 255, 0.3)';
 
-  const renderCarouselItem = ({item}: {item: IImage}) => {
+  const renderCarouselItem = ({item, index}: {item: IImage; index: number}) => {
+    const displayPlayBtn = Boolean(homepage) && index === 0;
     return (
       <Box flex={false} style={styles.carouselItemContainer}>
         <FastImage
@@ -69,6 +84,15 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
           style={styles.carouselItemContainer}
           resizeMode={FastImage.resizeMode.cover}
         />
+
+        {displayPlayBtn && (
+          <TouchableOpacity style={styles.playBtn} onPress={handleOpenHomepage}>
+            <PlayCircleFill2
+              width={responsiveSize(56)}
+              height={responsiveSize(56)}
+            />
+          </TouchableOpacity>
+        )}
 
         <Box flex={false} style={styles.badge}>
           <Star />

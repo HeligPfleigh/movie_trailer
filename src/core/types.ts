@@ -153,6 +153,7 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
     logos: Array<IImage>;
   };
   seasons: Array<ISeasonOverview>;
+  homepage: string | null;
 }
 
 export interface IMovieDetail
@@ -172,4 +173,5 @@ export interface IMovieDetail
     posters: Array<IImage>;
     logos: Array<IImage>;
   };
+  homepage: string | null;
 }

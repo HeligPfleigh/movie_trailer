@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import FastImage from 'react-native-fast-image';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Box, MediaSearchCard, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import PlayCircleFill from '@movie_trailer/assets/icons/PlayCircleFill';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import {fetchLatestTVShow} from '@movie_trailer/store/slices/tvShowSlice';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
+import {IVideo} from '@movie_trailer/core/types';
 
 const styles = StyleSheet.create({
   heroImage: {
@@ -38,15 +38,23 @@ const styles = StyleSheet.create({
 
 const LatestShows: React.FC = () => {
   const latestShow = useSelector((state: RootState) => state.tvShow.latest);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchLatestTVShow());
-  }, [dispatch]);
 
   if (!latestShow) {
     return null;
   }
+
+  const handleOpenYoutube = (media?: IVideo) => () => {
+    if (media && media.site === 'YouTube') {
+      const url = `https://www.youtube.com/watch?v=${media.key}`;
+      Linking.openURL(url);
+    }
+  };
+
+  const handleOpenTVShow = () => {
+    if (latestShow.homepage) {
+      Linking.openURL(latestShow.homepage);
+    }
+  };
 
   const genres = latestShow.genres.map(genre => genre.name).join(', ');
 
@@ -66,7 +74,7 @@ const LatestShows: React.FC = () => {
               {latestShow.name}
             </Typography>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleOpenTVShow}>
               <LinearGradient
                 colors={[colors.torchRed, '#E1334E']}
                 useAngle={true}
@@ -107,6 +115,8 @@ const LatestShows: React.FC = () => {
               time={`${Math.floor(media.size / 3600)}h${Math.round(
                 (media.size % 3600) / 60,
               )}p`}
+              onPress={handleOpenYoutube(media)}
+              onAction={handleOpenYoutube(media)}
             />
           </Box>
         ))}
