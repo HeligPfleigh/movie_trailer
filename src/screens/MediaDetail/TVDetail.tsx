@@ -105,6 +105,7 @@ const TVDetail: React.FC = () => {
       <PosterCarousel
         posters={tvShow.images.posters}
         isFavorite={isFavorite}
+        homepage={tvShow.homepage}
         onToggleFavorite={handleToggleFavorite}
       />
       <Box mt={2} ml={2} mr={2} center flex={false}>

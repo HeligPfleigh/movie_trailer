@@ -107,6 +107,7 @@ const MovieDetail: React.FC = () => {
       <PosterCarousel
         posters={movie.images.posters}
         isFavorite={isFavorite}
+        homepage={movie.homepage}
         onToggleFavorite={handleToggleFavorite}
       />
 

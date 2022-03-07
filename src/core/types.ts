@@ -173,4 +173,5 @@ export interface IMovieDetail
     posters: Array<IImage>;
     logos: Array<IImage>;
   };
+  homepage: string | null;
 }

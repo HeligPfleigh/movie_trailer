@@ -2,7 +2,7 @@ import * as React from 'react';
 import Svg, {SvgProps, Circle, Path} from 'react-native-svg';
 
 const PlayCircleFill2 = (props: SvgProps) => (
-  <Svg width={36} height={36} fill="none" {...props}>
+  <Svg width={36} height={36} viewBox="0 0 36 36" fill="none" {...props}>
     <Circle opacity={0.3} cx={18} cy={18} r={18} fill="#FF1F1F" />
     <Circle cx={18} cy={18} r={6.667} fill="#fff" />
     <Path
