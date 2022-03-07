@@ -35,6 +35,7 @@ const TvShowTab = () => {
       .then(unwrapResult)
       .then(data => {
         const heroId = data.results?.[0]?.id;
+
         dispatch(fetchHeroTVShow({id: heroId}));
       });
   }, [dispatch]);
