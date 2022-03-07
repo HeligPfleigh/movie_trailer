@@ -1,4 +1,4 @@
-import {getLatestTVShow, getMediaOverview} from '@movie_trailer/core/apis';
+import {getHeroTVShow, getMediaOverview} from '@movie_trailer/core/apis';
 import {
   IMediaPagination,
   ITVDetail,
@@ -46,10 +46,10 @@ export const fetchRecommendationTVShows = createAsyncThunk(
   },
 );
 
-export const fetchLatestTVShow = createAsyncThunk(
-  'tvShow/fetchLatestTVShow',
-  async () => {
-    const data = await getLatestTVShow();
+export const fetchHeroTVShow = createAsyncThunk(
+  'tvShow/fetchHeroTVShow',
+  async ({id}: {id: number}) => {
+    const data = await getHeroTVShow(id);
     return data;
   },
 );
@@ -67,7 +67,7 @@ const tvShowSlice = createSlice({
       state.recommendation = action.payload;
     });
 
-    builder.addCase(fetchLatestTVShow.fulfilled, (state, action) => {
+    builder.addCase(fetchHeroTVShow.fulfilled, (state, action) => {
       state.latest = action.payload;
     });
   },

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import FastImage from 'react-native-fast-image';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
@@ -6,9 +6,8 @@ import {Box, MediaSearchCard, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import PlayCircleFill from '@movie_trailer/assets/icons/PlayCircleFill';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import {fetchLatestTVShow} from '@movie_trailer/store/slices/tvShowSlice';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 
 const styles = StyleSheet.create({
@@ -38,11 +37,6 @@ const styles = StyleSheet.create({
 
 const LatestShows: React.FC = () => {
   const latestShow = useSelector((state: RootState) => state.tvShow.latest);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchLatestTVShow());
-  }, [dispatch]);
 
   if (!latestShow) {
     return null;

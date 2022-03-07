@@ -81,17 +81,18 @@ export const getActorDetails = async (id: number): Promise<IActorDetail> => {
   return data;
 };
 
-export const getLatestTVShow = async (): Promise<ITVDetail> => {
-  const {
-    data: {id},
-  } = await instance.get('tv/latest');
+export const getHeroTVShow = async (id: number): Promise<ITVDetail> => {
+  // const {
+  //   data: {id},
+  // } = await instance.get('tv/latest');
 
-  const {data} = await instance.get(`tv/${id}`, {
-    params: {
-      append_to_response: 'videos',
-    },
-  });
-  return data;
+  // const {data} = await instance.get(`tv/${id}`, {
+  //   params: {
+  //     append_to_response: 'videos',
+  //   },
+  // });
+
+  return getTVDetail(id);
 };
 
 export const getMovieDetail = async (id: number): Promise<IMovieDetail> => {
