@@ -118,18 +118,27 @@ const MovieDetail: React.FC = () => {
       </Box>
 
       <Box mt={0.5} ml={2} mr={2} flex={false} row middle>
-        <Calendar />
-        <Box flex={false} mr={2}>
-          <Typography variant="h1" color={colors.catskillWhite}>
-            {dayjs(movie.release_date).format('MMM DD, YYYY')}
-          </Typography>
-        </Box>
-        <AccessTime />
-        <Box flex={false}>
-          <Typography variant="h1" color={colors.catskillWhite}>
-            {`${Math.round(movie.runtime / 60)}h${movie.runtime % 60}`}
-          </Typography>
-        </Box>
+        {Boolean(movie.release_date) && (
+          <>
+            <Calendar />
+            <Box flex={false} mr={2} ml={0.5}>
+              <Typography variant="h1" color={colors.catskillWhite}>
+                {dayjs(movie.release_date).format('MMM DD, YYYY')}
+              </Typography>
+            </Box>
+          </>
+        )}
+
+        {Boolean(movie.runtime) && (
+          <>
+            <AccessTime />
+            <Box flex={false} ml={0.5}>
+              <Typography variant="h1" color={colors.catskillWhite}>
+                {`${Math.round(movie.runtime / 60)}h${movie.runtime % 60}`}
+              </Typography>
+            </Box>
+          </>
+        )}
       </Box>
 
       <Credit
