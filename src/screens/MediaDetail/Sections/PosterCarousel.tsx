@@ -76,6 +76,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
     : 'rgba(255, 255, 255, 0.3)';
 
   const renderCarouselItem = ({item, index}: {item: IImage; index: number}) => {
+    const displayPlayBtn = Boolean(homepage) && index === 0;
     return (
       <Box flex={false} style={styles.carouselItemContainer}>
         <FastImage
@@ -84,7 +85,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
           resizeMode={FastImage.resizeMode.cover}
         />
 
-        {index === 0 && (
+        {displayPlayBtn && (
           <TouchableOpacity style={styles.playBtn} onPress={handleOpenHomepage}>
             <PlayCircleFill2
               width={responsiveSize(56)}
