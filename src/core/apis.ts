@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Config from 'react-native-config';
+
 import {
   IGenre,
   IMovieOverview,
@@ -18,7 +20,7 @@ const instance = axios.create({
   baseURL: API_SERVER,
   timeout: 10000,
   params: {
-    api_key: 'd8c45b13d6456bea3bfd384f0e992ab7', // TODO: move to secret file
+    api_key: Config.API_KEY, // TODO: move to secret file
   },
 });
 

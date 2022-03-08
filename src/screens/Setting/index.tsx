@@ -11,6 +11,7 @@ import {
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {Linking, Platform, Share, StyleSheet} from 'react-native';
+import Config from 'react-native-config';
 import SettingItem from './SettingItem';
 
 const styles = StyleSheet.create({
@@ -22,10 +23,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const APP_ID = 'demo';
-const googlePlayLink =
-  'https://play.google.com/store/apps/details?id=com.movie.trailer';
-const appleStoreLink = `https://itunes.apple.com/us/app/id/${APP_ID}`;
+const googlePlayLink = `https://play.google.com/store/apps/details?id=${Config.GOOGLEPLAY_ID}`;
+const appleStoreLink = `https://itunes.apple.com/us/app/id/${Config.APPSTORE_ID}`;
 
 const sharelink = Platform.OS === 'ios' ? appleStoreLink : googlePlayLink;
 const rateLink =
