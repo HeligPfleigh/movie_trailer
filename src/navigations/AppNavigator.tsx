@@ -55,6 +55,7 @@ const AppNavigator = () => {
       <Drawer.Navigator
         screenOptions={{
           headerShown: false,
+          swipeEnabled: false,
         }}
         drawerContent={props => <MovieTrailerDrawer {...props} />}>
         <Drawer.Group>
