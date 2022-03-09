@@ -4,8 +4,13 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
-import {FlatList, View, Animated, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import Animated, {
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import {useDispatch} from 'react-redux';
 import {HomeNavigationProps} from '../types';
 
@@ -34,31 +39,22 @@ const styles = StyleSheet.create({
 const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   const navigation = useNavigation<HomeNavigationProps>();
   const dispatch = useDispatch();
+  const [completeScrollBarWidth, setCompleteScrollBarWidth] =
+    useState<number>(1);
 
-  const [completeScrollBarWidth, setCompleteScrollBarWidth] = useState(1);
-  const [visibleScrollBarWidth, setVisibleScrollBarWidth] = useState(0);
-  const scrollIndicator = useRef(new Animated.Value(0)).current;
+  const translateX = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translateX.value = event.contentOffset.x;
+  });
 
-  const scrollIndicatorSize =
-    completeScrollBarWidth > visibleScrollBarWidth
-      ? (visibleScrollBarWidth * visibleScrollBarWidth) / completeScrollBarWidth
-      : visibleScrollBarWidth;
-
-  const difference =
-    visibleScrollBarWidth > scrollIndicatorSize
-      ? visibleScrollBarWidth - scrollIndicatorSize
-      : 1;
-
-  const scrollIndicatorPosition = Animated.multiply(
-    scrollIndicator,
-    (INDICATOR_CONTAINER_WIDTH +
-      (visibleScrollBarWidth * (INDICATOR_CONTAINER_WIDTH + 2)) /
-        completeScrollBarWidth) /
-      completeScrollBarWidth,
-  ).interpolate({
-    inputRange: [0, difference],
-    outputRange: [0, difference],
-    extrapolate: 'clamp',
+  const stylez = useAnimatedStyle(() => {
+    const width =
+      (translateX.value / completeScrollBarWidth) * INDICATOR_CONTAINER_WIDTH +
+      5;
+    return {
+      width:
+        width > INDICATOR_CONTAINER_WIDTH ? INDICATOR_CONTAINER_WIDTH : width,
+    };
   });
 
   const handlePressMedia = (id: number) => () =>
@@ -87,7 +83,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
     <>
       <SectionHeader title="Today" onPress={handleSeeAll} />
 
-      <FlatList
+      <Animated.FlatList
         data={medias.slice(0, 10)}
         renderItem={renderItem}
         keyExtractor={item => `${item.id}`}
@@ -96,17 +92,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
         onContentSizeChange={width => {
           setCompleteScrollBarWidth(width);
         }}
-        onLayout={({
-          nativeEvent: {
-            layout: {width},
-          },
-        }) => {
-          setVisibleScrollBarWidth(width);
-        }}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollIndicator}}}],
-          {useNativeDriver: false},
-        )}
+        onScroll={scrollHandler}
         scrollEventThrottle={16}
       />
 
@@ -116,9 +102,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
             width: INDICATOR_CONTAINER_WIDTH,
           }}>
           <View style={styles.indicatorContainer}>
-            <Animated.View
-              style={[styles.indicator, {width: scrollIndicatorPosition}]}
-            />
+            <Animated.View style={[styles.indicator, stylez]} />
           </View>
         </View>
       </Box>
