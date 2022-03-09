@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing(1),
     paddingVertical: spacing(0.5),
     borderRadius: responsiveSize(8),
-    maxWidth: responsiveSize(80),
+    minWidth: responsiveSize(80),
   },
   favorite: {
     ...round(24),
@@ -116,7 +116,7 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
           )}
         </Box>
 
-        <Box ml={2} mr={1}>
+        <Box ml={2} mr={1} left>
           <Box flex={false} style={styles.time}>
             <Typography variant="caps3" color={colors.white}>
               {time}

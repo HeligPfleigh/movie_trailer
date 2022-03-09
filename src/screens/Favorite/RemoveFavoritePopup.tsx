@@ -44,7 +44,7 @@ const RemoveFavoritePopup: React.FC<IRemoveFavoritePopupProps> = ({
             color={colors.codGray}
             variant="h6"
             textAlign="center"
-            fontWeight="700">
+            fontFamily="Poppins-Bold">
             Remove favorite
           </Typography>
 
@@ -62,7 +62,7 @@ const RemoveFavoritePopup: React.FC<IRemoveFavoritePopupProps> = ({
               <Typography
                 variant="caps1"
                 color={colors.royalBlue}
-                fontWeight="600">
+                fontFamily="Poppins-Bold">
                 Remove
               </Typography>
             </TouchableOpacity>
@@ -73,7 +73,7 @@ const RemoveFavoritePopup: React.FC<IRemoveFavoritePopupProps> = ({
               <Typography
                 variant="caps1"
                 color={colors.riverBed}
-                fontWeight="600">
+                fontFamily="Poppins-Bold">
                 No, Thanks
               </Typography>
             </TouchableOpacity>

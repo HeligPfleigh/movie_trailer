@@ -140,7 +140,10 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
       <AppBar onSearch={handleOpenSearch} />
 
       <Box mt={2.5} ml={2} mb={2} flex={false}>
-        <Typography variant="h4" color={colors.white} fontWeight="600">
+        <Typography
+          variant="h4"
+          color={colors.white}
+          fontFamily="Poppins-SemiBold">
           {header}
         </Typography>
       </Box>

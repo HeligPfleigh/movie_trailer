@@ -112,7 +112,10 @@ const MovieDetail: React.FC = () => {
       />
 
       <Box mt={2} ml={2} mr={2} center flex={false}>
-        <Typography variant="h4" color={colors.white} fontWeight="600">
+        <Typography
+          variant="h4"
+          color={colors.white}
+          fontFamily="Poppins-SemiBold">
           {movie.title}
         </Typography>
       </Box>

@@ -109,7 +109,10 @@ const TVDetail: React.FC = () => {
         onToggleFavorite={handleToggleFavorite}
       />
       <Box mt={2} ml={2} mr={2} center flex={false}>
-        <Typography variant="h4" color={colors.white} fontWeight="600">
+        <Typography
+          variant="h4"
+          color={colors.white}
+          fontFamily="Poppins-SemiBold">
           {tvShow.name}
         </Typography>
       </Box>

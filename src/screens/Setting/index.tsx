@@ -87,7 +87,10 @@ const SettingScreen: React.FC = () => {
       <AppBar />
 
       <Box mt={2.5} ml={2} flex={false}>
-        <Typography variant="h4" color={colors.white} fontWeight="600">
+        <Typography
+          variant="h4"
+          color={colors.white}
+          fontFamily="Poppins-SemiBold">
           Setting
         </Typography>
       </Box>

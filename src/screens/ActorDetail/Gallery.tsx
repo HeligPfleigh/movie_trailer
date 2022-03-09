@@ -76,7 +76,10 @@ const Gallery: React.FC<IGalleryProps> = ({images}: IGalleryProps) => {
 
       {images.length > 4 && (
         <Box style={styles.moreOverlay}>
-          <Typography variant="b4" fontWeight="700" color={colors.white}>
+          <Typography
+            variant="b4"
+            fontFamily="Poppins-Bold"
+            color={colors.white}>
             {`+${images.length - 4}`}
           </Typography>
           <Typography variant="caps2" color={colors.white}>
@@ -89,7 +92,7 @@ const Gallery: React.FC<IGalleryProps> = ({images}: IGalleryProps) => {
 
   return (
     <Box flex={false} ml={2} mr={2} mt={3}>
-      <Typography variant="h5" fontWeight="700" color={colors.white}>
+      <Typography variant="h5" fontFamily="Poppins-Bold" color={colors.white}>
         Gallery
       </Typography>
 

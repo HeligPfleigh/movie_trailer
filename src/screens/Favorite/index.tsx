@@ -10,10 +10,7 @@ import {
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import {IActorOverview, IMediaOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {
-  MainStackParamList,
-  RootDrawerParamList,
-} from '@movie_trailer/navigations/types';
+import {RootDrawerParamList} from '@movie_trailer/navigations/types';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {
   toggleMediaFavorite,
@@ -21,16 +18,14 @@ import {
 } from '@movie_trailer/store/slices/favoriteSlice';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import RemoveFavoritePopup from './RemoveFavoritePopup';
 
-type FavoriteScreenNavigationProps = CompositeScreenProps<
-  NativeStackScreenProps<MainStackParamList, NavigatorMap.Favorite>,
-  DrawerScreenProps<RootDrawerParamList, NavigatorMap.Home>
+type FavoriteScreenNavigationProps = DrawerScreenProps<
+  RootDrawerParamList,
+  NavigatorMap.Favorite
 >;
 
 const tabs = [
@@ -143,8 +138,11 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
 
       <Box flex={false} mt={6} center ml={2} mr={2}>
         <Box flex={false} row center mb={1}>
-          <Box flex={false}>
-            <Typography variant="h4" color={colors.white} fontWeight="700">
+          <Box flex={false} style={{paddingTop: spacing(0.5)}}>
+            <Typography
+              variant="h4"
+              color={colors.white}
+              fontFamily="Poppins-Bold">
               Archive of your
             </Typography>
           </Box>
@@ -153,15 +151,19 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
             style={{
               backgroundColor: colors.white,
               paddingHorizontal: spacing(1),
-              borderRadius: responsiveSize(4),
+              borderRadius: responsiveSize(6),
               marginLeft: spacing(1),
+              paddingTop: spacing(0.5),
             }}>
-            <Typography variant="h4" color={colors.royalBlue} fontWeight="700">
+            <Typography
+              variant="h4"
+              color={colors.royalBlue}
+              fontFamily="Poppins-Bold">
               favorite
             </Typography>
           </Box>
         </Box>
-        <Typography variant="h4" color={colors.white} fontWeight="700">
+        <Typography variant="h4" color={colors.white} fontFamily="Poppins-Bold">
           movies
         </Typography>
 

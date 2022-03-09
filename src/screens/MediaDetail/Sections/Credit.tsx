@@ -134,7 +134,7 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
             <Typography
               variant="b5"
               color={colors.blackSqueeze}
-              fontWeight="700">
+              fontFamily="Poppins-Bold">
               {item.title}
             </Typography>
           </Box>

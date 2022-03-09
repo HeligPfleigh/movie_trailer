@@ -28,10 +28,10 @@ const SectionHeader: React.FC<ISectionHeaderProps> = ({
 }: ISectionHeaderProps) => {
   return (
     <Box flex={false} row center mb={2}>
-      <Typography variant="h5" fontWeight="700" color={colors.white}>
+      <Typography variant="h5" fontFamily="Poppins-Bold" color={colors.white}>
         {title}
         {subtitle ? (
-          <Typography variant="h5" fontWeight="400" color={colors.white}>
+          <Typography variant="h5" color={colors.white}>
             {` ${subtitle}`}
           </Typography>
         ) : (

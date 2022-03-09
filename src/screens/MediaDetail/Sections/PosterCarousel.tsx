@@ -97,10 +97,13 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
         <Box flex={false} style={styles.badge}>
           <Star />
           <Box flex={false} ml={0.5}>
-            <Typography variant="h7" color={colors.white} fontWeight="700">
+            <Typography
+              variant="h7"
+              color={colors.white}
+              fontFamily="Poppins-Bold">
               {Number(item.vote_average).toFixed(1)}
 
-              <Typography variant="h7" color={colors.white} fontWeight="400">
+              <Typography variant="h7" color={colors.white}>
                 {`  ${item.vote_count}`}
               </Typography>
             </Typography>

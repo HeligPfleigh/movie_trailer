@@ -125,7 +125,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
 
       <Typography variant="h6" color={colors.white}>
         {'No search results found '}
-        <Typography variant="h6" fontWeight="bold" color={colors.white}>
+        <Typography variant="h6" fontFamily="Poppins-Bold" color={colors.white}>
           {`“${searchText}“`}
         </Typography>
       </Typography>

@@ -73,7 +73,10 @@ const RecommendationCard: React.FC<IRecommendationCardProps> = ({
         </ImageBackground>
       </Box>
 
-      <Typography variant="caps1" color={colors.zircon} fontWeight="700">
+      <Typography
+        variant="caps1"
+        color={colors.zircon}
+        fontFamily="Poppins-Bold">
         {title}
       </Typography>
 

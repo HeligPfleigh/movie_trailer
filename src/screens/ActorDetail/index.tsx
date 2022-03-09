@@ -165,7 +165,10 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
       {actor ? (
         <>
           <Box mt={2.5} ml={2} mb={2} flex={false}>
-            <Typography variant="h4" color={colors.white} fontWeight="600">
+            <Typography
+              variant="h4"
+              color={colors.white}
+              fontFamily="Poppins-Bold">
               {actor.name}
             </Typography>
           </Box>
@@ -186,13 +189,16 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
           </Box>
 
           <Box mt={1.5} center flex={false}>
-            <Typography variant="h5" color={colors.white} fontWeight="600">
+            <Typography
+              variant="h5"
+              color={colors.white}
+              fontFamily="Poppins-Bold">
               {actor.name}
             </Typography>
           </Box>
 
           <Box mt={0.5} center flex={false}>
-            <Typography variant="caps1" color={colors.geyser} fontWeight="400">
+            <Typography variant="caps1" color={colors.geyser}>
               {actor.known_for_department}
             </Typography>
           </Box>

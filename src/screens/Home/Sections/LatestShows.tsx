@@ -70,7 +70,10 @@ const LatestShows: React.FC = () => {
           <LinearGradient
             colors={['rgba(74, 85, 104, 0)', colors.riverBed]}
             style={styles.heroTitleContainer}>
-            <Typography variant="h6" color={colors.zircon} fontWeight="700">
+            <Typography
+              variant="h6"
+              color={colors.zircon}
+              fontFamily="Poppins-Bold">
               {latestShow.name}
             </Typography>
 
@@ -97,7 +100,10 @@ const LatestShows: React.FC = () => {
         {latestShow.videos.results.map((media, index) => (
           <Box key={media.id}>
             <Box ml={2}>
-              <Typography variant="caps1" color={colors.white} fontWeight="700">
+              <Typography
+                variant="caps1"
+                color={colors.white}
+                fontFamily="Poppins-Bold">
                 {`${String(index + 1).padStart(2, '0')}.`}
               </Typography>
             </Box>

@@ -76,7 +76,9 @@ const FilterPopup: React.FC<IFilterPopup> = ({
               <Typography
                 variant="caps1"
                 color={selected === value ? colors.royalBlue : colors.mirage}
-                fontWeight={selected === value ? '600' : '400'}>
+                fontFamily={
+                  selected === value ? 'Poppins-SemiBold' : 'Poppins'
+                }>
                 {label}
               </Typography>
               {selected === value && <Check />}

@@ -49,7 +49,10 @@ const PersonPopular: React.FC = () => {
           <Typography variant="caps1" color={colors.white}>
             Person
           </Typography>
-          <Typography variant="h4" color={colors.white} fontWeight="700">
+          <Typography
+            variant="h4"
+            color={colors.white}
+            fontFamily="Poppins-Bold">
             Popular
           </Typography>
 

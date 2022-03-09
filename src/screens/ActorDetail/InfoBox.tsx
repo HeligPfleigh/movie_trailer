@@ -26,7 +26,7 @@ const InfoBox: React.FC<IInfoBoxProps> = ({title, value}: IInfoBoxProps) => {
       <Typography color={colors.slateGray} variant="caps2">
         {title}
       </Typography>
-      <Typography color={colors.white} fontWeight="700" variant="b4">
+      <Typography color={colors.white} fontFamily="Poppins-Bold" variant="b4">
         {value}
       </Typography>
     </Box>
