@@ -128,7 +128,7 @@ const Gallery: React.FC<IGalleryProps> = ({images}: IGalleryProps) => {
               .filter(image => image.file_path)
               .map(image => ({
                 source: {uri: `${IMAGE_SERVER}${image.file_path}`},
-                dimensions: {width: image.width, height: image.height},
+                // dimensions: {width: image.width, height: image.height},
               }))}
           />
         </SafeAreaView>
