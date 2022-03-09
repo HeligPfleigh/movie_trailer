@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     position: 'relative',
+    backgroundColor: colors.cadetBlue,
+    borderRadius: responsiveSize(16),
   },
   badge: {
     position: 'absolute',
