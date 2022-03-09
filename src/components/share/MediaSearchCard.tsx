@@ -130,13 +130,15 @@ const MediaSearchCard: React.FC<IMediaSearchCardProps> = ({
           </Typography>
         </Box>
 
-        <Box flex={false} middle>
-          <TouchableOpacity
-            style={[styles.favorite, {backgroundColor}]}
-            onPress={onAction}>
-            {icon}
-          </TouchableOpacity>
-        </Box>
+        {onAction && (
+          <Box flex={false} middle>
+            <TouchableOpacity
+              style={[styles.favorite, {backgroundColor}]}
+              onPress={onAction}>
+              {icon}
+            </TouchableOpacity>
+          </Box>
+        )}
       </Box>
     </TouchableOpacity>
   );
