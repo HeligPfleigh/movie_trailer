@@ -5,7 +5,7 @@ import {colors, responsiveSize} from '@movie_trailer/theme';
 import {MediaDetailScreenProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, Share, StyleSheet} from 'react-native';
 
 import MovieDetail from './MovieDetail';
 import TVDetail from './TVDetail';
@@ -24,11 +24,15 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   navigation,
   route,
 }: MediaDetailScreenProps) => {
-  const {type} = route.params;
+  const {type, id} = route.params;
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handleShareMedia = () => {
-    // TODO
+    Share.share({
+      message: `Check out this ${
+        type === 'tv' ? 'show' : 'movie'
+      } on Movie Trailers: trailers://media/${type}/${id}`,
+    });
   };
 
   const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;

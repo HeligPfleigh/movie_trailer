@@ -19,6 +19,21 @@ import {MainStackParamList, RootDrawerParamList} from './types';
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
+const linking = {
+  prefixes: ['trailers://'],
+  config: {
+    /* configuration for matching screens with paths */
+    screens: {
+      [NavigatorMap.Home]: {
+        initialRouteName: NavigatorMap.Overview,
+        screens: {
+          [NavigatorMap.MediaDetail]: 'media/:type/:id',
+        },
+      },
+    },
+  },
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator
@@ -51,7 +66,7 @@ const MainNavigator = () => {
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking as any}>
       <Drawer.Navigator
         screenOptions={{
           headerShown: false,
