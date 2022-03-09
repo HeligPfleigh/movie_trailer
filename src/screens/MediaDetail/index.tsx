@@ -31,7 +31,7 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
     Share.share({
       message: `Check out this ${
         type === 'tv' ? 'show' : 'movie'
-      } on Movie Trailers: trailers://media/${type}/${id}`,
+      } on TMDB: https://www.themoviedb.org/${type}/${id}`,
     });
   };
 
