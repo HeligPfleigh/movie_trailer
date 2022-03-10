@@ -39,14 +39,15 @@ const SettingScreen: React.FC = () => {
     });
   };
 
-  const handlePressRateAndReview = () => {
-    Linking.openURL(rateLink);
-  };
+  const handlePressRateAndReview = () => Linking.openURL(rateLink);
+
+  const handlePressPrivacyPolicy = () =>
+    Linking.openURL(Config.PRIVACY_POLICY_URL);
 
   const settings = [
     [
       {
-        onPress: () => {},
+        onPress: handlePressPrivacyPolicy,
         icon: <PrivacyIcon />,
         title: 'Privacy Policy',
         color: colors.selago,
