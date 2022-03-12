@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MediaDetailNavigationProps} from '../types';
 import {loadCredits} from '@movie_trailer/store/slices/popularPeopleSlice';
 import {useDispatch} from 'react-redux';
+import uniqBy from 'lodash/uniqBy';
 
 interface ICreditProps {
   cast: Array<Omit<IPeopleOverview, 'known_for'>>;
@@ -46,6 +47,22 @@ const styles = StyleSheet.create({
   },
 });
 
+const configs = [
+  {title: 'Directors:', departments: ['Directing']},
+  {title: 'Producers:', departments: ['Writing', 'Editing', 'Production']},
+  {
+    title: 'Composers:',
+    departments: [
+      'Sound',
+      'Camera',
+      'Art',
+      'Visual Effects',
+      'Crew',
+      'Costume & Make-Up',
+    ],
+  },
+];
+
 const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
   const navigation = useNavigation<MediaDetailNavigationProps>();
   const dispatch = useDispatch();
@@ -54,7 +71,7 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
     navigation.push(NavigatorMap.ActorDetail, {id});
   };
 
-  const handleSeeAll = () => {
+  const handleSeeAllCasts = () => {
     dispatch(
       loadCredits(
         cast.map(item => ({
@@ -68,11 +85,30 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
     navigation.push(NavigatorMap.PopularPeople, {title: `${name}'s actors`});
   };
 
-  const information = [
-    {title: 'Directors:', departments: ['Directing']},
-    {title: 'Producers:', departments: ['Writing']},
-    {title: 'Composers:', departments: ['Editing', 'Production']},
-  ].map(item => ({
+  const handleSeeAllCrews = (title: string) => () => {
+    const departments =
+      configs.find(item => item.title === title)?.departments ?? [];
+    dispatch(
+      loadCredits(
+        uniqBy(
+          crew
+            .filter(item => departments.includes(item.known_for_department))
+            .map(item => ({
+              id: item.id,
+              department: item.known_for_department,
+              name: item.name,
+              thumbnail: `${IMAGE_SERVER}${item.profile_path}`,
+            })),
+          'id',
+        ),
+      ),
+    );
+    navigation.push(NavigatorMap.PopularPeople, {
+      title: `${name}'s ${title.toLowerCase()}`,
+    });
+  };
+
+  const information = configs.map(item => ({
     title: item.title,
     value: [
       ...new Set(
@@ -93,7 +129,7 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
   const moreImage = (
     <TouchableOpacity
       style={[styles.image, styles.moreImage]}
-      onPress={handleSeeAll}>
+      onPress={handleSeeAllCasts}>
       <Typography variant="b4" color={colors.white}>
         {`+${images.length - 4}`}
       </Typography>
@@ -129,21 +165,25 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
       </Box>
 
       {information.map(item => (
-        <Box flex={false} row mt={0.5} key={item.title} ml={2} mr={2}>
-          <Box flex={false} mr={2}>
-            <Typography
-              variant="b5"
-              color={colors.blackSqueeze}
-              fontFamily="Poppins-Bold">
-              {item.title}
-            </Typography>
+        <TouchableOpacity
+          onPress={handleSeeAllCrews(item.title)}
+          key={item.title}>
+          <Box flex={false} row mt={0.5} ml={2} mr={2}>
+            <Box flex={false} mr={2}>
+              <Typography
+                variant="b5"
+                color={colors.blackSqueeze}
+                fontFamily="Poppins-Bold">
+                {item.title}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="b5" color={colors.royalBlue}>
+                {truncate(item.value, {length: 60})}
+              </Typography>
+            </Box>
           </Box>
-          <Box>
-            <Typography variant="b5" color={colors.royalBlue}>
-              {truncate(item.value, {length: 60})}
-            </Typography>
-          </Box>
-        </Box>
+        </TouchableOpacity>
       ))}
     </Box>
   );

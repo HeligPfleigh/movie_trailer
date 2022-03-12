@@ -98,10 +98,22 @@ const TVDetail: React.FC = () => {
 
   const isFavorite = Boolean(favoriteTVs.find(item => item.id === id));
 
+  const posters = [
+    {
+      aspect_ratio: -1,
+      height: -1,
+      file_path: tvShow.poster_path,
+      vote_average: tvShow.vote_average,
+      vote_count: tvShow.vote_count,
+      width: -1,
+    },
+    ...tvShow.images.posters,
+  ];
+
   return (
     <Box>
       <PosterCarousel
-        posters={tvShow.images.posters}
+        posters={posters}
         isFavorite={isFavorite}
         homepage={tvShow.homepage}
         onToggleFavorite={handleToggleFavorite}

@@ -74,7 +74,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
 
   const backgroundColor = isFavorite
     ? 'rgba(255, 31, 31, 0.3)'
-    : 'rgba(255, 255, 255, 0.3)';
+    : 'rgba(255, 255, 255, 0.5)';
 
   const renderCarouselItem = ({item, index}: {item: IImage; index: number}) => {
     const isFirstItem = Boolean(homepage) && index === 0;
