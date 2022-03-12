@@ -17,6 +17,7 @@ export type MainStackParamList = {
   ListMedia: {
     type: 'movie' | 'tv';
     title?: string;
+    url?: string;
   };
   PopularPeople: {
     title?: string;
