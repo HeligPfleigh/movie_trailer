@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 
 import {
   AppBar,
@@ -15,8 +15,13 @@ import {
   loadInitial,
   loadMore,
 } from '@movie_trailer/store/slices/mediaListSlice';
-import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
-import {RootState} from '@movie_trailer/store/rootReducer';
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+} from 'react-native';
+import {AppDispatch, RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -45,7 +50,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   navigation,
   route,
 }: ListMediaScreenProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const {title, type, url} = route.params;
   const medias = useSelector(
     (state: RootState) => state.mediaList.data.results,
@@ -76,11 +81,20 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     }
   };
 
-  const getItemLayout = (_data: unknown, index: number) => ({
-    length: 230,
-    offset: 230 * index,
-    index,
-  });
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const onRefresh = useCallback(() => {
+    if (url) {
+      setRefreshing(true);
+      dispatch(loadInitial({url})).then(() => setRefreshing(false));
+    }
+  }, [url, dispatch]);
+
+  // const getItemLayout = (_data: unknown, index: number) => ({
+  //   length: 230,
+  //   offset: 230 * index,
+  //   index,
+  // });
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2} flex={0.5}>
@@ -121,12 +135,15 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
           ListFooterComponent={loading ? <ActivityIndicator /> : null}
-          removeClippedSubviews
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
-          updateCellsBatchingPeriod={30}
-          windowSize={10}
-          getItemLayout={getItemLayout}
+          // removeClippedSubviews
+          // initialNumToRender={10}
+          // maxToRenderPerBatch={10}
+          // updateCellsBatchingPeriod={30}
+          // windowSize={10}
+          // getItemLayout={getItemLayout}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       </Box>
     </Box>

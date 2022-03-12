@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {
   AppBar,
@@ -17,10 +17,11 @@ import {
   ActivityIndicator,
   FlatList,
   LayoutChangeEvent,
+  RefreshControl,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {RootState} from '@movie_trailer/store/rootReducer';
+import {AppDispatch, RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import Filter from '@movie_trailer/assets/icons/Filter';
 import ArrowDown from '@movie_trailer/assets/icons/ArrowDown';
@@ -52,7 +53,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   route,
 }: DiscoverScreenProps) => {
   const header = useHeader();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const {type, with_genres} = route.params;
   const medias = useSelector((state: RootState) => state.discover.data.results);
   const totalResult = useSelector(
@@ -94,6 +95,19 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
     return 'vote_average.desc';
   }, [filterMode, type]);
 
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    dispatch(
+      loadInitial({
+        type,
+        genre: with_genres,
+        sortBy,
+      }),
+    ).then(() => setRefreshing(false));
+  }, [type, with_genres, dispatch, sortBy]);
+
   useEffect(() => {
     dispatch(
       loadInitial({
@@ -111,11 +125,11 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
     }
   };
 
-  const getItemLayout = (_data: unknown, index: number) => ({
-    length: 230,
-    offset: 230 * index,
-    index,
-  });
+  // const getItemLayout = (_data: unknown, index: number) => ({
+  //   length: 230,
+  //   offset: 230 * index,
+  //   index,
+  // });
 
   const renderItem = ({item, index}: {item: IMediaOverview; index: number}) => (
     <Box mr={index % 2 ? 0 : 1} mb={2}>
@@ -177,11 +191,14 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
           ListFooterComponent={loading ? <ActivityIndicator /> : null}
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
-          updateCellsBatchingPeriod={30}
-          windowSize={10}
-          getItemLayout={getItemLayout}
+          // initialNumToRender={10}
+          // maxToRenderPerBatch={10}
+          // updateCellsBatchingPeriod={30}
+          // windowSize={10}
+          // getItemLayout={getItemLayout}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       </Box>
 
