@@ -11,7 +11,8 @@ target 'MovieTrailer' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-
+  
+  permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
   pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition"
 
