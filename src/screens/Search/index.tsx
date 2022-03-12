@@ -35,6 +35,14 @@ import MovieIcon from '@movie_trailer/assets/icons/Movie';
 import {TextField} from 'react-native-material-textfield';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFocusEffect} from '@react-navigation/native';
+import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
+import Voice, {
+  SpeechEndEvent,
+  SpeechErrorEvent,
+  SpeechRecognizedEvent,
+  SpeechResultsEvent,
+  SpeechStartEvent,
+} from '@react-native-voice/voice';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -116,6 +124,47 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
     }
   };
 
+  const voiceRecognizeHandler = useCallback((e: SpeechResultsEvent) => {
+    if (e.value?.length) {
+      const value = e.value[0];
+      textFieldRef.current?.setValue(value);
+    }
+  }, []);
+
+  useEffect(() => {
+    Voice.onSpeechStart = (e: SpeechStartEvent) => {
+      console.log('onSpeechStart: ', e);
+    };
+
+    Voice.onSpeechRecognized = (e: SpeechRecognizedEvent) => {
+      console.log('onSpeechRecognized: ', e);
+    };
+
+    Voice.onSpeechEnd = (e: SpeechEndEvent) => {
+      console.log('onSpeechEnd: ', e);
+    };
+
+    Voice.onSpeechResults = voiceRecognizeHandler;
+
+    Voice.onSpeechError = (e: SpeechErrorEvent) => {
+      console.log('onSpeechError: ', e);
+    };
+  }, [voiceRecognizeHandler]);
+
+  const handlePressVoiceSearch = async () => {
+    try {
+      await requestMultiple([
+        PERMISSIONS.IOS.MICROPHONE,
+        PERMISSIONS.ANDROID.RECORD_AUDIO,
+        PERMISSIONS.IOS.SPEECH_RECOGNITION,
+      ]);
+
+      await Voice.start('en-US');
+    } catch (error) {
+      // TODO: handle error
+    }
+  };
+
   const renderItem = ({item}: {item: IMediaOverview}) => (
     <MediaSearchCard {...item} onPress={handleNavigateToMediaDetail(item.id)} />
   );
@@ -184,7 +233,9 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               <CloseFill />
             </Box>
           </TouchableOpacity>
-          <Micro fill={colors.white} />
+          <TouchableOpacity onPress={handlePressVoiceSearch}>
+            <Micro fill={colors.white} />
+          </TouchableOpacity>
         </Box>
 
         {Boolean(searchText) && (

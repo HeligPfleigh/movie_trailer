@@ -12,6 +12,9 @@ target 'MovieTrailer' do
     :hermes_enabled => false
   )
 
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+  pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition"
+
   target 'MovieTrailerTests' do
     inherit! :complete
     # Pods for testing
