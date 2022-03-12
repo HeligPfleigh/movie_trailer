@@ -100,10 +100,22 @@ const MovieDetail: React.FC = () => {
 
   const isFavorite = Boolean(favoriteMovies.find(item => item.id === id));
 
+  const posters = [
+    {
+      aspect_ratio: -1,
+      height: -1,
+      file_path: movie.poster_path,
+      vote_average: movie.vote_average,
+      vote_count: movie.vote_count,
+      width: -1,
+    },
+    ...movie.images.posters,
+  ];
+
   return (
     <Box>
       <PosterCarousel
-        posters={movie.images.posters}
+        posters={posters}
         isFavorite={isFavorite}
         homepage={movie.homepage}
         onToggleFavorite={handleToggleFavorite}
