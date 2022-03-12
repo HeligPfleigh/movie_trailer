@@ -57,7 +57,7 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
   const handleSeeAll = () => {
     dispatch(
       loadCredits(
-        [...cast, ...crew].map(item => ({
+        cast.map(item => ({
           id: item.id,
           department: item.known_for_department,
           name: item.name,
@@ -65,7 +65,7 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
         })),
       ),
     );
-    navigation.push(NavigatorMap.PopularPeople, {title: `${name}'s credits`});
+    navigation.push(NavigatorMap.PopularPeople, {title: `${name}'s actors`});
   };
 
   const information = [
