@@ -1,0 +1,578 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionHeader should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      false,
+      Object {
+        "flex": 0,
+      },
+      Object {
+        "flexDirection": "row",
+      },
+      undefined,
+      Object {
+        "alignItems": "center",
+      },
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      Object {},
+      Object {},
+      Object {
+        "marginBottom": 16,
+      },
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "Poppins",
+        },
+        Object {
+          "color": "#ffffff",
+        },
+        undefined,
+        undefined,
+        Object {
+          "fontFamily": "Poppins-Bold",
+        },
+        Object {
+          "fontSize": 20,
+          "lineHeight": 24,
+        },
+        undefined,
+      ]
+    }
+  >
+    Popular
+    
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 1,
+        },
+        false,
+        Object {
+          "flex": 0,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {
+          "backgroundColor": "#ffffff",
+          "height": "100%",
+          "marginLeft": 8,
+          "marginRight": 4,
+          "opacity": 0.5,
+          "width": 1,
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          false,
+          Object {
+            "flex": 0,
+          },
+          Object {
+            "flexDirection": "row",
+          },
+          undefined,
+          Object {
+            "alignItems": "center",
+          },
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          undefined,
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "Poppins",
+            },
+            Object {
+              "color": "#E884E4",
+            },
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "fontSize": 15,
+              "lineHeight": 26,
+            },
+            undefined,
+          ]
+        }
+      >
+        See All
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+            },
+            false,
+            Object {
+              "flex": 0,
+            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {},
+            Object {},
+            Object {},
+            Object {
+              "marginLeft": 2,
+            },
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            undefined,
+          ]
+        }
+      >
+        <RNSVGSvgView
+          bbHeight={16}
+          bbWidth={16}
+          fill="none"
+          focusable={false}
+          height={16}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 16,
+                "width": 16,
+              },
+            ]
+          }
+          width={16}
+        >
+          <RNSVGGroup
+            fill={null}
+            propList={
+              Array [
+                "fill",
+              ]
+            }
+          >
+            <RNSVGPath
+              d="M10.36 8.473 6.587 12.24a.666.666 0 0 1-1.14-.47c0-.176.069-.345.193-.47l3.3-3.333-3.3-3.3a.667.667 0 0 1 .217-1.088.667.667 0 0 1 .513 0 .667.667 0 0 1 .217.148l3.773 3.766a.666.666 0 0 1 0 .98Z"
+              fill={4293428452}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SectionHeader should match snapshot 2`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      false,
+      Object {
+        "flex": 0,
+      },
+      Object {
+        "flexDirection": "row",
+      },
+      undefined,
+      Object {
+        "alignItems": "center",
+      },
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      Object {},
+      Object {},
+      Object {
+        "marginBottom": 16,
+      },
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      Object {},
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "Poppins",
+        },
+        Object {
+          "color": "#ffffff",
+        },
+        undefined,
+        undefined,
+        Object {
+          "fontFamily": "Poppins-Bold",
+        },
+        Object {
+          "fontSize": 20,
+          "lineHeight": 24,
+        },
+        undefined,
+      ]
+    }
+  >
+    Popular
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "Poppins",
+          },
+          Object {
+            "color": "#ffffff",
+          },
+          undefined,
+          undefined,
+          undefined,
+          Object {
+            "fontSize": 20,
+            "lineHeight": 24,
+          },
+          undefined,
+        ]
+      }
+    >
+       Person
+    </Text>
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 1,
+        },
+        false,
+        Object {
+          "flex": 0,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {},
+        Object {
+          "backgroundColor": "#ffffff",
+          "height": "100%",
+          "marginLeft": 8,
+          "marginRight": 4,
+          "opacity": 0.5,
+          "width": 1,
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          false,
+          Object {
+            "flex": 0,
+          },
+          Object {
+            "flexDirection": "row",
+          },
+          undefined,
+          Object {
+            "alignItems": "center",
+          },
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          undefined,
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "Poppins",
+            },
+            Object {
+              "color": "#E884E4",
+            },
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "fontSize": 15,
+              "lineHeight": 26,
+            },
+            undefined,
+          ]
+        }
+      >
+        See All
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+            },
+            false,
+            Object {
+              "flex": 0,
+            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {},
+            Object {},
+            Object {},
+            Object {
+              "marginLeft": 2,
+            },
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            Object {},
+            undefined,
+          ]
+        }
+      >
+        <RNSVGSvgView
+          bbHeight={16}
+          bbWidth={16}
+          fill="none"
+          focusable={false}
+          height={16}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 16,
+                "width": 16,
+              },
+            ]
+          }
+          width={16}
+        >
+          <RNSVGGroup
+            fill={null}
+            propList={
+              Array [
+                "fill",
+              ]
+            }
+          >
+            <RNSVGPath
+              d="M10.36 8.473 6.587 12.24a.666.666 0 0 1-1.14-.47c0-.176.069-.345.193-.47l3.3-3.333-3.3-3.3a.667.667 0 0 1 .217-1.088.667.667 0 0 1 .513 0 .667.667 0 0 1 .217.148l3.773 3.766a.666.666 0 0 1 0 .98Z"
+              fill={4293428452}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+      </View>
+    </View>
+  </View>
+</View>
+`;

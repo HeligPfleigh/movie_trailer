@@ -27,7 +27,7 @@ const persistConfig = {
   whitelist: ['favorite'],
 };
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   genre: genreReducer,
   movie: movieReducer,
   tvShow: tvShowReducer,
