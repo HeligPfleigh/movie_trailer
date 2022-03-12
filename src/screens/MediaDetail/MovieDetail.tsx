@@ -18,7 +18,6 @@ import Trailers from './Sections/Trailers';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
-import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -67,11 +66,10 @@ const MovieDetail: React.FC = () => {
 
   const handleSeeAll = () => {
     if (movie) {
-      dispatch(loadInitial({url: `movie/${id}/recommendations`}));
-
       navigation.push(NavigatorMap.ListMedia, {
         type: 'movie',
         title: 'Recommendation',
+        url: `movie/${id}/recommendations`,
       });
     }
   };

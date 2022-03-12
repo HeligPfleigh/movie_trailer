@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 
 import {
   AppBar,
@@ -11,10 +11,14 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import {ListMediaScreenProps} from './types';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadMore} from '@movie_trailer/store/slices/mediaListSlice';
+import {
+  loadInitial,
+  loadMore,
+} from '@movie_trailer/store/slices/mediaListSlice';
 import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
+import {useFocusEffect} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   filterContainer: {
@@ -42,7 +46,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   route,
 }: ListMediaScreenProps) => {
   const dispatch = useDispatch();
-  const {title, type} = route.params;
+  const {title, type, url} = route.params;
   const medias = useSelector(
     (state: RootState) => state.mediaList.data.results,
   );
@@ -51,6 +55,14 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   );
   const loading = useSelector((state: RootState) => state.mediaList.loading);
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (url) {
+        dispatch(loadInitial({url}));
+      }
+    }, [url, dispatch]),
+  );
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 

@@ -1,7 +1,6 @@
 import {Box, MovieCard, SectionHeader} from '@movie_trailer/components';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
-import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
@@ -11,7 +10,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {useDispatch} from 'react-redux';
 import {HomeNavigationProps} from '../types';
 
 interface ITodayProps {
@@ -38,7 +36,6 @@ const styles = StyleSheet.create({
 
 const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   const navigation = useNavigation<HomeNavigationProps>();
-  const dispatch = useDispatch();
   const [completeScrollBarWidth, setCompleteScrollBarWidth] =
     useState<number>(1);
 
@@ -67,15 +64,10 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   );
 
   const handleSeeAll = () => {
-    dispatch(
-      loadInitial({
-        url: `${type}/${type === 'movie' ? 'now_playing' : 'airing_today'}`,
-      }),
-    );
-
     navigation.push(NavigatorMap.ListMedia, {
       type,
       title: 'Today',
+      url: `${type}/${type === 'movie' ? 'now_playing' : 'airing_today'}`,
     });
   };
 

@@ -18,7 +18,6 @@ import {
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
-import {loadInitial} from '@movie_trailer/store/slices/mediaListSlice';
 import {unwrapResult} from '@reduxjs/toolkit';
 
 const TvShowTab = () => {
@@ -41,11 +40,10 @@ const TvShowTab = () => {
   }, [dispatch]);
 
   const handleSeeAll = () => {
-    dispatch(loadInitial({url: 'tv/top_rated'}));
-
     navigation.push(NavigatorMap.ListMedia, {
       type: 'tv',
       title: 'Recommendation',
+      url: 'tv/top_rated',
     });
   };
 
