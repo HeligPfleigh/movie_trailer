@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import CloseIcon from '@movie_trailer/assets/icons/Close';
 import {RootDrawerParamList} from '@movie_trailer/navigations/types';
@@ -34,6 +34,7 @@ import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import MovieIcon from '@movie_trailer/assets/icons/Movie';
 import {TextField} from 'react-native-material-textfield';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useFocusEffect} from '@react-navigation/native';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -84,6 +85,16 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
   useEffect(() => {
     throttled.current(searchText);
   }, [searchText]);
+
+  useFocusEffect(
+    useCallback(() => {
+      textFieldRef.current?.focus();
+
+      return () => {
+        textFieldRef.current?.clear();
+      };
+    }, []),
+  );
 
   const handleBack = () => navigation.goBack();
 
@@ -165,6 +176,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               baseColor={colors.white}
               tintColor={colors.white}
               containerStyle={styles.textField}
+              autoFocus
             />
           </Box>
           <TouchableOpacity onPress={handleClearSearch}>

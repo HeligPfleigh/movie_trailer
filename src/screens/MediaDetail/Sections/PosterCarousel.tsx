@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     height: responsiveSize(396),
     width: responsiveSize(283),
     borderRadius: responsiveSize(16),
+    backgroundColor: colors.cadetBlue,
   },
   badge: {
     position: 'absolute',
@@ -76,7 +77,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
     : 'rgba(255, 255, 255, 0.3)';
 
   const renderCarouselItem = ({item, index}: {item: IImage; index: number}) => {
-    const displayPlayBtn = Boolean(homepage) && index === 0;
+    const isFirstItem = Boolean(homepage) && index === 0;
     return (
       <Box flex={false} style={styles.carouselItemContainer}>
         <FastImage
@@ -85,7 +86,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
           resizeMode={FastImage.resizeMode.cover}
         />
 
-        {displayPlayBtn && (
+        {isFirstItem && (
           <TouchableOpacity style={styles.playBtn} onPress={handleOpenHomepage}>
             <PlayCircleFill2
               width={responsiveSize(56)}
@@ -110,11 +111,13 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
           </Box>
         </Box>
 
-        <TouchableOpacity
-          style={[styles.favorite, {backgroundColor}]}
-          onPress={onToggleFavorite}>
-          {icon}
-        </TouchableOpacity>
+        {isFirstItem && (
+          <TouchableOpacity
+            style={[styles.favorite, {backgroundColor}]}
+            onPress={onToggleFavorite}>
+            {icon}
+          </TouchableOpacity>
+        )}
       </Box>
     );
   };
