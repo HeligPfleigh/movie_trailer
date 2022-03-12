@@ -107,7 +107,9 @@ const TVDetail: React.FC = () => {
       vote_count: tvShow.vote_count,
       width: -1,
     },
-    ...tvShow.images.posters,
+    ...tvShow.images.posters.filter(
+      item => item.file_path !== tvShow.poster_path,
+    ),
   ];
 
   return (

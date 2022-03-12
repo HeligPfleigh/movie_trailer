@@ -109,7 +109,9 @@ const MovieDetail: React.FC = () => {
       vote_count: movie.vote_count,
       width: -1,
     },
-    ...movie.images.posters,
+    ...movie.images.posters.filter(
+      item => item.file_path !== movie.poster_path,
+    ),
   ];
 
   return (
