@@ -1,0 +1,21 @@
+diff --git a/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java b/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java
+index f22833e..b949a35 100644
+--- a/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java
++++ b/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java
+@@ -271,6 +271,16 @@ public class VoiceModule extends ReactContextBaseJavaModule implements Recogniti
+     callback.invoke(isRecognizing);
+   }
+ 
++  @ReactMethod
++  public void addListener(String eventName) {
++    // Keep: Required for RN built in Event Emitter Calls.
++  }
++
++  @ReactMethod
++  public void removeListeners(Integer count) {
++    // Keep: Required for RN built in Event Emitter Calls.
++  }
++
+   private void sendEvent(String eventName, @Nullable WritableMap params) {
+     this.reactContext
+       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
