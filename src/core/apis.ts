@@ -11,6 +11,7 @@ import {
   IActorDetail,
   ITVDetail,
   IMovieDetail,
+  ISeasonDetail,
 } from './types';
 
 const API_SERVER = 'https://api.themoviedb.org/3/';
@@ -120,4 +121,12 @@ export const getActorCredits = async <T extends IMovieOverview | ITVOverview>(
 ): Promise<Array<T>> => {
   const {data} = await instance.get(url);
   return [...data.cast, ...data.crew];
+};
+
+export const getSeasonDetail = async (
+  tvID: number,
+  seasonNumber: number,
+): Promise<ISeasonDetail> => {
+  const {data} = await instance.get(`tv/${tvID}/season/${seasonNumber}`);
+  return data;
 };
