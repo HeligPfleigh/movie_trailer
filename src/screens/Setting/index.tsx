@@ -44,6 +44,8 @@ const SettingScreen: React.FC = () => {
   const handlePressPrivacyPolicy = () =>
     Linking.openURL(Config.PRIVACY_POLICY_URL);
 
+  const handlePressFeedback = () => Linking.openURL(Config.MARKETING_URL);
+
   const settings = [
     [
       {
@@ -75,7 +77,7 @@ const SettingScreen: React.FC = () => {
         color: colors.whiteIce,
       },
       {
-        onPress: handlePressRateAndReview,
+        onPress: handlePressFeedback,
         icon: <HeartFillIcon />,
         title: 'Feedback',
         color: colors.cinderella,
