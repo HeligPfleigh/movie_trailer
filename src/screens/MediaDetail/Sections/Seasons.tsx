@@ -2,11 +2,14 @@ import Season from '@movie_trailer/assets/icons/Season';
 import {Box, Typography} from '@movie_trailer/components';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {ISeasonOverview} from '@movie_trailer/core/types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import {MediaDetailNavigationProps} from '../types';
 
 const styles = StyleSheet.create({
   root: {
@@ -34,12 +37,18 @@ const styles = StyleSheet.create({
 });
 
 interface ISeasonsProps {
+  id: number;
   seasons: Array<ISeasonOverview>;
 }
 
-const Item = ({season}: {season: ISeasonOverview}) => {
+interface ISeasonItem {
+  season: ISeasonOverview;
+  onPress?: () => void;
+}
+
+const Item: React.FC<ISeasonItem> = ({season, onPress}: ISeasonItem) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Box flex={false} row mb={1.5}>
         <Box flex={false} style={styles.thumbnail}>
           <FastImage
@@ -72,7 +81,16 @@ const Item = ({season}: {season: ISeasonOverview}) => {
   );
 };
 
-const Seasons: React.FC<ISeasonsProps> = ({seasons}: ISeasonsProps) => {
+const Seasons: React.FC<ISeasonsProps> = ({id, seasons}: ISeasonsProps) => {
+  const navigation = useNavigation<MediaDetailNavigationProps>();
+
+  const handlePressSeasonDetail = (seasonNumber: number) => () => {
+    navigation.push(NavigatorMap.SeasonDetail, {
+      tvID: id,
+      seasonNumber,
+    });
+  };
+
   return (
     <Box flex={false} style={styles.root}>
       <LinearGradient
@@ -83,11 +101,15 @@ const Seasons: React.FC<ISeasonsProps> = ({seasons}: ISeasonsProps) => {
       <Box m={1.5}>
         <Box flex={false} center mb={1.5}>
           <Typography variant="h5" color={colors.white}>
-            Your next episode
+            List seasons
           </Typography>
         </Box>
         {seasons.map(season => (
-          <Item key={season.id} season={season} />
+          <Item
+            key={season.id}
+            season={season}
+            onPress={handlePressSeasonDetail(season.season_number)}
+          />
         ))}
       </Box>
     </Box>

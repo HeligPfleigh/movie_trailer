@@ -132,7 +132,7 @@ const TVDetail: React.FC = () => {
       {Boolean(tvShow.first_air_date) && (
         <Box mt={0.5} ml={2} mr={2} flex={false} row middle>
           <Calendar />
-          <Box flex={false} mr={2}>
+          <Box flex={false} ml={0.5}>
             <Typography variant="h1" color={colors.catskillWhite}>
               {dayjs(tvShow.first_air_date).format('MMM DD, YYYY')}
             </Typography>
@@ -152,7 +152,7 @@ const TVDetail: React.FC = () => {
         </Typography>
       </Box>
 
-      <Seasons seasons={tvShow.seasons} />
+      <Seasons seasons={tvShow.seasons} id={tvShow.id} />
 
       <Trailers videos={tvShow.videos.results} />
 
