@@ -122,7 +122,7 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
 
       <Box flex={1} mt={2}>
         <Typography variant="h6" color={colors.white}>
-          {`There are no favorite ${activeTab}.`}
+          {`There isn't any favorite ${activeTab}.`}
         </Typography>
       </Box>
     </Box>
