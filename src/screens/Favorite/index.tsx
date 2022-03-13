@@ -198,6 +198,7 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
 
       <RemoveFavoritePopup
         open={openPopup}
+        type={activeTab}
         onClose={toggleRemoveFavoritePopup}
         onConfirm={handleConfirmRemoveFavorite}
       />

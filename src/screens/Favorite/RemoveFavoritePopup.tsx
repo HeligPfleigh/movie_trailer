@@ -7,10 +7,10 @@ import Modal from 'react-native-modal';
 const styles = StyleSheet.create({
   container: {
     width: 264,
-    height: 160,
     backgroundColor: colors.white,
     borderRadius: 8,
-    padding: spacing(3),
+    padding: spacing(2),
+    paddingTop: spacing(3),
     alignItems: 'center',
   },
   divider: {
@@ -23,20 +23,22 @@ const styles = StyleSheet.create({
 
 interface IRemoveFavoritePopupProps {
   open: boolean;
+  type: string;
   onClose: () => void;
   onConfirm: () => void;
 }
 
 const RemoveFavoritePopup: React.FC<IRemoveFavoritePopupProps> = ({
   open,
+  type,
   onClose,
   onConfirm,
 }: IRemoveFavoritePopupProps) => {
   return (
     <Modal
       isVisible={open}
-      animationIn="fadeIn"
-      animationOut="fadeOut"
+      animationIn="fadeInDown"
+      animationOut="fadeOutUp"
       onBackdropPress={onClose}>
       <Box center middle>
         <Box flex={false} style={styles.container}>
@@ -53,7 +55,7 @@ const RemoveFavoritePopup: React.FC<IRemoveFavoritePopupProps> = ({
               variant="caps2"
               color={colors.slateGray}
               textAlign="center">
-              Are you sure you would like to remove this film from the favorite?
+              {`Are you sure you would like to remove this ${type} from the favorite?`}
             </Typography>
           </Box>
 
