@@ -152,7 +152,7 @@ const TVDetail: React.FC = () => {
         </Typography>
       </Box>
 
-      <Seasons seasons={tvShow.seasons} />
+      <Seasons seasons={tvShow.seasons} id={tvShow.id} />
 
       <Trailers videos={tvShow.videos.results} />
 

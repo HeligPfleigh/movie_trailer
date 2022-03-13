@@ -7,6 +7,7 @@ import ListMediaScreen from '@movie_trailer/screens/ListMedia';
 import MediaDetailScreen from '@movie_trailer/screens/MediaDetail';
 import PopularPeopleScreen from '@movie_trailer/screens/PopularPeople';
 import SearchScreen from '@movie_trailer/screens/Search';
+import SeasonDetailScreen from '@movie_trailer/screens/SeasonDetail';
 import SettingScreen from '@movie_trailer/screens/Setting';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -59,6 +60,10 @@ const MainNavigator = () => {
       <Stack.Screen
         name={NavigatorMap.MediaDetail}
         component={MediaDetailScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.SeasonDetail}
+        component={SeasonDetailScreen}
       />
     </Stack.Navigator>
   );

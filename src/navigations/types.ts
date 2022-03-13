@@ -33,4 +33,8 @@ export type MainStackParamList = {
     type: 'movie' | 'tv';
     id: number;
   };
+  SeasonDetail: {
+    tvID: number;
+    seasonNumber: number;
+  };
 };
