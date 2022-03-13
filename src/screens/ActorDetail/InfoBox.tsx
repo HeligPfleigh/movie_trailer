@@ -23,12 +23,20 @@ interface IInfoBoxProps {
 const InfoBox: React.FC<IInfoBoxProps> = ({title, value}: IInfoBoxProps) => {
   return (
     <Box flex={false} style={styles.container}>
-      <Typography color={colors.slateGray} variant="caps2">
-        {title}
-      </Typography>
-      <Typography color={colors.white} fontFamily="Poppins-Bold" variant="b4">
-        {value}
-      </Typography>
+      <Box flex={false} mr={2}>
+        <Typography color={colors.slateGray} variant="caps2">
+          {title}
+        </Typography>
+      </Box>
+      <Box>
+        <Typography
+          color={colors.white}
+          fontFamily="Poppins-Bold"
+          variant="b4"
+          textAlign="right">
+          {value}
+        </Typography>
+      </Box>
     </Box>
   );
 };
