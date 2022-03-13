@@ -23,7 +23,7 @@ export type IDiscoverState = {
   data: IPagination & {results: Array<IMediaOverview>};
   loading: boolean;
   type: 'tv' | 'movie';
-  sortBy: SortByType;
+  sortBy?: SortByType;
   genre?: number;
 };
 
@@ -31,7 +31,6 @@ export const initialState: IDiscoverState = {
   data: {page: 0, total_pages: 0, total_results: 0, results: []},
   loading: false,
   type: 'movie',
-  sortBy: 'vote_average.desc',
 };
 
 const isTV = (
@@ -45,7 +44,7 @@ export const loadInitial = createAsyncThunk(
       type,
       sortBy,
       genre,
-    }: {type: 'tv' | 'movie'; sortBy: SortByType; genre?: number},
+    }: {type: 'tv' | 'movie'; sortBy?: SortByType; genre?: number},
     {getState},
   ) => {
     const data = await getMediaOverviewByDiscover(type, {

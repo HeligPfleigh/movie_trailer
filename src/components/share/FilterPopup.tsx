@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 type IFilterPopup = {
   top: number;
   open: boolean;
-  selected: 'rating.desc' | 'title.desc' | 'title.asc';
+  selected?: 'rating.desc' | 'title.desc' | 'title.asc';
   onSelectFilter: (filter: 'rating.desc' | 'title.desc' | 'title.asc') => void;
   onClose: () => void;
 };

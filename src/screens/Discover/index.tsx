@@ -64,7 +64,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   const onEndReachedCalledDuringMomentumRef = useRef<boolean>(true);
   const [filterMode, setFilterMode] = useState<
     'rating.desc' | 'title.desc' | 'title.asc'
-  >('rating.desc');
+  >();
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -92,7 +92,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
       return 'name.asc';
     }
 
-    return 'vote_average.desc';
+    return undefined;
   }, [filterMode, type]);
 
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -140,9 +140,17 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   const [filterPosition, setFilterPosition] = useState<number>(0);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
-  const toggleFilter = () => {
-    setOpenFilter(prev => !prev);
-  };
+  const toggleFilter = () => setOpenFilter(prev => !prev);
+
+  const handleSelectFilter = (
+    filter: 'rating.desc' | 'title.desc' | 'title.asc',
+  ) =>
+    setFilterMode(prev => {
+      if (prev === filter) {
+        return undefined;
+      }
+      return filter;
+    });
 
   const handleLayout = (event: LayoutChangeEvent) => {
     setFilterPosition(event.nativeEvent.layout.y + 64);
@@ -207,7 +215,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
         top={filterPosition}
         onClose={toggleFilter}
         selected={filterMode}
-        onSelectFilter={setFilterMode}
+        onSelectFilter={handleSelectFilter}
       />
     </Box>
   );
