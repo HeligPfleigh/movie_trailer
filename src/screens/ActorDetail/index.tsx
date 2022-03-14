@@ -3,6 +3,7 @@ import FastImage from 'react-native-fast-image';
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -30,6 +31,8 @@ import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {loadCredits} from '@movie_trailer/store/slices/mediaListSlice';
 import Gallery from './Gallery';
 
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.codGray,
@@ -39,8 +42,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   profileImage: {
-    width: responsiveSize(215),
-    height: responsiveSize(264),
+    width: isIPad ? responsiveSize(600) : responsiveSize(215),
+    height: isIPad ? responsiveSize(800) : responsiveSize(264),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,
     position: 'relative',

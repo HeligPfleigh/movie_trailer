@@ -1,5 +1,11 @@
 import React from 'react';
-import {Dimensions, Linking, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Dimensions,
+  Linking,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import {Box, Typography} from '@movie_trailer/components';
@@ -20,11 +26,12 @@ interface IPosterCarouselProps {
 }
 
 const {width: viewportWidth} = Dimensions.get('window');
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
 
 const styles = StyleSheet.create({
   carouselItemContainer: {
-    height: responsiveSize(396),
-    width: responsiveSize(283),
+    height: isIPad ? responsiveSize(800) : responsiveSize(396),
+    width: isIPad ? viewportWidth * 0.75 : responsiveSize(283),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,
   },
@@ -48,8 +55,8 @@ const styles = StyleSheet.create({
     right: responsiveSize(8),
   },
   playBtn: {
-    top: responsiveSize(170),
-    left: responsiveSize(115),
+    top: isIPad ? responsiveSize(390) : responsiveSize(170),
+    left: isIPad ? responsiveSize(390) : responsiveSize(115),
     position: 'absolute',
   },
 });

@@ -10,10 +10,19 @@ import {ISeasonDetail} from '@movie_trailer/core/types';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Episodes from './Episodes';
 import {SeasonDetailScreenProps} from './types';
+
+const {width: viewportWidth} = Dimensions.get('window');
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +33,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   poster: {
-    height: responsiveSize(396),
-    width: responsiveSize(283),
+    height: isIPad ? responsiveSize(800) : responsiveSize(396),
+    width: isIPad ? viewportWidth * 0.75 : responsiveSize(283),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,
   },

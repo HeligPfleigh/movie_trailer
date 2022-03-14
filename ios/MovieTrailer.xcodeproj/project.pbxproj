@@ -11,12 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1F94DC7A6D1B4859B5A1504C /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60CFDF3589EB4EE2B0132536 /* Poppins-Bold.ttf */; };
 		211929BF3B274E0A8CCC68A5 /* Poppins.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E131E3C8F68D4C8CA022DCA3 /* Poppins.ttf */; };
 		2E4BC35D665392BE29529831 /* libPods-MovieTrailer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B42764BF804862CAA74EEFE /* libPods-MovieTrailer.a */; };
 		53B5342A12070CCFF4F1E5E8 /* libPods-MovieTrailer-MovieTrailerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FDA0A0FA6EBF622B7D760BA /* libPods-MovieTrailer-MovieTrailerTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		1F94DC7A6D1B4859B5A1504C /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60CFDF3589EB4EE2B0132536 /* Poppins-Bold.ttf */; };
 		6A2DACECBD3341EE893CD888 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69BC49DD6AB540AFA54386C6 /* Poppins-SemiBold.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,15 +41,15 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MovieTrailer/main.m; sourceTree = "<group>"; };
 		3B42764BF804862CAA74EEFE /* libPods-MovieTrailer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MovieTrailer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FDA0A0FA6EBF622B7D760BA /* libPods-MovieTrailer-MovieTrailerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MovieTrailer-MovieTrailerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60CFDF3589EB4EE2B0132536 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		63394A5230720C57CA90002D /* Pods-MovieTrailer-MovieTrailerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer-MovieTrailerTests.debug.xcconfig"; path = "Target Support Files/Pods-MovieTrailer-MovieTrailerTests/Pods-MovieTrailer-MovieTrailerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		69BC49DD6AB540AFA54386C6 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MovieTrailer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B157140FFD9CFE4BA8BAA33A /* Pods-MovieTrailer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer.release.xcconfig"; path = "Target Support Files/Pods-MovieTrailer/Pods-MovieTrailer.release.xcconfig"; sourceTree = "<group>"; };
 		B5381A900A91DE8648B3D524 /* Pods-MovieTrailer-MovieTrailerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer-MovieTrailerTests.release.xcconfig"; path = "Target Support Files/Pods-MovieTrailer-MovieTrailerTests/Pods-MovieTrailer-MovieTrailerTests.release.xcconfig"; sourceTree = "<group>"; };
 		E131E3C8F68D4C8CA022DCA3 /* Poppins.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Poppins.ttf; path = ../src/assets/fonts/Poppins.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F2BD8A8F01FF9C7D4F11B4E2 /* Pods-MovieTrailer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer.debug.xcconfig"; path = "Target Support Files/Pods-MovieTrailer/Pods-MovieTrailer.debug.xcconfig"; sourceTree = "<group>"; };
-		60CFDF3589EB4EE2B0132536 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		69BC49DD6AB540AFA54386C6 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,6 +577,7 @@
 				PRODUCT_NAME = MovieTrailer;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -659,6 +660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MovieTrailer;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

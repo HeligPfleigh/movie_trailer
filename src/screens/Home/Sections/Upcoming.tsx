@@ -81,7 +81,7 @@ const Upcoming: React.FC = () => {
 
       <Box mt={1.5}>
         <FlatList
-          data={movies.slice(0, 5)}
+          data={movies}
           renderItem={renderItem}
           keyExtractor={item =>
             `${item.reduce((prev, curr) => prev + curr.title, '')}`
