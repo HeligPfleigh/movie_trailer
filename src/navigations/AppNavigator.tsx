@@ -10,12 +10,16 @@ import SearchScreen from '@movie_trailer/screens/Search';
 import SeasonDetailScreen from '@movie_trailer/screens/SeasonDetail';
 import SettingScreen from '@movie_trailer/screens/Setting';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useRef} from 'react';
 import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
 import {MainStackParamList, RootDrawerParamList} from './types';
+import analytics from '@react-native-firebase/analytics';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -70,8 +74,52 @@ const MainNavigator = () => {
 };
 
 const AppNavigator = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<string>('');
+
+  const onNavigationReady = () => {
+    if (navigationRef.current) {
+      routeNameRef.current =
+        navigationRef.current.getCurrentRoute()?.name ?? '';
+    }
+  };
+
+  const onStateChange = async () => {
+    if (!navigationRef.current) {
+      return;
+    }
+
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName = navigationRef.getCurrentRoute()?.name;
+    const currentRouteParams = navigationRef.getCurrentRoute()?.params ?? {};
+
+    if (!currentRouteName) {
+      return;
+    }
+
+    if (previousRouteName !== currentRouteName) {
+      console.log({currentRouteName}, currentRouteParams);
+
+      try {
+        // firebase analytics
+        await analytics().logScreenView({
+          screen_name: currentRouteName,
+          screen_class: currentRouteName,
+          ...currentRouteParams,
+        });
+      } catch (error) {}
+    }
+
+    // Save the current route name for later comparison
+    routeNameRef.current = currentRouteName;
+  };
+
   return (
-    <NavigationContainer linking={linking as any}>
+    <NavigationContainer
+      linking={linking as any}
+      ref={navigationRef}
+      onReady={onNavigationReady}
+      onStateChange={onStateChange}>
       <Drawer.Navigator
         screenOptions={{
           headerShown: false,

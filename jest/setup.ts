@@ -25,3 +25,9 @@ jest.mock('redux-persist', () => {
       .mockImplementation((config, reducers) => reducers),
   };
 });
+
+jest.mock('@react-native-firebase/analytics', () => () => {
+  return {
+    logScreenView: jest.fn(),
+  };
+});
