@@ -91,17 +91,23 @@ const AppNavigator = () => {
 
     const previousRouteName = routeNameRef.current;
     const currentRouteName = navigationRef.getCurrentRoute()?.name;
+    const currentRouteParams = navigationRef.getCurrentRoute()?.params ?? {};
 
     if (!currentRouteName) {
       return;
     }
 
     if (previousRouteName !== currentRouteName) {
-      // firebase analytics
-      await analytics().logScreenView({
-        screen_name: currentRouteName,
-        screen_class: currentRouteName,
-      });
+      console.log({currentRouteName}, currentRouteParams);
+
+      try {
+        // firebase analytics
+        await analytics().logScreenView({
+          screen_name: currentRouteName,
+          screen_class: currentRouteName,
+          ...currentRouteParams,
+        });
+      } catch (error) {}
     }
 
     // Save the current route name for later comparison
