@@ -20,6 +20,7 @@ import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
 import {MainStackParamList, RootDrawerParamList} from './types';
 import analytics from '@react-native-firebase/analytics';
+import Flurry from 'react-native-flurry-sdk';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -98,15 +99,17 @@ const AppNavigator = () => {
     }
 
     if (previousRouteName !== currentRouteName) {
-      console.log({currentRouteName}, currentRouteParams);
+      const analyticParams = {
+        screen_name: currentRouteName,
+        screen_class: currentRouteName,
+        ...currentRouteParams,
+      };
 
       try {
         // firebase analytics
-        await analytics().logScreenView({
-          screen_name: currentRouteName,
-          screen_class: currentRouteName,
-          ...currentRouteParams,
-        });
+        await analytics().logScreenView(analyticParams);
+
+        Flurry.logEvent('Screen View', analyticParams);
       } catch (error) {}
     }
 

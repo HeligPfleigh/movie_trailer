@@ -30,6 +30,7 @@
     "react-native": "0.67.3",
     "react-native-config": "^1.4.5",
     "react-native-fast-image": "^8.5.11",
+    "react-native-flurry-sdk": "^7.1.1",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-image-gallery": "^2.1.5",
     "react-native-in-app-review": "^3.3.2",
