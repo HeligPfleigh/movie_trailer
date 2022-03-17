@@ -6417,6 +6417,11 @@ react-native-image-gallery@^2.1.5:
     react-mixin "^3.0.5"
     react-timer-mixin "^0.13.3"
 
+react-native-in-app-review@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-in-app-review/-/react-native-in-app-review-3.3.2.tgz#a26bb8af46d63f7659c43333075c8f4d5bd13f3c"
+  integrity sha512-P1v8i479aevGu0bcVqVV7FMWXY6jBb1EAVp2RV7bWYIEDsxc+5rTq1Zg74OGMaT2nVXM62ehx8I0xrkuQJBVyA==
+
 react-native-linear-gradient@^2.5.6:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
