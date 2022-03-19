@@ -38,3 +38,9 @@ jest.mock('react-native-in-app-review', () => ({
   }),
   isAvailable: jest.fn(),
 }));
+
+jest.mock('react-native-permissions', () =>
+  require('react-native-permissions/mock'),
+);
+
+jest.mock('@react-native-voice/voice', () => 'Voice');

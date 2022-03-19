@@ -5,7 +5,7 @@ import {
   Tabs,
   Typography,
 } from '@movie_trailer/components';
-import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import CloseIcon from '@movie_trailer/assets/icons/Close';
@@ -35,6 +35,11 @@ import MovieIcon from '@movie_trailer/assets/icons/Movie';
 import {TextField} from 'react-native-material-textfield';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFocusEffect} from '@react-navigation/native';
+import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
+import Voice, {
+  SpeechResultsEvent,
+  SpeechStartEvent,
+} from '@react-native-voice/voice';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -53,6 +58,15 @@ const styles = StyleSheet.create({
   textField: {
     top: spacing(-1),
   },
+  voiceInputBtn: {
+    ...round(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  activeVoiceInputBtn: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  },
 });
 
 const tabs = [
@@ -65,6 +79,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
   navigation,
 }: SearchScreenNavigationProps) => {
   const [searchText, setSearchText] = useState<string>('');
+  const [isVoiceActive, setVoiceActive] = useState<boolean>(false);
   const activeTab = useSelector(
     (state: RootState) => state.search.activeSearchTab,
   );
@@ -91,6 +106,8 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
       textFieldRef.current?.focus();
 
       return () => {
+        Voice.destroy().then(Voice.removeAllListeners);
+        setVoiceActive(false);
         textFieldRef.current?.clear();
       };
     }, []),
@@ -113,6 +130,47 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
         screen: NavigatorMap.MediaDetail,
         params: {id, type: activeTab},
       });
+    }
+  };
+
+  const voiceRecognizeHandler = useCallback((e: SpeechResultsEvent) => {
+    if (e.value?.length) {
+      const value = e.value[0];
+      textFieldRef.current?.setValue(value);
+      setSearchText(value);
+    }
+  }, []);
+
+  useEffect(() => {
+    Voice.onSpeechStart = (e: SpeechStartEvent) => {
+      if (e.error === false) {
+        setVoiceActive(true);
+      }
+    };
+
+    Voice.onSpeechEnd = () => {
+      setVoiceActive(false);
+    };
+
+    Voice.onSpeechResults = voiceRecognizeHandler;
+
+    Voice.onSpeechError = () => {
+      // TODO: some ui to interact with user
+      setVoiceActive(false);
+    };
+  }, [voiceRecognizeHandler]);
+
+  const handlePressVoiceSearch = async () => {
+    try {
+      await requestMultiple([
+        PERMISSIONS.IOS.MICROPHONE,
+        PERMISSIONS.ANDROID.RECORD_AUDIO,
+        PERMISSIONS.IOS.SPEECH_RECOGNITION,
+      ]);
+
+      await Voice.start('en-US');
+    } catch (error) {
+      // TODO: handle error
     }
   };
 
@@ -184,7 +242,16 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               <CloseFill />
             </Box>
           </TouchableOpacity>
-          <Micro fill={colors.white} />
+          <Box
+            flex={false}
+            style={[
+              styles.voiceInputBtn,
+              isVoiceActive ? styles.activeVoiceInputBtn : {},
+            ]}>
+            <TouchableOpacity onPress={handlePressVoiceSearch}>
+              <Micro fill={colors.white} />
+            </TouchableOpacity>
+          </Box>
         </Box>
 
         {Boolean(searchText) && (
