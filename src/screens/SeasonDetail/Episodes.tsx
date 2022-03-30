@@ -25,6 +25,15 @@ interface IEpisodesProps {
 }
 
 const Episodes: React.FC<IEpisodesProps> = ({episodes}: IEpisodesProps) => {
+  if (!episodes.length) {
+    return (
+      <Box center middle mt={5}>
+        <Typography variant="h6" color={colors.white} textAlign="center">
+          There isn't any episode information for this season.
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box flex={false} style={styles.root}>
       <Box flex={false} center mb={1.5} mt={1.5}>

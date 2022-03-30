@@ -121,10 +121,12 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
     ].join(', '),
   }));
 
-  const images = cast.map(person => ({
-    id: person.id,
-    value: `${IMAGE_SERVER}${person.profile_path}`,
-  }));
+  const images = cast
+    .sort((_, a) => (a.profile_path ? 1 : -1))
+    .map(person => ({
+      id: person.id,
+      value: `${IMAGE_SERVER}${person.profile_path}`,
+    }));
 
   const moreImage = (
     <TouchableOpacity
