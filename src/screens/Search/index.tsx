@@ -35,6 +35,7 @@ import MovieIcon from '@movie_trailer/assets/icons/Movie';
 import {TextField} from 'react-native-material-textfield';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFocusEffect} from '@react-navigation/native';
+import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 
 type SearchScreenNavigationProps = DrawerScreenProps<
   RootDrawerParamList,
@@ -126,8 +127,16 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
       params: {id},
     });
 
+  const handleToggleFavorite = (actor: IActorOverview) => () => {
+    dispatch(togglePersonFavorite(actor));
+  };
+
   const renderActorItem = ({item}: {item: IActorOverview}) => (
-    <ActorSearchCard {...item} onPress={handleNavigateToActorDetail(item.id)} />
+    <ActorSearchCard
+      {...item}
+      onPress={handleNavigateToActorDetail(item.id)}
+      onPressFavorite={handleToggleFavorite(item)}
+    />
   );
 
   const renderEmpty = (

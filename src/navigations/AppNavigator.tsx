@@ -98,8 +98,6 @@ const AppNavigator = () => {
     }
 
     if (previousRouteName !== currentRouteName) {
-      console.log({currentRouteName}, currentRouteParams);
-
       try {
         // firebase analytics
         await analytics().logScreenView({
