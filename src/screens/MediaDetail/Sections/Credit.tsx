@@ -88,24 +88,25 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
   const handleSeeAllCrews = (title: string) => () => {
     const departments =
       configs.find(item => item.title === title)?.departments ?? [];
-    dispatch(
-      loadCredits(
-        uniqBy(
-          crew
-            .filter(item => departments.includes(item.known_for_department))
-            .map(item => ({
-              id: item.id,
-              department: item.known_for_department,
-              name: item.name,
-              thumbnail: `${IMAGE_SERVER}${item.profile_path}`,
-            })),
-          'id',
-        ),
-      ),
+
+    const person = uniqBy(
+      crew
+        .filter(item => departments.includes(item.known_for_department))
+        .map(item => ({
+          id: item.id,
+          department: item.known_for_department,
+          name: item.name,
+          thumbnail: `${IMAGE_SERVER}${item.profile_path}`,
+        })),
+      'id',
     );
-    navigation.push(NavigatorMap.PopularPeople, {
-      title: `${name}'s ${title.toLowerCase()}`,
-    });
+
+    if (person.length) {
+      dispatch(loadCredits(person));
+      navigation.push(NavigatorMap.PopularPeople, {
+        title: `${name}'s ${title.toLowerCase()}`,
+      });
+    }
   };
 
   const information = configs.map(item => ({
