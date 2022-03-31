@@ -138,6 +138,7 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
         itemWidth={viewportWidth * 0.75}
         data={posters}
         renderItem={renderCarouselItem}
+        enableSnap
       />
     </Box>
   );
