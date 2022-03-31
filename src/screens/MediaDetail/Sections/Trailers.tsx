@@ -80,7 +80,7 @@ const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
       <Box flex={false} ml={1} style={{borderRadius: responsiveSize(16)}}>
         <FastImage
           source={{
-            uri: `https://img.youtube.com/vi/${item.key}/1.jpg`,
+            uri: `https://img.youtube.com/vi/${item.key}/maxres1.jpg`,
           }}
           style={styles.peerImage}
           resizeMode={FastImage.resizeMode.contain}
