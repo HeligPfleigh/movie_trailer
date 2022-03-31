@@ -62,7 +62,7 @@ const MovieTab = () => {
   };
 
   const handlePressMedia = (id: number) =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'movie'});
+    navigation.push(NavigatorMap.MediaDetail, {id, type: 'movie'});
 
   return (
     <>

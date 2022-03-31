@@ -89,7 +89,7 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handlePressMovie = (movieID: number) =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id: movieID, type: 'movie'});
+    navigation.push(NavigatorMap.MediaDetail, {id: movieID, type: 'movie'});
 
   const handleToggleFavorite = () => {
     if (actor) {

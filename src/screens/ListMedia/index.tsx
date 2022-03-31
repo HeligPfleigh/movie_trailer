@@ -72,7 +72,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handlePressMedia = (id: number) => () =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+    navigation.push(NavigatorMap.MediaDetail, {id, type});
 
   const handleLoadMore = () => {
     if (!onEndReachedCalledDuringMomentumRef.current) {

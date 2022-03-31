@@ -41,7 +41,7 @@ const Upcoming: React.FC = () => {
   };
 
   const handlePressMedia = (id: number) => () =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'movie'});
+    navigation.push(NavigatorMap.MediaDetail, {id, type: 'movie'});
 
   const renderItem = ({item}: {item: IMovieOverview[]}) => {
     if (item.length === 1) {

@@ -55,7 +55,7 @@ const Today: React.FC<ITodayProps> = ({medias, type}: ITodayProps) => {
   });
 
   const handlePressMedia = (id: number) => () =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type});
+    navigation.push(NavigatorMap.MediaDetail, {id, type});
 
   const renderItem = ({item}: {item: IMediaOverview}) => (
     <Box mr={2}>

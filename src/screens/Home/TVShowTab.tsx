@@ -48,7 +48,7 @@ const TvShowTab = () => {
   };
 
   const handlePressMedia = (id: number) =>
-    navigation.navigate(NavigatorMap.MediaDetail, {id, type: 'tv'});
+    navigation.push(NavigatorMap.MediaDetail, {id, type: 'tv'});
 
   return (
     <>
