@@ -25,8 +25,8 @@ import InfoBox from './InfoBox';
 import {ActorDetailScreenProps} from './types';
 import TVSection from './TVSection';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import Heart from '@movie_trailer/assets/icons/Heart';
-import HeartFill from '@movie_trailer/assets/icons/HeartFill';
+import Heart2 from '@movie_trailer/assets/icons/Heart2';
+import HeartFill2 from '@movie_trailer/assets/icons/HeartFill2';
 import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {loadCredits} from '@movie_trailer/store/slices/mediaListSlice';
 import Gallery from './Gallery';
@@ -148,9 +148,9 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
   const favorite = Boolean(favoriteActors.find(item => item.id === id));
 
   let icon = favorite ? (
-    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+    <HeartFill2 width={responsiveSize(12)} height={responsiveSize(12)} />
   ) : (
-    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+    <Heart2 width={responsiveSize(12)} height={responsiveSize(12)} />
   );
 
   const backgroundColor = favorite

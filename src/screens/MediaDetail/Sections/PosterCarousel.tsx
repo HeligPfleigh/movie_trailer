@@ -14,8 +14,8 @@ import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import FastImage from 'react-native-fast-image';
 import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import Star from '@movie_trailer/assets/icons/Star';
-import HeartFill from '@movie_trailer/assets/icons/HeartFill';
-import Heart from '@movie_trailer/assets/icons/Heart';
+import HeartFill2 from '@movie_trailer/assets/icons/HeartFill2';
+import Heart2 from '@movie_trailer/assets/icons/Heart2';
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 
 interface IPosterCarouselProps {
@@ -53,6 +53,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: responsiveSize(8),
     right: responsiveSize(8),
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    shadowRadius: 20,
+    elevation: 2,
   },
   playBtn: {
     top: isIPad ? responsiveSize(390) : responsiveSize(170),
@@ -74,9 +80,9 @@ const PosterCarousel: React.FC<IPosterCarouselProps> = ({
   };
 
   let icon = isFavorite ? (
-    <HeartFill width={responsiveSize(12)} height={responsiveSize(12)} />
+    <HeartFill2 width={responsiveSize(12)} height={responsiveSize(12)} />
   ) : (
-    <Heart width={responsiveSize(12)} height={responsiveSize(12)} />
+    <Heart2 width={responsiveSize(12)} height={responsiveSize(12)} />
   );
 
   const backgroundColor = isFavorite
