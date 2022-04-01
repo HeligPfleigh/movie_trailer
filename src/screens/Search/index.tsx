@@ -54,6 +54,9 @@ const styles = StyleSheet.create({
   textField: {
     top: spacing(-1),
   },
+  list: {
+    paddingBottom: spacing(35),
+  },
 });
 
 const tabs = [
@@ -212,6 +215,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
                 renderItem={renderItem}
                 keyExtractor={item => `${item.id}`}
                 ListEmptyComponent={renderEmpty}
+                contentContainerStyle={styles.list}
               />
             )}
 
@@ -221,6 +225,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
                 renderItem={renderActorItem}
                 keyExtractor={item => `${item.id}`}
                 ListEmptyComponent={renderEmpty}
+                contentContainerStyle={styles.list}
               />
             )}
           </>
