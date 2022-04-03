@@ -6,10 +6,11 @@ import {Box, MediaSearchCard, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import PlayCircleFill from '@movie_trailer/assets/icons/PlayCircleFill';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {IMAGE_SERVER} from '@movie_trailer/core/apis';
 import {IVideo} from '@movie_trailer/core/types';
+import {openVideo} from '@movie_trailer/store/slices/miscSlice';
 
 const styles = StyleSheet.create({
   heroImage: {
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
 
 const LatestShows: React.FC = () => {
   const latestShow = useSelector((state: RootState) => state.tvShow.latest);
+  const dispatch = useDispatch();
 
   if (!latestShow) {
     return null;
@@ -45,8 +47,7 @@ const LatestShows: React.FC = () => {
 
   const handleOpenYoutube = (media?: IVideo) => () => {
     if (media && media.site === 'YouTube') {
-      const url = `https://www.youtube.com/watch?v=${media.key}`;
-      Linking.openURL(url);
+      dispatch(openVideo(media.key));
     }
   };
 
@@ -88,7 +89,7 @@ const LatestShows: React.FC = () => {
                   <PlayCircleFill />
                 </Box>
                 <Typography variant="caps2" color={colors.white}>
-                  Watch video
+                  Visit streamer
                 </Typography>
               </LinearGradient>
             </TouchableOpacity>

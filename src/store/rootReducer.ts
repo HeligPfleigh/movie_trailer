@@ -20,6 +20,7 @@ import mediaListReducer from './slices/mediaListSlice';
 import popularPeopleReducer from './slices/popularPeopleSlice';
 import discoverReducer from './slices/discoverSlice';
 import favoriteReducer from './slices/favoriteSlice';
+import miscReducer from './slices/miscSlice';
 
 const persistConfig = {
   key: 'root',
@@ -36,6 +37,7 @@ export const rootReducer = combineReducers({
   popularPeople: popularPeopleReducer,
   discover: discoverReducer,
   favorite: favoriteReducer,
+  misc: miscReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

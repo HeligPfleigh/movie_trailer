@@ -7,3 +7,4 @@ export {default as AppBar} from './AppBar';
 export {default as FilterPopup} from './FilterPopup';
 export {default as SectionHeader} from './SectionHeader';
 export {default as SectionB} from './SectionB';
+export {default as VideoPlayer} from './Player';
