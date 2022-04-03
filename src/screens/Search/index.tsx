@@ -82,7 +82,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
       dispatch(requestSearchMovie(newValue));
       dispatch(requestSearchTV(newValue));
       dispatch(requestSearchPeople(newValue));
-    }, 500),
+    }, 2000),
   );
   const textFieldRef = useRef<TextField>(null);
 

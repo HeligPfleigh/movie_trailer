@@ -1,4 +1,4 @@
-import MicroIcon from '@movie_trailer/assets/icons/Micro';
+// import MicroIcon from '@movie_trailer/assets/icons/Micro';
 import SearchIcon from '@movie_trailer/assets/icons/Search';
 import {Box, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
@@ -36,8 +36,8 @@ const SearchBox: React.FC<ISearchBoxProps> = ({onPress}: ISearchBoxProps) => {
             Search
           </Typography>
         </Box>
-        <Box flex={false} style={styles.divider} />
-        {/* <MicroIcon fill="#4A5568" /> */}
+        {/* <Box flex={false} style={styles.divider} />
+        <MicroIcon fill="#4A5568" /> */}
       </Box>
     </TouchableOpacity>
   );
