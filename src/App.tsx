@@ -8,6 +8,7 @@ import 'react-native-gesture-handler';
 import {persistor, store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {VideoPlayer} from './components';
 
 // temporary comment the warning for react-native-gesture-handler
 LogBox.ignoreLogs([
@@ -21,6 +22,8 @@ function App() {
         <SafeAreaProvider>
           <AppNavigator />
         </SafeAreaProvider>
+
+        <VideoPlayer />
       </PersistGate>
     </Provider>
   );

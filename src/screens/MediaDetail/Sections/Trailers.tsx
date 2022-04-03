@@ -1,10 +1,12 @@
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 import {Box} from '@movie_trailer/components';
 import {IVideo} from '@movie_trailer/core/types';
+import {openVideo} from '@movie_trailer/store/slices/miscSlice';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import React from 'react';
-import {FlatList, Linking, StyleSheet, TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {useDispatch} from 'react-redux';
 
 interface ITrailersProps {
   videos: IVideo[];
@@ -33,8 +35,9 @@ const styles = StyleSheet.create({
 });
 
 const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
+  const dispatch = useDispatch();
   const handleOpenYoutube = (key: string) => () => {
-    Linking.openURL(`https://youtu.be/${key}`);
+    dispatch(openVideo(key));
   };
 
   const renderItem = ({item}: {item: IVideo}) => (
