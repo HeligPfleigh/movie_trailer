@@ -2,12 +2,13 @@ import {RootState} from '@movie_trailer/store/rootReducer';
 import {closeVideo} from '@movie_trailer/store/slices/miscSlice';
 import {colors, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity} from 'react-native';
 import YouTube from 'react-native-youtube';
 import {useDispatch, useSelector} from 'react-redux';
 import CloseIcon from '@movie_trailer/assets/icons/Close';
-import {Box} from '../common';
 import Config from 'react-native-config';
+
+import {Box} from '../common';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
   closeIcon: {
     position: 'absolute',
     left: spacing(2),
-    top: spacing(5),
+    top: spacing(Platform.OS === 'ios' ? 5 : 2),
     zIndex: 2,
   },
   video: {
@@ -50,7 +51,7 @@ const VideoPlayer: React.FC = () => {
         </TouchableOpacity>
       </Box>
       <YouTube
-        apiKey={Config.YOUTUBE_API_KEY || 'todo'}
+        apiKey={Config.YOUTUBE_API_KEY}
         videoId={url}
         play
         style={styles.video}
