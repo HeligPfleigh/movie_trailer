@@ -13,7 +13,7 @@ import {RootDrawerParamList} from '@movie_trailer/navigations/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import Search from '@movie_trailer/assets/icons/Search';
-import Micro from '@movie_trailer/assets/icons/Micro';
+// import Micro from '@movie_trailer/assets/icons/Micro';
 import CloseFill from '@movie_trailer/assets/icons/CloseFill';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -196,7 +196,7 @@ const SearchScreen: React.FC<SearchScreenNavigationProps> = ({
               <CloseFill />
             </Box>
           </TouchableOpacity>
-          <Micro fill={colors.white} />
+          {/* <Micro fill={colors.white} /> */}
         </Box>
 
         {Boolean(searchText) && (

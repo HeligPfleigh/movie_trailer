@@ -88,7 +88,7 @@ const LatestShows: React.FC = () => {
                   <PlayCircleFill />
                 </Box>
                 <Typography variant="caps2" color={colors.white}>
-                  Watch video
+                  Visit streamer
                 </Typography>
               </LinearGradient>
             </TouchableOpacity>

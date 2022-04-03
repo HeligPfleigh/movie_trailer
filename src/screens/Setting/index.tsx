@@ -44,7 +44,8 @@ const SettingScreen: React.FC = () => {
   const handlePressPrivacyPolicy = () =>
     Linking.openURL(Config.PRIVACY_POLICY_URL);
 
-  const handlePressFeedback = () => Linking.openURL(Config.MARKETING_URL);
+  const handlePressFeedback = () =>
+    Linking.openURL(`mailto:${Config.FEEDBACK_EMAIL}`);
 
   const settings = [
     [

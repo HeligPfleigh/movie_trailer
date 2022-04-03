@@ -37,7 +37,7 @@ const SearchBox: React.FC<ISearchBoxProps> = ({onPress}: ISearchBoxProps) => {
           </Typography>
         </Box>
         <Box flex={false} style={styles.divider} />
-        <MicroIcon fill="#4A5568" />
+        {/* <MicroIcon fill="#4A5568" /> */}
       </Box>
     </TouchableOpacity>
   );
