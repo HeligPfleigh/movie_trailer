@@ -144,6 +144,7 @@ const TVDetail: React.FC = () => {
         cast={tvShow.credits.cast}
         crew={tvShow.credits.crew}
         name={tvShow.name}
+        description={tvShow.overview}
       />
 
       <Box flex={false} ml={2} mr={2}>

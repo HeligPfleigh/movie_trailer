@@ -12,20 +12,25 @@ import {MediaDetailNavigationProps} from '../types';
 import {loadCredits} from '@movie_trailer/store/slices/popularPeopleSlice';
 import {useDispatch} from 'react-redux';
 import uniqBy from 'lodash/uniqBy';
+import Plus from '@movie_trailer/assets/icons/Plus';
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
 interface ICreditProps {
   cast: Array<Omit<IPeopleOverview, 'known_for'>>;
   crew: Array<Omit<IPeopleOverview, 'known_for'>>;
   name: string;
+  description?: string;
+  premierDate?: Date;
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.oxfordBlue,
     paddingTop: spacing(6),
-    margin: spacing(2),
+    marginHorizontal: spacing(2),
     marginTop: spacing(6),
-    paddingBottom: spacing(2),
+    marginBottom: spacing(7),
+    paddingBottom: spacing(4.5),
     borderRadius: responsiveSize(8),
     position: 'relative',
   },
@@ -45,6 +50,20 @@ const styles = StyleSheet.create({
     left: -80,
     backgroundColor: colors.cornflowerBlue,
   },
+  calendarContainer: {
+    position: 'absolute',
+    bottom: spacing(-3),
+    width: '100%',
+    alignItems: 'center',
+  },
+  calendarBtn: {
+    paddingHorizontal: spacing(2),
+    paddingVertical: spacing(1.25),
+    borderRadius: 40,
+    backgroundColor: colors.royalBlue,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 const configs = [
@@ -63,7 +82,13 @@ const configs = [
   },
 ];
 
-const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
+const Credit: React.FC<ICreditProps> = ({
+  cast,
+  crew,
+  name,
+  description,
+  premierDate,
+}: ICreditProps) => {
   const navigation = useNavigation<MediaDetailNavigationProps>();
   const dispatch = useDispatch();
 
@@ -107,6 +132,14 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
         title: `${name}'s ${title.toLowerCase()}`,
       });
     }
+  };
+
+  const handleAddEventToCalendar = () => {
+    AddCalendarEvent.presentEventCreatingDialog({
+      title: name,
+      notes: description,
+      startDate: premierDate?.toISOString(),
+    });
   };
 
   const information = configs.map(item => ({
@@ -188,6 +221,22 @@ const Credit: React.FC<ICreditProps> = ({cast, crew, name}: ICreditProps) => {
           </Box>
         </TouchableOpacity>
       ))}
+
+      <Box style={styles.calendarContainer}>
+        <TouchableOpacity
+          style={styles.calendarBtn}
+          onPress={handleAddEventToCalendar}>
+          <Plus />
+          <Box ml={1} flex={false}>
+            <Typography
+              variant="b5"
+              fontFamily="Poppins-SemiBold"
+              color={colors.white}>
+              Add to calendar
+            </Typography>
+          </Box>
+        </TouchableOpacity>
+      </Box>
     </Box>
   );
 };

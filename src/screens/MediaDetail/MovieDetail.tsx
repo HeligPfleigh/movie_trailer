@@ -160,6 +160,8 @@ const MovieDetail: React.FC = () => {
         cast={movie.credits.cast}
         crew={movie.credits.crew}
         name={movie.title}
+        premierDate={dayjs(movie.release_date).toDate()}
+        description={movie.overview}
       />
 
       <Box flex={false} ml={2} mr={2}>
