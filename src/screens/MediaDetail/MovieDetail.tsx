@@ -75,6 +75,20 @@ const MovieDetail: React.FC = () => {
     }
   };
 
+  const handleSeeAllReviews = () => {
+    if (movie) {
+      navigation.push(NavigatorMap.UserReviews, {
+        id: movie.id,
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        reviews: movie.reviews.results,
+        time: movie.release_date,
+        title: movie.title,
+        rating: movie.vote_average,
+        ratingAmount: movie.vote_count,
+      });
+    }
+  };
+
   if (!movie) {
     return (
       <Box color="transparent" middle>
@@ -178,6 +192,7 @@ const MovieDetail: React.FC = () => {
           reviews={movie.reviews.results}
           averageRating={movie.vote_average}
           ratingAmount={movie.vote_count}
+          onSeeAllReviews={handleSeeAllReviews}
         />
       </Box>
 

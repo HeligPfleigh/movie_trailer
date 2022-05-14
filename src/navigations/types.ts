@@ -1,3 +1,4 @@
+import {IReview} from '@movie_trailer/core/types';
 import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type RootDrawerParamList = {
@@ -36,5 +37,14 @@ export type MainStackParamList = {
   SeasonDetail: {
     tvID: number;
     seasonNumber: number;
+  };
+  UserReviews: {
+    id: number;
+    reviews: Array<IReview>;
+    title: string;
+    poster: string;
+    time: string;
+    rating: number;
+    ratingAmount: number;
   };
 };

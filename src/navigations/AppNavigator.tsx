@@ -20,6 +20,7 @@ import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
 import {MainStackParamList, RootDrawerParamList} from './types';
 import analytics from '@react-native-firebase/analytics';
+import UserReviewsScreen from '@movie_trailer/screens/UserReviews';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -68,6 +69,10 @@ const MainNavigator = () => {
       <Stack.Screen
         name={NavigatorMap.SeasonDetail}
         component={SeasonDetailScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.UserReviews}
+        component={UserReviewsScreen}
       />
     </Stack.Navigator>
   );

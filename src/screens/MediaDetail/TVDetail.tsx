@@ -73,6 +73,20 @@ const TVDetail: React.FC = () => {
     }
   };
 
+  const handleSeeAllReviews = () => {
+    if (tvShow) {
+      navigation.push(NavigatorMap.UserReviews, {
+        id: tvShow.id,
+        poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
+        reviews: tvShow.reviews.results,
+        time: tvShow.first_air_date,
+        title: tvShow.name,
+        rating: tvShow.vote_average,
+        ratingAmount: tvShow.vote_count,
+      });
+    }
+  };
+
   if (!tvShow) {
     return (
       <Box color="transparent" middle>
@@ -163,6 +177,7 @@ const TVDetail: React.FC = () => {
           reviews={tvShow.reviews.results}
           averageRating={tvShow.vote_average}
           ratingAmount={tvShow.vote_count}
+          onSeeAllReviews={handleSeeAllReviews}
         />
       </Box>
 

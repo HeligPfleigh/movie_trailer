@@ -8,7 +8,8 @@ import {
   Typography,
 } from '@movie_trailer/components';
 import {IReview} from '@movie_trailer/core/types';
-import {colors, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {truncate} from 'lodash';
 import React from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 
@@ -22,6 +23,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: spacing(2),
   },
+  reviewContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: responsiveSize(20),
+    padding: spacing(1.5),
+    width: responsiveSize(240),
+    marginRight: spacing(1),
+    height: responsiveSize(160),
+  },
 });
 
 interface IReviewProps {
@@ -29,6 +38,7 @@ interface IReviewProps {
   averageRating: number;
   myRating?: number;
   ratingAmount: number;
+  onSeeAllReviews?: () => void;
 }
 
 const Reviews = ({
@@ -36,17 +46,21 @@ const Reviews = ({
   averageRating,
   myRating,
   ratingAmount,
+  onSeeAllReviews,
 }: IReviewProps) => {
   const renderItem = ({item}: {item: IReview}) => (
-    <ReviewCard
-      user={item.author_details.name}
-      rating={item.author_details.rating}
-      review={item.content}
-    />
+    <Box style={styles.reviewContainer}>
+      <ReviewCard
+        user={item.author_details.name}
+        rating={item.author_details.rating}
+        review={truncate(item.content, {length: 120})}
+      />
+    </Box>
   );
+
   return (
     <>
-      <SectionHeader title="User review" />
+      <SectionHeader title="User review" onPress={onSeeAllReviews} />
 
       <Box row right>
         <Box flex={false} mb={1}>
