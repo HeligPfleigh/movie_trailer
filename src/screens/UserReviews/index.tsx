@@ -70,6 +70,7 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
       },
       content: `${item.review.title}\n${item.review.note}`,
       id: item.review.reviewedDate,
+      images: item.review.images,
     }));
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
@@ -80,6 +81,7 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
         user={item.author_details.name}
         rating={item.author_details.rating}
         review={item.content}
+        images={item.images || []}
       />
     </Box>
   );

@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     padding: spacing(1.5),
     width: responsiveSize(240),
     marginRight: spacing(1),
-    height: responsiveSize(160),
   },
 });
 
@@ -56,6 +55,7 @@ const Reviews = ({
         user={item.author_details.name}
         rating={item.author_details.rating}
         review={truncate(item.content, {length: 120})}
+        images={item.images || []}
       />
     </Box>
   );

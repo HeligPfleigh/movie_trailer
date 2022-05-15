@@ -147,6 +147,7 @@ export interface IReview {
   };
   content: string;
   id: string;
+  images?: Array<string>; // optional for personal reviews
 }
 
 export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {

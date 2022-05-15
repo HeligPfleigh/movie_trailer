@@ -1,15 +1,17 @@
 import Star from '@movie_trailer/assets/icons/Star';
 import {colors} from '@movie_trailer/theme';
 import React from 'react';
-import {Box, Typography} from '../common';
+import {Box, Typography} from '../../common';
+import Gallery from './Gallery';
 
 interface IReviewCardProps {
   user: string;
   rating: number;
   review: string;
+  images: string[];
 }
 
-const ReviewCard = ({user, rating, review}: IReviewCardProps) => {
+const ReviewCard = ({user, rating, review, images}: IReviewCardProps) => {
   return (
     <>
       <Box row center flex={false}>
@@ -25,6 +27,8 @@ const ReviewCard = ({user, rating, review}: IReviewCardProps) => {
           </Typography>
         </Box>
       </Box>
+
+      {images.length ? <Gallery images={images} /> : null}
 
       <Box mt={1} mb={1} flex={false}>
         <Typography variant="b5" color={colors.white}>

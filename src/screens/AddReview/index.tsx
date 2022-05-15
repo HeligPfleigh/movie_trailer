@@ -1,3 +1,5 @@
+import CloseFill from '@movie_trailer/assets/icons/CloseFill';
+import DefaultImage from '@movie_trailer/assets/icons/DefaultImage';
 import Star from '@movie_trailer/assets/icons/Star';
 import {
   AppBar,
@@ -12,6 +14,8 @@ import dayjs from 'dayjs';
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {ScrollView} from 'react-native-gesture-handler';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
 import {AddReviewScreenProps} from './types';
 
@@ -46,6 +50,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: colors.white,
     textAlignVertical: 'top',
+    marginTop: spacing(0.5),
+  },
+  image: {
+    width: responsiveSize(68),
+    height: responsiveSize(68),
+    position: 'relative',
+  },
+  addImageBtn: {
+    width: responsiveSize(68),
+    height: responsiveSize(68),
+    borderStyle: 'dashed',
+    borderColor: colors.white,
+    borderWidth: 1,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -59,6 +79,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
   const [rating, setRating] = useState<number>(5);
   const [titleReview, setTitleReview] = useState<string>('');
   const [noteReview, setNoteReview] = useState<string>('');
+  const [imagesReview, setImagesReview] = useState<Array<string>>([]);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -71,7 +92,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
         review: {
           title: titleReview,
           note: noteReview,
-          images: [],
+          images: imagesReview,
           rating: rating * 2,
           reviewedDate: new Date().toISOString(),
         },
@@ -86,8 +107,24 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
     navigation.goBack();
   };
 
+  const handleOpenPhotoLibrary = async () => {
+    // open photo library
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+    });
+
+    const images = (result.assets || [])
+      .map(asset => asset.uri)
+      .filter(Boolean) as Array<string>;
+
+    setImagesReview(prev => Array.from(new Set([...prev, ...images])));
+  };
+
+  const handleRemoveImage = (image: string) => () =>
+    setImagesReview(prev => prev.filter(i => i !== image));
+
   return (
-    <Box color={colors.codGray}>
+    <ScrollView style={{backgroundColor: colors.codGray}}>
       <HomeBackground height={responsiveSize(240)} />
       <AppBar onSearch={handleOpenSearch} />
 
@@ -174,11 +211,34 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
           />
         </Box>
 
-        <Box flex={false} mt={3.5}>
+        <Box flex={false} mt={3.5} mb={0.5}>
           <Typography variant="h7" color={colors.white}>
             Images (Ticker, Checking, etc)
           </Typography>
         </Box>
+        <ScrollView horizontal>
+          {imagesReview.map(image => (
+            <Box flex={false} mr={1} style={styles.image} key={image}>
+              <FastImage
+                source={{uri: image}}
+                style={styles.image}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+
+              <TouchableOpacity
+                style={{position: 'absolute', right: 4, top: 4}}
+                onPress={handleRemoveImage(image)}>
+                <CloseFill />
+              </TouchableOpacity>
+            </Box>
+          ))}
+
+          <TouchableOpacity
+            style={styles.addImageBtn}
+            onPress={handleOpenPhotoLibrary}>
+            <DefaultImage />
+          </TouchableOpacity>
+        </ScrollView>
       </Box>
 
       <TouchableOpacity style={styles.addReview} onPress={handleSubmitReview}>
@@ -189,7 +249,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
           Add a review
         </Typography>
       </TouchableOpacity>
-    </Box>
+    </ScrollView>
   );
 };
 

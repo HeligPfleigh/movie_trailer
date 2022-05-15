@@ -43,6 +43,7 @@ const MovieDetail: React.FC = () => {
       },
       content: `${item.review.title}\n${item.review.note}`,
       id: item.review.reviewedDate,
+      images: item.review.images,
     }));
 
   useEffect(() => {
