@@ -95,10 +95,10 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
 
   const renderHeader = () => (
     <Box color={colors.codGray}>
-      <HomeBackground height={responsiveSize(240)} />
+      <HomeBackground height={responsiveSize(300)} />
       <AppBar onSearch={handleOpenSearch} />
 
-      <Box mt={2.5} ml={2} mb={2} flex={false}>
+      <Box ml={2} mb={2} flex={false}>
         <Typography
           variant="h4"
           color={colors.white}

@@ -65,7 +65,7 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
       <HomeBackground height={responsiveSize(337)} />
       <AppBar onSearch={handleOpenSearch} />
 
-      <Box mt={2.5} ml={2} mb={2} flex={false}>
+      <Box ml={2} mb={2} flex={false}>
         <Typography
           variant="h4"
           color={colors.white}
@@ -77,7 +77,7 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
   );
 
   const renderEmptyList = () => (
-    <Box center mt={20}>
+    <Box center mt={24}>
       <ReviewIcon width={125} height={120} />
 
       <Typography variant="h7" color={colors.white}>
@@ -122,12 +122,12 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
           </Box>
         </Box>
 
-        <Box ml={2} mr={1} middle left>
+        <Box ml={1} mr={1} middle left>
           <Typography variant="caps1" color={colors.white}>
             {item.media.name}
           </Typography>
           <Typography variant="caps2" color="rgba(255, 255, 255, 0.6)">
-            {`Reviewed on ${dayjs(item.review.reviewedDate).format(
+            {`Rated on ${dayjs(item.review.reviewedDate).format(
               'MMM DD, YYYY',
             )}`}
           </Typography>

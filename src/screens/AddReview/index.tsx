@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
     color: colors.white,
     textAlignVertical: 'top',
     marginTop: spacing(0.5),
+    padding: spacing(1),
+  },
+  textArea: {
+    minHeight: responsiveSize(120),
   },
   image: {
     width: responsiveSize(68),
@@ -130,10 +134,10 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
 
   return (
     <ScrollView style={{backgroundColor: colors.codGray}}>
-      <HomeBackground height={responsiveSize(240)} />
+      <HomeBackground height={responsiveSize(300)} />
       <AppBar onSearch={handleOpenSearch} />
 
-      <Box mt={2.5} ml={2} mb={2} flex={false}>
+      <Box ml={2} mb={2} flex={false}>
         <Typography
           variant="h4"
           color={colors.white}
@@ -208,7 +212,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
           <TextInput
             value={noteReview}
             onChangeText={setNoteReview}
-            style={styles.input}
+            style={[styles.input, styles.textArea]}
             placeholder="Note"
             placeholderTextColor="rgba(255, 255, 255, 0.6)"
             multiline
