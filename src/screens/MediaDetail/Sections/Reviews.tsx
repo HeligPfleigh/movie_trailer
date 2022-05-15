@@ -112,22 +112,24 @@ const Reviews = ({
         </Box>
       </TouchableOpacity>
 
-      <Box mt={2} mb={1.5}>
-        <Typography
-          variant="h7"
-          fontFamily="Poppins-SemiBold"
-          color={colors.white}>
-          Most helpful reviews
-        </Typography>
+      {reviews.length ? (
+        <Box mt={2} mb={1.5}>
+          <Typography
+            variant="h7"
+            fontFamily="Poppins-SemiBold"
+            color={colors.white}>
+            Most helpful reviews
+          </Typography>
 
-        <FlatList
-          data={reviews}
-          renderItem={renderItem}
-          keyExtractor={item => `${item.id}`}
-          style={{marginTop: spacing(1.5)}}
-          horizontal
-        />
-      </Box>
+          <FlatList
+            data={reviews}
+            renderItem={renderItem}
+            keyExtractor={item => `${item.id}`}
+            style={{marginTop: spacing(1.5)}}
+            horizontal
+          />
+        </Box>
+      ) : null}
     </>
   );
 };
