@@ -137,6 +137,19 @@ export interface ISeasonOverview {
   season_number: number;
 }
 
+export interface IReview {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string;
+    rating: number;
+  };
+  content: string;
+  id: string;
+  images?: Array<string>; // optional for personal reviews
+}
+
 export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
   videos: {
     results: Array<IVideo>;
@@ -154,6 +167,9 @@ export interface ITVDetail extends Omit<ITVOverview, 'genre_ids' | 'video'> {
   };
   seasons: Array<ISeasonOverview>;
   homepage: string | null;
+  reviews: IPagination & {
+    results: Array<IReview>;
+  };
 }
 
 export interface IMovieDetail
@@ -174,6 +190,9 @@ export interface IMovieDetail
     logos: Array<IImage>;
   };
   homepage: string | null;
+  reviews: IPagination & {
+    results: Array<IReview>;
+  };
 }
 
 export interface IEpisodeOverview {

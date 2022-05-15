@@ -18,6 +18,7 @@ import Trailers from './Sections/Trailers';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
+import Reviews from './Sections/Reviews';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -28,6 +29,22 @@ const MovieDetail: React.FC = () => {
     (state: RootState) => state.favorite.movie,
   );
   const dispatch = useDispatch();
+  const personalReviews = useSelector(
+    (state: RootState) => state.personalReview.reviews,
+  )
+    .filter(item => item.media.type === 'movie' && item.media.id === id)
+    .map(item => ({
+      author: 'Me',
+      author_details: {
+        name: 'Me',
+        username: 'Me',
+        avatar_path: '',
+        rating: item.review.rating,
+      },
+      content: `${item.review.title}\n${item.review.note}`,
+      id: item.review.reviewedDate,
+      images: item.review.images,
+    }));
 
   useEffect(() => {
     const loadData = async () => {
@@ -74,6 +91,33 @@ const MovieDetail: React.FC = () => {
     }
   };
 
+  const handleSeeAllReviews = () => {
+    if (movie) {
+      navigation.push(NavigatorMap.UserReviews, {
+        id: movie.id,
+        type: 'movie',
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        reviews: movie.reviews.results,
+        time: movie.release_date,
+        title: movie.title,
+        rating: movie.vote_average,
+        ratingAmount: movie.vote_count,
+      });
+    }
+  };
+
+  const handleAddReview = () => {
+    if (movie) {
+      navigation.push(NavigatorMap.AddReview, {
+        id: movie.id,
+        type: 'movie',
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        time: movie.release_date,
+        title: movie.title,
+      });
+    }
+  };
+
   if (!movie) {
     return (
       <Box color="transparent" middle>
@@ -113,6 +157,8 @@ const MovieDetail: React.FC = () => {
       item => item.file_path !== movie.poster_path,
     ),
   ];
+
+  const allReviews = [...personalReviews, ...movie.reviews.results];
 
   return (
     <Box>
@@ -160,6 +206,8 @@ const MovieDetail: React.FC = () => {
         cast={movie.credits.cast}
         crew={movie.credits.crew}
         name={movie.title}
+        premierDate={dayjs(movie.release_date).toDate()}
+        description={movie.overview}
       />
 
       <Box flex={false} ml={2} mr={2}>
@@ -169,6 +217,16 @@ const MovieDetail: React.FC = () => {
       </Box>
 
       <Trailers videos={movie.videos.results} />
+
+      <Box flex={false} ml={2} mr={2} mt={2}>
+        <Reviews
+          reviews={allReviews}
+          averageRating={movie.vote_average}
+          ratingAmount={movie.vote_count}
+          onSeeAllReviews={handleSeeAllReviews}
+          onAddReview={handleAddReview}
+        />
+      </Box>
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <SectionB

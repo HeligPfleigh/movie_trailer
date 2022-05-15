@@ -48,6 +48,10 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
       onPress: () => navigation.navigate(NavigatorMap.Favorite),
     },
     {
+      title: 'Your Note',
+      onPress: () => navigation.navigate(NavigatorMap.YourNote),
+    },
+    {
       title: 'Setting',
       onPress: () => navigation.navigate(NavigatorMap.Setting),
     },

@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import Seasons from './Sections/Seasons';
+import Reviews from './Sections/Reviews';
 
 const TVDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -26,6 +27,22 @@ const TVDetail: React.FC = () => {
   const {id} = route.params;
   const favoriteTVs = useSelector((state: RootState) => state.favorite.tv);
   const dispatch = useDispatch();
+  const personalReviews = useSelector(
+    (state: RootState) => state.personalReview.reviews,
+  )
+    .filter(item => item.media.type === 'tv' && item.media.id === id)
+    .map(item => ({
+      author: 'Me',
+      author_details: {
+        name: 'Me',
+        username: 'Me',
+        avatar_path: '',
+        rating: item.review.rating,
+      },
+      content: `${item.review.title}\n${item.review.note}`,
+      id: item.review.reviewedDate,
+      images: item.review.images,
+    }));
 
   useEffect(() => {
     const loadData = async () => {
@@ -72,6 +89,33 @@ const TVDetail: React.FC = () => {
     }
   };
 
+  const handleSeeAllReviews = () => {
+    if (tvShow) {
+      navigation.push(NavigatorMap.UserReviews, {
+        id: tvShow.id,
+        type: 'tv',
+        poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
+        reviews: tvShow.reviews.results,
+        time: tvShow.first_air_date,
+        title: tvShow.name,
+        rating: tvShow.vote_average,
+        ratingAmount: tvShow.vote_count,
+      });
+    }
+  };
+
+  const handleAddReview = () => {
+    if (tvShow) {
+      navigation.push(NavigatorMap.AddReview, {
+        id: tvShow.id,
+        type: 'tv',
+        poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
+        time: tvShow.first_air_date,
+        title: tvShow.name,
+      });
+    }
+  };
+
   if (!tvShow) {
     return (
       <Box color="transparent" middle>
@@ -112,6 +156,8 @@ const TVDetail: React.FC = () => {
     ),
   ];
 
+  const allReviews = [...personalReviews, ...tvShow.reviews.results];
+
   return (
     <Box>
       <PosterCarousel
@@ -144,6 +190,7 @@ const TVDetail: React.FC = () => {
         cast={tvShow.credits.cast}
         crew={tvShow.credits.crew}
         name={tvShow.name}
+        description={tvShow.overview}
       />
 
       <Box flex={false} ml={2} mr={2}>
@@ -155,6 +202,16 @@ const TVDetail: React.FC = () => {
       <Seasons seasons={tvShow.seasons} id={tvShow.id} />
 
       <Trailers videos={tvShow.videos.results} />
+
+      <Box flex={false} ml={2} mr={2} mt={2}>
+        <Reviews
+          reviews={allReviews}
+          averageRating={tvShow.vote_average}
+          ratingAmount={tvShow.vote_count}
+          onSeeAllReviews={handleSeeAllReviews}
+          onAddReview={handleAddReview}
+        />
+      </Box>
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <SectionB

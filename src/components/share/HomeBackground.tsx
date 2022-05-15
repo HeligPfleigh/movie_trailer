@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: '100%',
-    borderBottomLeftRadius: 150,
+    borderBottomLeftRadius: 80,
   },
   circleContainer: {
     flex: 1,
