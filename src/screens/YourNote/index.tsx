@@ -6,7 +6,7 @@ import {
 } from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ReviewIcon from '@movie_trailer/assets/icons/Review';
@@ -46,11 +46,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing(0.5),
     borderRadius: responsiveSize(8),
     justifyContent: 'center',
-  },
-  favorite: {
-    ...round(24),
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
@@ -142,9 +137,7 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
         </Box>
 
         <Box flex={false} middle>
-          <TouchableOpacity
-            style={[styles.favorite, {}]}
-            onPress={handleDeleteNote(item)}>
+          <TouchableOpacity onPress={handleDeleteNote(item)}>
             <DeleteIcon color={colors.white} />
           </TouchableOpacity>
         </Box>

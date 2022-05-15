@@ -36,9 +36,11 @@ const ReviewCard = ({user, rating, review, images}: IReviewCardProps) => {
         </Typography>
       </Box>
 
-      <Typography variant="caps3" color="rgba(255, 255, 255, 0.5)">
-        {review}
-      </Typography>
+      <Box>
+        <Typography variant="caps3" color="rgba(255, 255, 255, 0.5)">
+          {review}
+        </Typography>
+      </Box>
     </>
   );
 };

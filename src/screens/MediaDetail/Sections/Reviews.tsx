@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveSize(20),
     padding: spacing(1.5),
     width: responsiveSize(240),
+    minHeight: responsiveSize(160),
     marginRight: spacing(1),
   },
 });
