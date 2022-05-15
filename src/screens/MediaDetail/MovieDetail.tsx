@@ -29,6 +29,21 @@ const MovieDetail: React.FC = () => {
     (state: RootState) => state.favorite.movie,
   );
   const dispatch = useDispatch();
+  const personalReviews = useSelector(
+    (state: RootState) => state.personalReview.reviews,
+  )
+    .filter(review => review.type === 'movie' && review.id === id)
+    .map(review => ({
+      author: 'Me',
+      author_details: {
+        name: 'Me',
+        username: 'Me',
+        avatar_path: '',
+        rating: review.rating,
+      },
+      content: `${review.title}\n${review.note}`,
+      id: review.reviewedDate,
+    }));
 
   useEffect(() => {
     const loadData = async () => {
@@ -79,12 +94,25 @@ const MovieDetail: React.FC = () => {
     if (movie) {
       navigation.push(NavigatorMap.UserReviews, {
         id: movie.id,
+        type: 'movie',
         poster: `${IMAGE_SERVER}${movie.poster_path}`,
         reviews: movie.reviews.results,
         time: movie.release_date,
         title: movie.title,
         rating: movie.vote_average,
         ratingAmount: movie.vote_count,
+      });
+    }
+  };
+
+  const handleAddReview = () => {
+    if (movie) {
+      navigation.push(NavigatorMap.AddReview, {
+        id: movie.id,
+        type: 'movie',
+        poster: `${IMAGE_SERVER}${movie.poster_path}`,
+        time: movie.release_date,
+        title: movie.title,
       });
     }
   };
@@ -128,6 +156,8 @@ const MovieDetail: React.FC = () => {
       item => item.file_path !== movie.poster_path,
     ),
   ];
+
+  const allReviews = [...personalReviews, ...movie.reviews.results];
 
   return (
     <Box>
@@ -189,10 +219,11 @@ const MovieDetail: React.FC = () => {
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <Reviews
-          reviews={movie.reviews.results}
+          reviews={allReviews}
           averageRating={movie.vote_average}
           ratingAmount={movie.vote_count}
           onSeeAllReviews={handleSeeAllReviews}
+          onAddReview={handleAddReview}
         />
       </Box>
 

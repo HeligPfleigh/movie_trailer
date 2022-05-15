@@ -68,5 +68,7 @@
 	<string>$(PRODUCT_NAME) calendar use.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>$(PRODUCT_NAME) contact use.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) photo library use.</string>
 </dict>
 </plist>

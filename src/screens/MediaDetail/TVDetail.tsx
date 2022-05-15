@@ -27,6 +27,21 @@ const TVDetail: React.FC = () => {
   const {id} = route.params;
   const favoriteTVs = useSelector((state: RootState) => state.favorite.tv);
   const dispatch = useDispatch();
+  const personalReviews = useSelector(
+    (state: RootState) => state.personalReview.reviews,
+  )
+    .filter(review => review.type === 'tv' && review.id === id)
+    .map(review => ({
+      author: 'Me',
+      author_details: {
+        name: 'Me',
+        username: 'Me',
+        avatar_path: '',
+        rating: review.rating,
+      },
+      content: `${review.title}\n${review.note}`,
+      id: review.reviewedDate,
+    }));
 
   useEffect(() => {
     const loadData = async () => {
@@ -77,12 +92,25 @@ const TVDetail: React.FC = () => {
     if (tvShow) {
       navigation.push(NavigatorMap.UserReviews, {
         id: tvShow.id,
+        type: 'tv',
         poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
         reviews: tvShow.reviews.results,
         time: tvShow.first_air_date,
         title: tvShow.name,
         rating: tvShow.vote_average,
         ratingAmount: tvShow.vote_count,
+      });
+    }
+  };
+
+  const handleAddReview = () => {
+    if (tvShow) {
+      navigation.push(NavigatorMap.AddReview, {
+        id: tvShow.id,
+        type: 'tv',
+        poster: `${IMAGE_SERVER}${tvShow.poster_path}`,
+        time: tvShow.first_air_date,
+        title: tvShow.name,
       });
     }
   };
@@ -126,6 +154,8 @@ const TVDetail: React.FC = () => {
       item => item.file_path !== tvShow.poster_path,
     ),
   ];
+
+  const allReviews = [...personalReviews, ...tvShow.reviews.results];
 
   return (
     <Box>
@@ -174,10 +204,11 @@ const TVDetail: React.FC = () => {
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <Reviews
-          reviews={tvShow.reviews.results}
+          reviews={allReviews}
           averageRating={tvShow.vote_average}
           ratingAmount={tvShow.vote_count}
           onSeeAllReviews={handleSeeAllReviews}
+          onAddReview={handleAddReview}
         />
       </Box>
 

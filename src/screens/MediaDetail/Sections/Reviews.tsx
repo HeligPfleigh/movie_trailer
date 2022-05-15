@@ -39,6 +39,7 @@ interface IReviewProps {
   myRating?: number;
   ratingAmount: number;
   onSeeAllReviews?: () => void;
+  onAddReview?: () => void;
 }
 
 const Reviews = ({
@@ -47,6 +48,7 @@ const Reviews = ({
   myRating,
   ratingAmount,
   onSeeAllReviews,
+  onAddReview,
 }: IReviewProps) => {
   const renderItem = ({item}: {item: IReview}) => (
     <Box style={styles.reviewContainer}>
@@ -100,7 +102,7 @@ const Reviews = ({
         </Box>
       ) : null}
 
-      <TouchableOpacity style={styles.addReview}>
+      <TouchableOpacity style={styles.addReview} onPress={onAddReview}>
         <Plus />
         <Box ml={1} flex={false}>
           <Typography variant="b5" color={colors.white}>

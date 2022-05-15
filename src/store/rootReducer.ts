@@ -21,11 +21,12 @@ import popularPeopleReducer from './slices/popularPeopleSlice';
 import discoverReducer from './slices/discoverSlice';
 import favoriteReducer from './slices/favoriteSlice';
 import miscReducer from './slices/miscSlice';
+import personalReviewReducer from './slices/personalReviewSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favorite'],
+  whitelist: ['favorite', 'personalReview'],
 };
 
 export const rootReducer = combineReducers({
@@ -38,6 +39,7 @@ export const rootReducer = combineReducers({
   discover: discoverReducer,
   favorite: favoriteReducer,
   misc: miscReducer,
+  personalReview: personalReviewReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

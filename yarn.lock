@@ -6422,6 +6422,11 @@ react-native-image-gallery@^2.1.5:
     react-mixin "^3.0.5"
     react-timer-mixin "^0.13.3"
 
+react-native-image-picker@^4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.3.tgz#a74801e8428325133a42dcd818fa54f08e6b20e6"
+  integrity sha512-mA3xKN8TtXpLl3Aoo65ArZvusv3gCsbe3/hsOLKI1DcC+QcYPcDnsYK/ft05rWBj4BdiJ9E2JoveiHNtU8W9GA==
+
 react-native-in-app-review@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/react-native-in-app-review/-/react-native-in-app-review-3.3.2.tgz#a26bb8af46d63f7659c43333075c8f4d5bd13f3c"

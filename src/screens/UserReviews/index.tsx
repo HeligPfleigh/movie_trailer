@@ -16,6 +16,8 @@ import {IReview} from '@movie_trailer/core/types';
 import Plus from '@movie_trailer/assets/icons/Plus';
 import dayjs from 'dayjs';
 import ReviewIcon from '@movie_trailer/assets/icons/Review';
+import {useSelector} from 'react-redux';
+import {RootState} from '@movie_trailer/store/rootReducer';
 
 const styles = StyleSheet.create({
   list: {
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveSize(20),
     padding: spacing(1.5),
     margin: spacing(2),
+    marginBottom: spacing(1),
   },
   addReview: {
     paddingHorizontal: spacing(2),
@@ -50,7 +53,24 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
   route,
   navigation,
 }: UserReviewsScreenProps) => {
-  const {reviews, poster, rating, time, title, ratingAmount} = route.params;
+  const {id, type, reviews, poster, rating, time, title, ratingAmount} =
+    route.params;
+
+  const personalReviews = useSelector(
+    (state: RootState) => state.personalReview.reviews,
+  )
+    .filter(review => review.type === type && review.id === id)
+    .map(review => ({
+      author: 'Me',
+      author_details: {
+        name: 'Me',
+        username: 'Me',
+        avatar_path: '',
+        rating: review.rating,
+      },
+      content: `${review.title}\n${review.note}`,
+      id: review.reviewedDate,
+    }));
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -64,19 +84,24 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
     </Box>
   );
 
-  const myRating = 0;
+  const myRating = personalReviews.length
+    ? personalReviews.reduce(
+        (prev, curr) => prev + curr.author_details.rating,
+        0,
+      ) / personalReviews.length
+    : 0;
 
   const renderHeader = () => (
     <Box color={colors.codGray}>
-      <HomeBackground />
+      <HomeBackground height={responsiveSize(240)} />
       <AppBar onSearch={handleOpenSearch} />
 
-      <Box mt={4} ml={2} mb={2} flex={false}>
+      <Box mt={2.5} ml={2} mb={2} flex={false}>
         <Typography
           variant="h4"
           color={colors.white}
           fontFamily="Poppins-SemiBold">
-          User Reviews
+          User Review
         </Typography>
       </Box>
 
@@ -101,7 +126,7 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
         </Box>
       </Box>
 
-      <Box row right flex={false} mt={4.5} ml={2} mr={2}>
+      <Box row right flex={false} mt={5} ml={2} mr={2}>
         <Box flex={false} mb={1}>
           <Star width={30} height={30} />
         </Box>
@@ -129,8 +154,17 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
     </Box>
   );
 
+  const navigateToAddReview = () =>
+    navigation.push(NavigatorMap.AddReview, {
+      id,
+      type,
+      poster,
+      time,
+      title,
+    });
+
   const renderFooter = () => (
-    <TouchableOpacity style={styles.addReview}>
+    <TouchableOpacity style={styles.addReview} onPress={navigateToAddReview}>
       <Plus />
       <Box ml={1} flex={false}>
         <Typography
@@ -153,12 +187,14 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
     </Box>
   );
 
+  const allReviews = [...personalReviews, ...reviews];
+
   return (
     <FlatList
       ListHeaderComponent={renderHeader}
       ListFooterComponent={renderFooter}
       ListEmptyComponent={renderEmptyList}
-      data={reviews}
+      data={allReviews}
       renderItem={renderItem}
       keyExtractor={item => `${item.id}`}
       style={styles.list}

@@ -40,11 +40,19 @@ export type MainStackParamList = {
   };
   UserReviews: {
     id: number;
+    type: 'movie' | 'tv';
     reviews: Array<IReview>;
     title: string;
     poster: string;
     time: string;
     rating: number;
     ratingAmount: number;
+  };
+  AddReview: {
+    id: number;
+    type: 'movie' | 'tv';
+    title: string;
+    poster: string;
+    time: string;
   };
 };
