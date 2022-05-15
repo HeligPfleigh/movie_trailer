@@ -97,7 +97,7 @@ const Reviews = ({
           <ReviewIcon width={125} height={120} />
 
           <Typography variant="h7" color={colors.white}>
-            There are no reviews yet
+            There aren't any reviews yet.
           </Typography>
         </Box>
       ) : null}

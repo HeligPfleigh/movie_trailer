@@ -32,17 +32,17 @@ const MovieDetail: React.FC = () => {
   const personalReviews = useSelector(
     (state: RootState) => state.personalReview.reviews,
   )
-    .filter(review => review.type === 'movie' && review.id === id)
-    .map(review => ({
+    .filter(item => item.media.type === 'movie' && item.media.id === id)
+    .map(item => ({
       author: 'Me',
       author_details: {
         name: 'Me',
         username: 'Me',
         avatar_path: '',
-        rating: review.rating,
+        rating: item.review.rating,
       },
-      content: `${review.title}\n${review.note}`,
-      id: review.reviewedDate,
+      content: `${item.review.title}\n${item.review.note}`,
+      id: item.review.reviewedDate,
     }));
 
   useEffect(() => {

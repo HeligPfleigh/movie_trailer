@@ -2,6 +2,7 @@ enum NavigatorMap {
   Home = 'Home',
   Setting = 'Setting',
   Favorite = 'Favorite',
+  YourNote = 'YourNote',
 
   // modal
   Search = 'Search',

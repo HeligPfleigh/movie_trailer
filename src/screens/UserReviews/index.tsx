@@ -59,17 +59,17 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
   const personalReviews = useSelector(
     (state: RootState) => state.personalReview.reviews,
   )
-    .filter(review => review.type === type && review.id === id)
-    .map(review => ({
+    .filter(item => item.media.type === type && item.media.id === id)
+    .map(item => ({
       author: 'Me',
       author_details: {
         name: 'Me',
         username: 'Me',
         avatar_path: '',
-        rating: review.rating,
+        rating: item.review.rating,
       },
-      content: `${review.title}\n${review.note}`,
-      id: review.reviewedDate,
+      content: `${item.review.title}\n${item.review.note}`,
+      id: item.review.reviewedDate,
     }));
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
@@ -182,7 +182,7 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
       <ReviewIcon width={125} height={120} />
 
       <Typography variant="h7" color={colors.white}>
-        There are no reviews yet
+        There aren't any reviews yet.
       </Typography>
     </Box>
   );

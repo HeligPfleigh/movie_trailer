@@ -56,7 +56,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
   const {poster, time, title, id, type} = route.params;
   const dispatch = useDispatch();
 
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(5);
   const [titleReview, setTitleReview] = useState<string>('');
   const [noteReview, setNoteReview] = useState<string>('');
 
@@ -68,12 +68,19 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
     // add review
     dispatch(
       addReview({
-        id,
-        type,
-        title: titleReview,
-        note: noteReview,
-        images: [],
-        rating: rating * 2,
+        review: {
+          title: titleReview,
+          note: noteReview,
+          images: [],
+          rating: rating * 2,
+          reviewedDate: new Date().toISOString(),
+        },
+        media: {
+          id,
+          type,
+          name: title,
+          poster,
+        },
       }),
     );
     navigation.goBack();

@@ -6,6 +6,7 @@ export type RootDrawerParamList = {
   Setting: undefined;
   Favorite: undefined;
   Search: undefined;
+  YourNote: undefined;
 };
 
 export type MainStackParamList = {
