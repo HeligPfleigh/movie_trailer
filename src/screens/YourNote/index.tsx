@@ -70,7 +70,7 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
           variant="h4"
           color={colors.white}
           fontFamily="Poppins-SemiBold">
-          Your Note
+          Your note
         </Typography>
       </Box>
     </Box>

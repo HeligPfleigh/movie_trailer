@@ -103,7 +103,7 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
           variant="h4"
           color={colors.white}
           fontFamily="Poppins-SemiBold">
-          User Review
+          User review
         </Typography>
       </Box>
 

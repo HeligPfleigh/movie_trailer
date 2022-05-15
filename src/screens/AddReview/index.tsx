@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  removeImageBtn: {
+    position: 'absolute',
+    right: 4,
+    top: 4,
+  },
 });
 
 const AddReview: React.FC<AddReviewScreenProps> = ({
@@ -133,7 +138,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
           variant="h4"
           color={colors.white}
           fontFamily="Poppins-SemiBold">
-          Add Review
+          Add review
         </Typography>
       </Box>
 
@@ -213,7 +218,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
 
         <Box flex={false} mt={3.5} mb={0.5}>
           <Typography variant="h7" color={colors.white}>
-            Images (Ticker, Checking, etc)
+            Images(Ticket, Checking, etc)
           </Typography>
         </Box>
         <ScrollView horizontal>
@@ -226,7 +231,7 @@ const AddReview: React.FC<AddReviewScreenProps> = ({
               />
 
               <TouchableOpacity
-                style={{position: 'absolute', right: 4, top: 4}}
+                style={styles.removeImageBtn}
                 onPress={handleRemoveImage(image)}>
                 <CloseFill />
               </TouchableOpacity>
