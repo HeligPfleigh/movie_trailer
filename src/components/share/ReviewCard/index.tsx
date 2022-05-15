@@ -1,5 +1,5 @@
 import Star from '@movie_trailer/assets/icons/Star';
-import {colors} from '@movie_trailer/theme';
+import {colors, responsiveSize} from '@movie_trailer/theme';
 import React from 'react';
 import {Box, Typography} from '../../common';
 import Gallery from './Gallery';
@@ -16,14 +16,14 @@ const ReviewCard = ({user, rating, review, images}: IReviewCardProps) => {
     <>
       <Box row center flex={false}>
         <Box flex={false}>
-          <Star width={13} height={13} />
+          <Star width={responsiveSize(13)} height={responsiveSize(13)} />
         </Box>
         <Box flex={false} ml={0.5} mr={0.5}>
           <Typography
             variant="b5"
             color={colors.white}
             fontFamily="Poppins-SemiBold">
-            {rating.toFixed(1)}
+            {(rating || 0).toFixed(1)}
           </Typography>
         </Box>
       </Box>

@@ -31,9 +31,14 @@ const personalReviewSlice = createSlice({
     addReview: (state, action: PayloadAction<IPersonalReview>) => {
       state.reviews.unshift(action.payload);
     },
+    deleteReview: (state, action: PayloadAction<string>) => {
+      state.reviews = state.reviews.filter(
+        review => review.review.reviewedDate !== action.payload,
+      );
+    },
   },
 });
 
-export const {addReview} = personalReviewSlice.actions;
+export const {addReview, deleteReview} = personalReviewSlice.actions;
 
 export default personalReviewSlice.reducer;

@@ -6,17 +6,21 @@ import {
 } from '@movie_trailer/components';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {RootState} from '@movie_trailer/store/rootReducer';
-import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {colors, responsiveSize, round, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ReviewIcon from '@movie_trailer/assets/icons/Review';
 import {YourNoteScreenProps} from './types';
 import {FlatList} from 'react-native-gesture-handler';
-import {IPersonalReview} from '@movie_trailer/store/slices/personalReviewSlice';
+import {
+  deleteReview,
+  IPersonalReview,
+} from '@movie_trailer/store/slices/personalReviewSlice';
 import FastImage from 'react-native-fast-image';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
 import StarIcon from '@movie_trailer/assets/icons/Star';
+import DeleteIcon from '@movie_trailer/assets/icons/Delete';
 
 const styles = StyleSheet.create({
   list: {
@@ -43,6 +47,11 @@ const styles = StyleSheet.create({
     borderRadius: responsiveSize(8),
     justifyContent: 'center',
   },
+  favorite: {
+    ...round(24),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const YourNote: React.FC<YourNoteScreenProps> = ({
@@ -53,6 +62,8 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
   const personalReviews = useSelector(
     (state: RootState) => state.personalReview.reviews,
   );
+
+  const dispatch = useDispatch();
 
   const renderHeader = () => (
     <Box color={colors.codGray}>
@@ -90,6 +101,10 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
     });
   };
 
+  const handleDeleteNote = (item: IPersonalReview) => () => {
+    dispatch(deleteReview(item.review.reviewedDate));
+  };
+
   const renderItem = ({item}: {item: IPersonalReview}) => (
     <TouchableOpacity onPress={handlePressPersonalReview(item)}>
       <Box row ml={2} mr={2} mb={2}>
@@ -124,6 +139,14 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
           <Typography variant="caps2" color={colors.white}>
             {`Note: ${item.review.note}`}
           </Typography>
+        </Box>
+
+        <Box flex={false} middle>
+          <TouchableOpacity
+            style={[styles.favorite, {}]}
+            onPress={handleDeleteNote(item)}>
+            <DeleteIcon color={colors.white} />
+          </TouchableOpacity>
         </Box>
       </Box>
     </TouchableOpacity>
