@@ -14,7 +14,7 @@ import {YourNoteScreenProps} from './types';
 import {FlatList} from 'react-native-gesture-handler';
 import {IPersonalReview} from '@movie_trailer/store/slices/personalReviewSlice';
 import FastImage from 'react-native-fast-image';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
 import StarIcon from '@movie_trailer/assets/icons/Star';
 
@@ -80,41 +80,53 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
     </Box>
   );
 
-  const renderItem = ({item}: {item: IPersonalReview}) => (
-    <Box flex={false} row ml={2} mr={2} mb={2}>
-      <Box flex={false} style={styles.thumbnail}>
-        <FastImage
-          source={{
-            uri: item.media.poster,
-          }}
-          style={styles.thumbnail}
-          resizeMode={FastImage.resizeMode.cover}
-        />
+  const handlePressPersonalReview = (item: IPersonalReview) => () => {
+    navigation.navigate(NavigatorMap.Home, {
+      screen: NavigatorMap.MediaDetail,
+      params: {
+        id: item.media.id,
+        type: item.media.type,
+      },
+    });
+  };
 
-        <Box flex={false} style={styles.badge}>
-          <StarIcon />
-          <Box flex={false} ml={0.5}>
-            <Typography variant="caps3" color={colors.white}>
-              {item.review.rating}
-            </Typography>
+  const renderItem = ({item}: {item: IPersonalReview}) => (
+    <TouchableOpacity onPress={handlePressPersonalReview(item)}>
+      <Box row ml={2} mr={2} mb={2}>
+        <Box flex={false} style={styles.thumbnail}>
+          <FastImage
+            source={{
+              uri: item.media.poster,
+            }}
+            style={styles.thumbnail}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+
+          <Box flex={false} style={styles.badge}>
+            <StarIcon />
+            <Box flex={false} ml={0.5}>
+              <Typography variant="caps3" color={colors.white}>
+                {item.review.rating}
+              </Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
 
-      <Box ml={2} mr={1} middle flex={false}>
-        <Typography variant="caps1" color={colors.white}>
-          {item.media.name}
-        </Typography>
-        <Typography variant="caps2" color="rgba(255, 255, 255, 0.6)">
-          {`Reviewed on ${dayjs(item.review.reviewedDate).format(
-            'MMM DD, YYYY',
-          )}`}
-        </Typography>
-        <Typography variant="caps2" color={colors.white}>
-          {`Note: ${item.review.note}`}
-        </Typography>
+        <Box ml={2} mr={1} middle left>
+          <Typography variant="caps1" color={colors.white}>
+            {item.media.name}
+          </Typography>
+          <Typography variant="caps2" color="rgba(255, 255, 255, 0.6)">
+            {`Reviewed on ${dayjs(item.review.reviewedDate).format(
+              'MMM DD, YYYY',
+            )}`}
+          </Typography>
+          <Typography variant="caps2" color={colors.white}>
+            {`Note: ${item.review.note}`}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    </TouchableOpacity>
   );
 
   return (
