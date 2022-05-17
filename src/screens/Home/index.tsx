@@ -1,7 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import InAppReview from 'react-native-in-app-review';
-import dayjs from 'dayjs';
-import Config from 'react-native-config';
 import {useDispatch} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
@@ -47,29 +44,6 @@ function HomeScreen({navigation, route}: HomeScreenProps) {
     dispatch(fetchMovieGenres());
     dispatch(fetchTVShowGenres());
   }, [dispatch]);
-
-  useEffect(() => {
-    const requestInappReview = async () => {
-      const now = dayjs();
-      const isInAppReviewAvailable = InAppReview.isAvailable();
-
-      // tricky to show in app review after specific date
-      if (
-        isInAppReviewAvailable &&
-        now.isAfter(dayjs(Config.IN_APP_REVIEW_DISABLE_BEFORE_DAY))
-      ) {
-        try {
-          await InAppReview.RequestInAppReview();
-        } catch (error) {
-          // TODO: handle error
-        }
-      }
-    };
-
-    setTimeout(() => {
-      requestInappReview();
-    }, 5000);
-  }, []);
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
