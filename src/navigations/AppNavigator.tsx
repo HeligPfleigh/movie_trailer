@@ -18,7 +18,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useRef} from 'react';
 import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
-import {MainStackParamList, RootDrawerParamList} from './types';
+import {
+  MainStackParamList,
+  RootDrawerParamList,
+  YourNoteStackParamList,
+} from './types';
 import analytics from '@react-native-firebase/analytics';
 import UserReviewsScreen from '@movie_trailer/screens/UserReviews';
 import AddReviewScreen from '@movie_trailer/screens/AddReview';
@@ -27,6 +31,7 @@ import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
+const YourNoteStack = createNativeStackNavigator<YourNoteStackParamList>();
 
 const linking = {
   prefixes: ['trailers://'],
@@ -85,6 +90,22 @@ const MainNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+const YourNoteNavigator = () => (
+  <YourNoteStack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <YourNoteStack.Screen
+      name={NavigatorMap.YourNote}
+      component={YourNoteScreen}
+    />
+    <YourNoteStack.Screen
+      name={NavigatorMap.ReviewDetail}
+      component={ReviewDetailScreen}
+    />
+  </YourNoteStack.Navigator>
+);
 
 const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef();
@@ -148,8 +169,8 @@ const AppNavigator = () => {
             component={FavoriteScreen}
           />
           <Drawer.Screen
-            name={NavigatorMap.YourNote}
-            component={YourNoteScreen}
+            name={NavigatorMap.YourNoteNavigator}
+            component={YourNoteNavigator}
           />
         </Drawer.Group>
 

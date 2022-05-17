@@ -6,7 +6,7 @@ export type RootDrawerParamList = {
   Setting: undefined;
   Favorite: undefined;
   Search: undefined;
-  YourNote: undefined;
+  YourNoteNavigator: undefined;
 };
 
 export type MainStackParamList = {
@@ -56,6 +56,13 @@ export type MainStackParamList = {
     poster: string;
     time: string;
   };
+  ReviewDetail: {
+    review: IReview;
+  };
+};
+
+export type YourNoteStackParamList = {
+  YourNote: undefined;
   ReviewDetail: {
     review: IReview;
   };

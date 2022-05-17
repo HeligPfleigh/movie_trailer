@@ -101,21 +101,18 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
   };
 
   const handleOpenUserReview = (item: IPersonalReview) => () => {
-    navigation.navigate(NavigatorMap.Home, {
-      screen: NavigatorMap.ReviewDetail,
-      params: {
-        review: {
-          author: 'Me',
-          author_details: {
-            name: 'Me',
-            username: 'Me',
-            avatar_path: '',
-            rating: item.review.rating,
-          },
-          content: `${item.review.title}\n${item.review.note}`,
-          id: item.review.reviewedDate,
-          images: item.review.images,
+    navigation.push(NavigatorMap.ReviewDetail, {
+      review: {
+        author: 'Me',
+        author_details: {
+          name: 'Me',
+          username: 'Me',
+          avatar_path: '',
+          rating: item.review.rating,
         },
+        content: `${item.review.title}\n${item.review.note}`,
+        id: item.review.reviewedDate,
+        images: item.review.images,
       },
     });
   };
