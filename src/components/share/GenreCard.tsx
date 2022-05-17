@@ -1,3 +1,4 @@
+import {getThumbnailForGenre} from '@movie_trailer/assets/pngs';
 import {IGenre} from '@movie_trailer/core/types';
 import {colors, responsiveSize, round} from '@movie_trailer/theme';
 import React from 'react';
@@ -21,20 +22,19 @@ const styles = StyleSheet.create({
 });
 
 interface IGenreCardProps {
-  image?: string;
   genre: IGenre;
   onPress?: () => void;
 }
 
-const GenreCard: React.FC<IGenreCardProps> = ({image, genre, onPress}) => {
+const GenreCard: React.FC<IGenreCardProps> = ({genre, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <Box flex={false} style={styles.container}>
-        {image ? (
-          <FastImage source={{uri: image}} style={styles.image} />
-        ) : (
-          <Box flex={false} style={styles.image} />
-        )}
+        <FastImage
+          source={getThumbnailForGenre(genre.name)}
+          style={styles.image}
+        />
+
         <Typography variant="caps1" color={colors.white} numberOfLines={1}>
           {genre.name}
         </Typography>
