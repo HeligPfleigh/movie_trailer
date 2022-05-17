@@ -9,7 +9,7 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import {ReviewDetailScreenProps} from './types';
 
 const styles = StyleSheet.create({
@@ -48,16 +48,14 @@ const ReviewDetail: React.FC<ReviewDetailScreenProps> = ({
         </Typography>
       </Box>
 
-      <TouchableOpacity>
-        <Box style={styles.reviewContainer}>
-          <ReviewCard
-            user={review.author_details.name}
-            rating={review.author_details.rating}
-            review={review.content}
-            images={review.images || []}
-          />
-        </Box>
-      </TouchableOpacity>
+      <Box style={styles.reviewContainer}>
+        <ReviewCard
+          user={review.author_details.name}
+          rating={review.author_details.rating}
+          review={review.content}
+          images={review.images || []}
+        />
+      </Box>
     </ScrollView>
   );
 };
