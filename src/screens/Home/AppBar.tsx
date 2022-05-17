@@ -28,12 +28,16 @@ const AppBar: React.FC = () => {
 
       <Box flex={false} row>
         <Box flex={false} mr={2}>
-          <TouchableOpacity onPress={handleOpenFavorite}>
+          <TouchableOpacity
+            onPress={handleOpenFavorite}
+            hitSlop={{top: 5, left: 10, bottom: 5}}>
             <HeartIcon />
           </TouchableOpacity>
         </Box>
 
-        <TouchableOpacity onPress={handleOpenSetting}>
+        <TouchableOpacity
+          onPress={handleOpenSetting}
+          hitSlop={{top: 5, right: 10, bottom: 5}}>
           <SettingIcon />
         </TouchableOpacity>
       </Box>
