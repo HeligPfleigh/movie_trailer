@@ -31,7 +31,6 @@ const ReviewDetail: React.FC<ReviewDetailScreenProps> = ({
   route,
 }: ReviewDetailScreenProps) => {
   const {review} = route.params;
-  console.log({review});
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   return (
