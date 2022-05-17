@@ -100,9 +100,29 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
     dispatch(deleteReview(item.review.reviewedDate));
   };
 
+  const handleOpenUserReview = (item: IPersonalReview) => () => {
+    navigation.navigate(NavigatorMap.Home, {
+      screen: NavigatorMap.ReviewDetail,
+      params: {
+        review: {
+          author: 'Me',
+          author_details: {
+            name: 'Me',
+            username: 'Me',
+            avatar_path: '',
+            rating: item.review.rating,
+          },
+          content: `${item.review.title}\n${item.review.note}`,
+          id: item.review.reviewedDate,
+          images: item.review.images,
+        },
+      },
+    });
+  };
+
   const renderItem = ({item}: {item: IPersonalReview}) => (
-    <TouchableOpacity onPress={handlePressPersonalReview(item)}>
-      <Box row ml={2} mr={2} mb={2}>
+    <Box row ml={2} mr={2} mb={2}>
+      <TouchableOpacity onPress={handlePressPersonalReview(item)}>
         <Box flex={false} style={styles.thumbnail}>
           <FastImage
             source={{
@@ -121,7 +141,9 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
             </Box>
           </Box>
         </Box>
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={handleOpenUserReview(item)}>
         <Box ml={1} mr={1} middle left>
           <Typography variant="caps1" color={colors.white}>
             {item.media.name}
@@ -135,14 +157,14 @@ const YourNote: React.FC<YourNoteScreenProps> = ({
             {`Note: ${item.review.note}`}
           </Typography>
         </Box>
+      </TouchableOpacity>
 
-        <Box flex={false} middle>
-          <TouchableOpacity onPress={handleDeleteNote(item)}>
-            <DeleteIcon color={colors.white} />
-          </TouchableOpacity>
-        </Box>
+      <Box flex={false} middle>
+        <TouchableOpacity onPress={handleDeleteNote(item)}>
+          <DeleteIcon color={colors.white} />
+        </TouchableOpacity>
       </Box>
-    </TouchableOpacity>
+    </Box>
   );
 
   return (

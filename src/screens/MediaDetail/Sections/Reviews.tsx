@@ -8,10 +8,13 @@ import {
   Typography,
 } from '@movie_trailer/components';
 import {IReview} from '@movie_trailer/core/types';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
+import {useNavigation} from '@react-navigation/native';
 import {truncate} from 'lodash';
 import React from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {MediaDetailNavigationProps} from '../types';
 
 const styles = StyleSheet.create({
   addReview: {
@@ -50,15 +53,25 @@ const Reviews = ({
   onSeeAllReviews,
   onAddReview,
 }: IReviewProps) => {
+  const navigation = useNavigation<MediaDetailNavigationProps>();
+
+  const handleOpenReviewDetail = (review: IReview) => () => {
+    navigation.navigate(NavigatorMap.ReviewDetail, {
+      review,
+    });
+  };
+
   const renderItem = ({item}: {item: IReview}) => (
-    <Box style={styles.reviewContainer}>
-      <ReviewCard
-        user={item.author_details.name}
-        rating={item.author_details.rating}
-        review={truncate(item.content, {length: 120})}
-        images={item.images || []}
-      />
-    </Box>
+    <TouchableOpacity onPress={handleOpenReviewDetail(item)}>
+      <Box style={styles.reviewContainer}>
+        <ReviewCard
+          user={item.author_details.name}
+          rating={item.author_details.rating}
+          review={truncate(item.content, {length: 120})}
+          images={item.images || []}
+        />
+      </Box>
+    </TouchableOpacity>
   );
 
   return (

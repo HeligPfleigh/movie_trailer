@@ -18,6 +18,7 @@ enum NavigatorMap {
   SeasonDetail = 'SeasonDetail',
   UserReviews = 'UserReviews',
   AddReview = 'AddReview',
+  ReviewDetail = 'ReviewDetail',
 }
 
 export default NavigatorMap;

@@ -56,4 +56,7 @@ export type MainStackParamList = {
     poster: string;
     time: string;
   };
+  ReviewDetail: {
+    review: IReview;
+  };
 };

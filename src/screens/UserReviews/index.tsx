@@ -75,15 +75,23 @@ const UserReviews: React.FC<UserReviewsScreenProps> = ({
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
+  const handleOpenReviewDetail = (review: IReview) => () => {
+    navigation.navigate(NavigatorMap.ReviewDetail, {
+      review,
+    });
+  };
+
   const renderItem = ({item}: {item: IReview}) => (
-    <Box style={styles.reviewContainer}>
-      <ReviewCard
-        user={item.author_details.name}
-        rating={item.author_details.rating}
-        review={item.content}
-        images={item.images || []}
-      />
-    </Box>
+    <TouchableOpacity onPress={handleOpenReviewDetail(item)}>
+      <Box style={styles.reviewContainer}>
+        <ReviewCard
+          user={item.author_details.name}
+          rating={item.author_details.rating}
+          review={item.content}
+          images={item.images || []}
+        />
+      </Box>
+    </TouchableOpacity>
   );
 
   const myRating = personalReviews.length
