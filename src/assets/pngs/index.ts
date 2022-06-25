@@ -1,3 +1,5 @@
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
+
 // const ShowTime = require('./show_time.png');
 const Action = require('./Action.png');
 const Adventure = require('./Adventure.png');
@@ -16,6 +18,12 @@ const Thriller = require('./Thriller.png');
 const TVMovies = require('./TVMovies.png');
 const War = require('./War.png');
 const Western = require('./Western.png');
+
+const SelfieJellyBeanFrame = require('./SelfieJellyBeanFrame.png');
+const SelfieKitKatFrame = require('./SelfieKitKatFrame.png');
+const SelfieLollipopFrame = require('./SelfieLollipopFrame.png');
+const SelfieMarshmallowFrame = require('./SelfieMarshmallowFrame.png');
+const SelfieNougatFrame = require('./SelfieNougatFrame.png');
 
 export const getThumbnailForGenre = (genre: string) => {
   switch (genre) {
@@ -63,5 +71,22 @@ export const getThumbnailForGenre = (genre: string) => {
       return Western;
     default:
       return Action;
+  }
+};
+
+export const getThumbnailForSelfieFrame = (type: ISelfieFrameType) => {
+  switch (type) {
+    case 'SelfieJellyBeanFrame':
+      return SelfieJellyBeanFrame;
+    case 'SelfieKitKatFrame':
+      return SelfieKitKatFrame;
+    case 'SelfieLollipopFrame':
+      return SelfieLollipopFrame;
+    case 'SelfieMarshmallowFrame':
+      return SelfieMarshmallowFrame;
+    case 'SelfieNougatFrame':
+      return SelfieNougatFrame;
+    default:
+      return SelfieJellyBeanFrame;
   }
 };

@@ -28,6 +28,8 @@ import UserReviewsScreen from '@movie_trailer/screens/UserReviews';
 import AddReviewScreen from '@movie_trailer/screens/AddReview';
 import YourNoteScreen from '@movie_trailer/screens/YourNote';
 import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
+import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
+import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -86,6 +88,14 @@ const MainNavigator = () => {
       <Stack.Screen
         name={NavigatorMap.ReviewDetail}
         component={ReviewDetailScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.MovieSelfie}
+        component={MovieSelfieScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.SelfieCamera}
+        component={SelfieCameraScreen}
       />
     </Stack.Navigator>
   );

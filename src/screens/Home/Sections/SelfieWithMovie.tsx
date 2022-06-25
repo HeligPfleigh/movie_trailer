@@ -3,10 +3,10 @@ import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-// import {useNavigation} from '@react-navigation/native';
-// import {HomeNavigationProps} from '../types';
-// import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigationProps} from '../types';
 import SelfieWithMovieIcon from '@movie_trailer/assets/icons/SelfieWithMovieIcon';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,11 +31,13 @@ const styles = StyleSheet.create({
 });
 
 const SelfieWithMovie: React.FC = () => {
-  // const navigation = useNavigation<HomeNavigationProps>();
-  // const dispatch = useDispatch();
+  const navigation = useNavigation<HomeNavigationProps>();
+
+  const handleNavigateToMovieSelfie = () =>
+    navigation.navigate(NavigatorMap.MovieSelfie);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleNavigateToMovieSelfie}>
       <LinearGradient
         colors={[colors.persianPink, colors.cornflowerBlue]}
         useAngle={true}
