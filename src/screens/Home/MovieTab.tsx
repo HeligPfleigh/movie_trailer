@@ -17,10 +17,10 @@ import {
   fetchRecommendationMovies,
   fetchUpcomingMovies,
 } from '@movie_trailer/store/slices/movieSlice';
-import PersonPopular from './Sections/PersonPopular';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import SelfieWithMovie from './Sections/SelfieWithMovie';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -89,7 +89,7 @@ const MovieTab = () => {
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={5}>
-        <PersonPopular />
+        <SelfieWithMovie />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={3}>
