@@ -1,5 +1,5 @@
 import {ISelfieFrameType} from '@movie_trailer/core/constants';
-import {IReview} from '@movie_trailer/core/types';
+import {IMediaOverview, IReview} from '@movie_trailer/core/types';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import NavigatorMap from './NavigatorMap';
 
@@ -64,7 +64,10 @@ export type MainStackParamList = {
     review: IReview;
   };
   [NavigatorMap.MovieSelfie]: undefined;
-  [NavigatorMap.SelfieCamera]: undefined;
+  [NavigatorMap.SelfieCamera]: {
+    selfieMode: ISelfieFrameType;
+    media: IMediaOverview;
+  };
 };
 
 export type YourNoteStackParamList = {

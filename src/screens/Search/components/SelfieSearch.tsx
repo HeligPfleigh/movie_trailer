@@ -15,6 +15,7 @@ import NoResult from './NoResult';
 import {SearchNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
 
 const tabs = [
   {value: 'movie' as const, title: 'Movie'},
@@ -33,10 +34,12 @@ const styles = StyleSheet.create({
 
 interface ISelfieSearchProps {
   searchText?: string;
+  selfieMode: ISelfieFrameType;
 }
 
 const SelfieSearch: React.FC<ISelfieSearchProps> = ({
   searchText,
+  selfieMode,
 }: ISelfieSearchProps) => {
   const pActiveTab = useSelector(
     (state: RootState) => state.search.activeSearchTab,
@@ -51,9 +54,13 @@ const SelfieSearch: React.FC<ISelfieSearchProps> = ({
     dispatch(setActiveSearchTab(tab));
   };
 
-  const handleNavigateToTakePhotoScreen = (_item: IMediaOverview) => () => {
+  const handleNavigateToTakePhotoScreen = (item: IMediaOverview) => () => {
     navigation.navigate(NavigatorMap.Home, {
       screen: NavigatorMap.SelfieCamera,
+      params: {
+        media: item,
+        selfieMode,
+      },
     });
   };
 

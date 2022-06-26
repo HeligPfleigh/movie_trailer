@@ -73,7 +73,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
   };
 
   const content = selfieMode ? (
-    <SelfieSearch searchText={searchText} />
+    <SelfieSearch searchText={searchText} selfieMode={selfieMode} />
   ) : (
     <CommonSearch searchText={searchText} />
   );

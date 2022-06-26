@@ -9,11 +9,11 @@ import {chunk} from 'lodash';
 import {ISelfieFrameType, SELFIE_FRAMES} from '@movie_trailer/core/constants';
 import {MovieSelfieNavigationProps} from '../types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {Camera} from 'react-native-vision-camera';
 
 const styles = StyleSheet.create({
   imageContainer: {
     height: responsiveSize(229),
-    position: 'relative',
     backgroundColor: colors.codGray,
   },
 });
@@ -21,8 +21,19 @@ const styles = StyleSheet.create({
 const PopularFrames: React.FC = () => {
   const navigation = useNavigation<MovieSelfieNavigationProps>();
 
-  const handleSelectSelfieFrame = (type: ISelfieFrameType) => () => {
-    navigation.navigate(NavigatorMap.Search, {selfieMode: type});
+  const handleSelectSelfieFrame = (type: ISelfieFrameType) => async () => {
+    try {
+      let cameraPermission = await Camera.getCameraPermissionStatus();
+      if (cameraPermission === 'not-determined') {
+        cameraPermission = await Camera.requestCameraPermission();
+      }
+
+      if (cameraPermission === 'authorized') {
+        navigation.navigate(NavigatorMap.Search, {selfieMode: type});
+      }
+    } catch (error) {
+      // TODO
+    }
   };
 
   return (
