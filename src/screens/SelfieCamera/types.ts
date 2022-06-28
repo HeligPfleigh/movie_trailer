@@ -7,6 +7,8 @@ import {
 } from '@movie_trailer/navigations/types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {IMediaOverview} from '@movie_trailer/core/types';
+import React from 'react';
 
 export type SelfieCameraScreenProps = CompositeScreenProps<
   NativeStackScreenProps<MainStackParamList, NavigatorMap.SelfieCamera>,
@@ -14,3 +16,8 @@ export type SelfieCameraScreenProps = CompositeScreenProps<
 >;
 
 export type SelfieCameraRouteProps = SelfieCameraScreenProps['route'];
+
+export interface IFrameComponentProps {
+  media: IMediaOverview;
+  camera: React.ReactNode;
+}

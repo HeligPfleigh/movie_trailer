@@ -25,6 +25,9 @@ const SelfieLollipopFrame = require('./SelfieLollipopFrame.png');
 const SelfieMarshmallowFrame = require('./SelfieMarshmallowFrame.png');
 const SelfieNougatFrame = require('./SelfieNougatFrame.png');
 
+export const JellyBeanBg = require('./JellyBeanBg.png');
+export const KitKatBg = require('./KitKatBg.png');
+
 export const getThumbnailForGenre = (genre: string) => {
   switch (genre) {
     case 'Action':

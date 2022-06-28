@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   LayoutChangeEvent,
   SafeAreaView,
@@ -18,6 +18,8 @@ import {SelfieCameraScreenProps} from './types';
 import SettingPopup from './components/SettingPopup';
 import ChangeFramePopup from './components/ChangeFramePopup';
 import {ISelfieFrameType} from '@movie_trailer/core/constants';
+import JellyBean from './components/JellyBean';
+import KitKat from './components/KitKat';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +28,10 @@ const styles = StyleSheet.create({
   preview: {
     width: responsiveSize(34),
     height: responsiveSize(34),
+  },
+  camera: {
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -74,10 +80,27 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   const [selfieFrameType, setSelfieFrameType] =
     useState<ISelfieFrameType>(selfieMode);
 
-  console.log({selfieFrameType, media});
+  const camera = useMemo(
+    () =>
+      device ? (
+        <Camera style={styles.camera} device={device} isActive photo />
+      ) : null,
+    [device],
+  );
+
+  const content = useMemo(() => {
+    switch (selfieFrameType) {
+      case 'SelfieJellyBeanFrame':
+        return <JellyBean media={media} camera={camera} />;
+      case 'SelfieKitKatFrame':
+        return <KitKat media={media} camera={camera} />;
+      default:
+        return <Box color={colors.codGray} />;
+    }
+  }, [selfieFrameType, media, camera]);
 
   if (!device) {
-    return <Box />;
+    return <Box color={colors.codGray} />;
   }
 
   return (
@@ -105,13 +128,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
           </TouchableOpacity>
         </Box>
 
-        <Box>
-          {/* <Camera
-            style={{width: 300, height: 300}}
-            device={device}
-            isActive
-            photo
-          /> */}
+        <Box mt={2} mb={2}>
+          {content}
         </Box>
 
         {/** footer */}

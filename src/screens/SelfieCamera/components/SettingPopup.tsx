@@ -8,7 +8,6 @@ import FrameIcon from '@movie_trailer/assets/icons/Frame';
 
 const styles = StyleSheet.create({
   menuContainer: {
-    width: responsiveSize(192),
     backgroundColor: colors.white,
     position: 'absolute',
     right: -4,
@@ -69,7 +68,7 @@ const SettingPopup: React.FC<ISettingPopupProps> = ({
               key={value}
               onPress={handleSelectItem(value)}>
               {icon}
-              <Box flex={false} ml={2}>
+              <Box flex={false} ml={1}>
                 <Typography
                   variant="caps1"
                   color={colors.royalBlue}
