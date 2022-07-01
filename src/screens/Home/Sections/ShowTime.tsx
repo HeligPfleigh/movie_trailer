@@ -1,8 +1,8 @@
 import {Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, size, spacing} from '@movie_trailer/theme';
-import {ShowTime as ShowTimeImg} from '@movie_trailer/assets/pngs';
+// import {ShowTime as ShowTimeImg} from '@movie_trailer/assets/pngs';
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
@@ -50,7 +50,7 @@ const ShowTime: React.FC = () => {
           </Typography>
         </TouchableOpacity>
 
-        <Image source={ShowTimeImg} style={styles.image} />
+        {/* <Image source={ShowTimeImg} style={styles.image} /> */}
       </LinearGradient>
     </TouchableOpacity>
   );

@@ -5,11 +5,15 @@ import {
   SectionHeader,
   Typography,
 } from '@movie_trailer/components';
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
+import {Camera} from 'react-native-vision-camera';
 import PopularFrames from './components/PopularFrames';
+import RecentFrames from './components/RecentFrames';
 import {MovieSelfieScreenProps} from './types';
 
 const styles = StyleSheet.create({
@@ -25,7 +29,31 @@ const styles = StyleSheet.create({
 const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
   navigation,
 }: MovieSelfieScreenProps) => {
+  const toast = useToast();
+
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
+
+  const handleSelectSelfieFrame = async (type: ISelfieFrameType) => {
+    try {
+      let cameraPermission = await Camera.getCameraPermissionStatus();
+      if (cameraPermission === 'not-determined') {
+        cameraPermission = await Camera.requestCameraPermission();
+      }
+
+      if (cameraPermission === 'authorized') {
+        navigation.navigate(NavigatorMap.Search, {selfieMode: type});
+      } else {
+        toast.show(
+          'Please manually grant us camera permission to take photo!',
+          {type: 'normal'},
+        );
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.show(error.message);
+      }
+    }
+  };
 
   return (
     <ScrollView
@@ -44,14 +72,12 @@ const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
         </Typography>
       </Box>
 
-      <Box flex={false} m={2}>
-        <SectionHeader title="Recently Used" />
-      </Box>
+      <RecentFrames onSelectFrame={handleSelectSelfieFrame} />
 
       <Box flex={false} m={2}>
         <SectionHeader title="Popular Frame" />
 
-        <PopularFrames />
+        <PopularFrames onSelectFrame={handleSelectSelfieFrame} />
       </Box>
     </ScrollView>
   );

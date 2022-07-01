@@ -25,6 +25,8 @@ import ResultPopup from './components/ResultPopup';
 import Lollipop from './components/Lollipop';
 import Marshmallow from './components/Marshmallow';
 import Nougat from './components/Nougat';
+import {useDispatch} from 'react-redux';
+import {addRecentSelfieType} from '@movie_trailer/store/slices/selfieSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +55,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
     'back',
   );
   const device = devices[devicePosition];
+
+  const dispatch = useDispatch();
 
   /** for toggling flash mode */
   const [flash, setFlash] = useState<boolean>(false);
@@ -116,6 +120,7 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
         flash: flash ? 'on' : 'off',
       });
       setTmpPhoto(photo?.path);
+      dispatch(addRecentSelfieType(selfieFrameType));
       toggleResultPopup();
     } catch (error) {
       // TODO

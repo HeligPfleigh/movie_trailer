@@ -1,16 +1,11 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useToast} from 'react-native-toast-notifications';
-import {Camera} from 'react-native-vision-camera';
 
 import {Box} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {getThumbnailForSelfieFrame} from '@movie_trailer/assets/pngs';
 import {chunk} from 'lodash';
 import {ISelfieFrameType, SELFIE_FRAMES} from '@movie_trailer/core/constants';
-import {MovieSelfieNavigationProps} from '../types';
-import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -19,31 +14,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const PopularFrames: React.FC = () => {
-  const navigation = useNavigation<MovieSelfieNavigationProps>();
+type PopularFramesProps = {
+  onSelectFrame: (type: ISelfieFrameType) => void;
+};
 
-  const toast = useToast();
-
+const PopularFrames: React.FC<PopularFramesProps> = ({onSelectFrame}) => {
   const handleSelectSelfieFrame = (type: ISelfieFrameType) => async () => {
-    try {
-      let cameraPermission = await Camera.getCameraPermissionStatus();
-      if (cameraPermission === 'not-determined') {
-        cameraPermission = await Camera.requestCameraPermission();
-      }
-
-      if (cameraPermission === 'authorized') {
-        navigation.navigate(NavigatorMap.Search, {selfieMode: type});
-      } else {
-        toast.show(
-          'Please manually grant us camera permission to take photo!',
-          {type: 'normal'},
-        );
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.show(error.message);
-      }
-    }
+    onSelectFrame(type);
   };
 
   return (
