@@ -1,3 +1,5 @@
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
+
 // const ShowTime = require('./show_time.png');
 const Action = require('./Action.png');
 const Adventure = require('./Adventure.png');
@@ -16,6 +18,26 @@ const Thriller = require('./Thriller.png');
 const TVMovies = require('./TVMovies.png');
 const War = require('./War.png');
 const Western = require('./Western.png');
+
+const SelfieJellyBeanFrame = require('./SelfieJellyBeanFrame.png');
+const SelfieKitKatFrame = require('./SelfieKitKatFrame.png');
+const SelfieLollipopFrame = require('./SelfieLollipopFrame.png');
+const SelfieMarshmallowFrame = require('./SelfieMarshmallowFrame.png');
+const SelfieNougatFrame = require('./SelfieNougatFrame.png');
+
+export const JellyBeanBg = require('./JellyBeanBg.png');
+export const KitKatBg = require('./KitKatBg.png');
+export const LolipopCameraFrame = require('./LolipopCameraFrame.png');
+export const MarshmallowBg = require('./MarshmallowBg.png');
+export const MarshmallowLargeFrame = require('./MarshmallowLargeFrame.png');
+export const MarshmallowSmallFrame = require('./MarshmallowSmallFrame.png');
+export const NougatBg = require('./NougatBg.png');
+export const NougatCameraFrame = require('./NougatCameraFrame.png');
+export const NougatShortTape = require('./NougatShortTape.png');
+export const NougatLongTape = require('./NougatLongTape.png');
+export const NougatPaperInfo = require('./NougatPaperInfo.png');
+export const NougatNoStringTape = require('./NougatNoStringTape.png');
+export const NougatPoster = require('./NougatPoster.png');
 
 export const getThumbnailForGenre = (genre: string) => {
   switch (genre) {
@@ -63,5 +85,22 @@ export const getThumbnailForGenre = (genre: string) => {
       return Western;
     default:
       return Action;
+  }
+};
+
+export const getThumbnailForSelfieFrame = (type: ISelfieFrameType) => {
+  switch (type) {
+    case 'SelfieJellyBeanFrame':
+      return SelfieJellyBeanFrame;
+    case 'SelfieKitKatFrame':
+      return SelfieKitKatFrame;
+    case 'SelfieLollipopFrame':
+      return SelfieLollipopFrame;
+    case 'SelfieMarshmallowFrame':
+      return SelfieMarshmallowFrame;
+    case 'SelfieNougatFrame':
+      return SelfieNougatFrame;
+    default:
+      return SelfieJellyBeanFrame;
   }
 };

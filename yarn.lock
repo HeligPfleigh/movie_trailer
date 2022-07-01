@@ -1149,6 +1149,11 @@
   dependencies:
     merge-options "^3.0.4"
 
+"@react-native-community/cameraroll@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/cameraroll/-/cameraroll-4.1.2.tgz#489c6bb6137571540d93c543d5fcf8c652b548ec"
+  integrity sha512-jkdhMByMKD2CZ/5MPeBieYn8vkCfC4MOTouPpBpps3I8N6HUYJk+1JnDdktVYl2WINnqXpQptDA2YptVyifYAg==
+
 "@react-native-community/cli-debugger-ui@^6.0.0-rc.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-6.0.0.tgz#ef9eb1268d85c1bd3caf2c4d36dc350bb080f254"
@@ -6479,6 +6484,11 @@ react-native-screens@^3.12.0, react-native-screens@^3.4.0:
     react-native-gradle-plugin "^0.0.3"
     warn-once "^0.1.0"
 
+react-native-share@^7.6.4:
+  version "7.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-7.6.4.tgz#98464ab54a685e156158a2f51e857f28373bc2a0"
+  integrity sha512-Evt6vM76QzHDOv+XYuNCJSDAJ74287FGLq0KlgUZVRlvmQD32gQD03yl6q2kuo0vrpQT67sj3GcVzHglizMfGA==
+
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz#6fd9bd8839546c2c6043a41d2035afbc6fe0443e"
@@ -6499,6 +6509,21 @@ react-native-svg@^12.1.1:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-toast-notifications@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-toast-notifications/-/react-native-toast-notifications-3.3.0.tgz#e88b0b264812d86ff3a8c62eca4ea54b3ce3da35"
+  integrity sha512-R94XMwHzovGc3CskniqM2EwS6GqVWgfynXi9ua/qvS+F7eD2dvlkhDhf+eUQNpTexQLoG5MYOJRQ+J8WQs3LbQ==
+
+react-native-view-shot@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.3.0.tgz#7f0c6d2e09e5af770f5b74231a72625b379d60f8"
+  integrity sha512-dc3ZHCd0lvn1jtSI8bPQDta8YxzCvZ73vA8zzFH4S3TRlXLe8r5DF3wUUBlWv1p/bxbEa/A0J4kMUPeVt/v8TQ==
+
+react-native-vision-camera@^2.13.5:
+  version "2.13.5"
+  resolved "https://registry.yarnpkg.com/react-native-vision-camera/-/react-native-vision-camera-2.13.5.tgz#fe64bbb3186959d5bdf82d1e23cd04c899c02bca"
+  integrity sha512-qhOqS+DuKkEb6nlgxKT+hCJTTOPCAtXQ5PdQXd3v85qENBn3K08RtnBz1VOWSeKsj+B52KjA5rcDo50BaaE33A==
 
 react-native-youtube@^2.0.2:
   version "2.0.2"

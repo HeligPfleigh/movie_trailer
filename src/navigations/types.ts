@@ -1,11 +1,15 @@
-import {IReview} from '@movie_trailer/core/types';
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
+import {IMediaOverview, IReview} from '@movie_trailer/core/types';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import NavigatorMap from './NavigatorMap';
 
 export type RootDrawerParamList = {
   Home: NavigatorScreenParams<MainStackParamList>;
   Setting: undefined;
   Favorite: undefined;
-  Search: undefined;
+  Search: {
+    selfieMode?: ISelfieFrameType;
+  };
   YourNoteNavigator: undefined;
 };
 
@@ -58,6 +62,15 @@ export type MainStackParamList = {
   };
   ReviewDetail: {
     review: IReview;
+  };
+  [NavigatorMap.MovieSelfie]: undefined;
+  [NavigatorMap.SelfieCamera]: {
+    selfieMode: ISelfieFrameType;
+    media: IMediaOverview;
+  };
+  [NavigatorMap.SelfieFrameList]: {
+    title: string;
+    frames: Array<ISelfieFrameType>;
   };
 };
 
