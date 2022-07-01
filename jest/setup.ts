@@ -38,3 +38,7 @@ jest.mock('react-native-in-app-review', () => ({
   }),
   isAvailable: jest.fn(),
 }));
+
+jest.mock('react-native-share', () => ({
+  default: jest.fn(),
+}));
