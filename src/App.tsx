@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Provider} from 'react-redux';
 import {LogBox} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
+import {ToastProvider} from 'react-native-toast-notifications';
 
 import 'react-native-gesture-handler';
 
@@ -20,7 +21,9 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <SafeAreaProvider>
-          <AppNavigator />
+          <ToastProvider>
+            <AppNavigator />
+          </ToastProvider>
         </SafeAreaProvider>
 
         <VideoPlayer />

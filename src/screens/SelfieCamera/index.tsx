@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {
   LayoutChangeEvent,
   SafeAreaView,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import FastImage from 'react-native-fast-image';
 
 import {Box} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
@@ -20,6 +21,7 @@ import ChangeFramePopup from './components/ChangeFramePopup';
 import {ISelfieFrameType} from '@movie_trailer/core/constants';
 import JellyBean from './components/JellyBean';
 import KitKat from './components/KitKat';
+import ResultPopup from './components/ResultPopup';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,7 +42,14 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   route,
 }: SelfieCameraScreenProps) => {
   const devices = useCameraDevices();
-  const device = devices.back;
+
+  const cameraRef = useRef<Camera>(null);
+
+  const [tmpPhoto, setTmpPhoto] = useState<string>();
+  const [devicePosition, setDevicePosition] = useState<'back' | 'front'>(
+    'back',
+  );
+  const device = devices[devicePosition];
 
   /** for toggling flash mode */
   const [flash, setFlash] = useState<boolean>(false);
@@ -75,6 +84,10 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
 
   const handleClose = () => navigation.goBack();
 
+  /** result popup */
+  const [openResult, setOpenResult] = useState<boolean>(false);
+  const toggleResultPopup = () => setOpenResult(prev => !prev);
+
   /** frame type */
   const {selfieMode, media} = route.params;
   const [selfieFrameType, setSelfieFrameType] =
@@ -83,10 +96,36 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   const camera = useMemo(
     () =>
       device ? (
-        <Camera style={styles.camera} device={device} isActive photo />
+        <Camera
+          style={styles.camera}
+          device={device}
+          isActive
+          photo
+          ref={cameraRef}
+        />
       ) : null,
     [device],
   );
+
+  const handleTakePhoto = async () => {
+    try {
+      const photo = await cameraRef.current?.takePhoto({
+        flash: flash ? 'on' : 'off',
+      });
+      setTmpPhoto(photo?.path);
+      toggleResultPopup();
+    } catch (error) {
+      // TODO
+    }
+  };
+
+  const handleSwitchCamera = () =>
+    setDevicePosition(prev => {
+      if (prev === 'back') {
+        return 'front';
+      }
+      return 'back';
+    });
 
   const content = useMemo(() => {
     switch (selfieFrameType) {
@@ -98,6 +137,39 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
         return <Box color={colors.codGray} />;
     }
   }, [selfieFrameType, media, camera]);
+
+  const resultContent = useMemo(() => {
+    switch (selfieFrameType) {
+      case 'SelfieJellyBeanFrame':
+        return (
+          <JellyBean
+            media={media}
+            camera={
+              <FastImage
+                source={{uri: `file://${tmpPhoto}`}}
+                resizeMode={FastImage.resizeMode.cover}
+                style={styles.camera}
+              />
+            }
+          />
+        );
+      case 'SelfieKitKatFrame':
+        return (
+          <KitKat
+            media={media}
+            camera={
+              <FastImage
+                source={{uri: `file://${tmpPhoto}`}}
+                resizeMode={FastImage.resizeMode.cover}
+                style={styles.camera}
+              />
+            }
+          />
+        );
+      default:
+        return <Box color={colors.codGray} />;
+    }
+  }, [selfieFrameType, media, tmpPhoto]);
 
   if (!device) {
     return <Box color={colors.codGray} />;
@@ -134,12 +206,21 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
 
         {/** footer */}
         <Box flex={false} row space="between" ml={2} mr={2} mb={4} center>
-          <Box flex={false} style={styles.preview} />
-          <TouchableOpacity>
+          {tmpPhoto ? (
+            <FastImage
+              source={{uri: `file://${tmpPhoto}`}}
+              resizeMode={FastImage.resizeMode.cover}
+              style={styles.preview}
+            />
+          ) : (
+            <Box flex={false} style={styles.preview} />
+          )}
+
+          <TouchableOpacity onPress={handleTakePhoto}>
             <SnapIcon />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleSwitchCamera}>
             <CameraIcon />
           </TouchableOpacity>
         </Box>
@@ -155,6 +236,12 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
           isVisible={openFrames}
           onClose={toggleChangeFramePopup}
           onChangeFrame={handleChangeFrameType}
+        />
+
+        <ResultPopup
+          isVisible={openResult}
+          onClose={toggleResultPopup}
+          content={resultContent}
         />
       </Box>
     </SafeAreaView>

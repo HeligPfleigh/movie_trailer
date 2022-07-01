@@ -39,7 +39,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
   route,
 }: SearchScreenProps) => {
   const [searchText, setSearchText] = useState<string>('');
-  const {selfieMode} = route.params;
+  const {selfieMode} = route?.params ?? {};
 
   const dispatch = useDispatch();
   const throttled = useRef(
