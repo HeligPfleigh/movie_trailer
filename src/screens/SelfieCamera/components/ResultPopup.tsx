@@ -116,7 +116,7 @@ const ResultPopup: React.FC<ResultPopupProps> = ({
       style={styles.modal}>
       <SafeAreaView style={styles.container}>
         <Box color={colors.codGray}>
-          <Box flex={false} mt={4} mr={2} ml={2}>
+          <Box flex={false} mt={4} mr={2} ml={2} style={{zIndex: 2}}>
             <TouchableOpacity onPress={onClose}>
               <Close />
             </TouchableOpacity>

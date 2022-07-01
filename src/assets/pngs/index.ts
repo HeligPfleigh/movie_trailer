@@ -27,6 +27,17 @@ const SelfieNougatFrame = require('./SelfieNougatFrame.png');
 
 export const JellyBeanBg = require('./JellyBeanBg.png');
 export const KitKatBg = require('./KitKatBg.png');
+export const LolipopCameraFrame = require('./LolipopCameraFrame.png');
+export const MarshmallowBg = require('./MarshmallowBg.png');
+export const MarshmallowLargeFrame = require('./MarshmallowLargeFrame.png');
+export const MarshmallowSmallFrame = require('./MarshmallowSmallFrame.png');
+export const NougatBg = require('./NougatBg.png');
+export const NougatCameraFrame = require('./NougatCameraFrame.png');
+export const NougatShortTape = require('./NougatShortTape.png');
+export const NougatLongTape = require('./NougatLongTape.png');
+export const NougatPaperInfo = require('./NougatPaperInfo.png');
+export const NougatNoStringTape = require('./NougatNoStringTape.png');
+export const NougatPoster = require('./NougatPoster.png');
 
 export const getThumbnailForGenre = (genre: string) => {
   switch (genre) {

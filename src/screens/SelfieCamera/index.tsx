@@ -22,6 +22,9 @@ import {ISelfieFrameType} from '@movie_trailer/core/constants';
 import JellyBean from './components/JellyBean';
 import KitKat from './components/KitKat';
 import ResultPopup from './components/ResultPopup';
+import Lollipop from './components/Lollipop';
+import Marshmallow from './components/Marshmallow';
+import Nougat from './components/Nougat';
 
 const styles = StyleSheet.create({
   container: {
@@ -133,39 +136,36 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
         return <JellyBean media={media} camera={camera} />;
       case 'SelfieKitKatFrame':
         return <KitKat media={media} camera={camera} />;
+      case 'SelfieLollipopFrame':
+        return <Lollipop media={media} camera={camera} />;
+      case 'SelfieMarshmallowFrame':
+        return <Marshmallow media={media} camera={camera} />;
+      case 'SelfieNougatFrame':
+        return <Nougat media={media} camera={camera} />;
       default:
         return <Box color={colors.codGray} />;
     }
   }, [selfieFrameType, media, camera]);
 
   const resultContent = useMemo(() => {
+    const image = (
+      <FastImage
+        source={{uri: `file://${tmpPhoto}`}}
+        resizeMode={FastImage.resizeMode.cover}
+        style={styles.camera}
+      />
+    );
     switch (selfieFrameType) {
       case 'SelfieJellyBeanFrame':
-        return (
-          <JellyBean
-            media={media}
-            camera={
-              <FastImage
-                source={{uri: `file://${tmpPhoto}`}}
-                resizeMode={FastImage.resizeMode.cover}
-                style={styles.camera}
-              />
-            }
-          />
-        );
+        return <JellyBean media={media} camera={image} />;
       case 'SelfieKitKatFrame':
-        return (
-          <KitKat
-            media={media}
-            camera={
-              <FastImage
-                source={{uri: `file://${tmpPhoto}`}}
-                resizeMode={FastImage.resizeMode.cover}
-                style={styles.camera}
-              />
-            }
-          />
-        );
+        return <KitKat media={media} camera={image} />;
+      case 'SelfieLollipopFrame':
+        return <Lollipop media={media} camera={image} />;
+      case 'SelfieMarshmallowFrame':
+        return <Marshmallow media={media} camera={image} />;
+      case 'SelfieNougatFrame':
+        return <Nougat media={media} camera={image} />;
       default:
         return <Box color={colors.codGray} />;
     }
@@ -186,6 +186,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
           mt={4}
           ml={2}
           mr={2}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{zIndex: 2}}
           onLayout={handleLayout}>
           <TouchableOpacity onPress={handleClose}>
             <Close />
