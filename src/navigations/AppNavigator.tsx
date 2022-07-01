@@ -30,6 +30,7 @@ import YourNoteScreen from '@movie_trailer/screens/YourNote';
 import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
 import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
 import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
+import SelfieFrameListScreen from '@movie_trailer/screens/SelfieFrameList';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -96,6 +97,10 @@ const MainNavigator = () => {
       <Stack.Screen
         name={NavigatorMap.SelfieCamera}
         component={SelfieCameraScreen}
+      />
+      <Stack.Screen
+        name={NavigatorMap.SelfieFrameList}
+        component={SelfieFrameListScreen}
       />
     </Stack.Navigator>
   );

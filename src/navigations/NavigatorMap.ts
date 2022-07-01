@@ -21,6 +21,7 @@ enum NavigatorMap {
   ReviewDetail = 'ReviewDetail',
   MovieSelfie = 'MovieSelfie',
   SelfieCamera = 'SelfieCamera',
+  SelfieFrameList = 'SelfieFrameList',
 
   // your note stack
   YourNote = 'YourNote',

@@ -68,6 +68,10 @@ export type MainStackParamList = {
     selfieMode: ISelfieFrameType;
     media: IMediaOverview;
   };
+  [NavigatorMap.SelfieFrameList]: {
+    title: string;
+    frames: Array<ISelfieFrameType>;
+  };
 };
 
 export type YourNoteStackParamList = {

@@ -2,19 +2,17 @@ import {
   AppBar,
   Box,
   HomeBackground,
-  SectionHeader,
   Typography,
 } from '@movie_trailer/components';
-import {ISelfieFrameType, SELFIE_FRAMES} from '@movie_trailer/core/constants';
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {useToast} from 'react-native-toast-notifications';
 import {Camera} from 'react-native-vision-camera';
-import PopularFrames from './components/PopularFrames';
-import RecentFrames from './components/RecentFrames';
-import {MovieSelfieScreenProps} from './types';
+import PopularFrames from '../MovieSelfie/components/PopularFrames';
+import {SelfieFrameListScreenProps} from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,10 +24,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
+const SelfieFrameList: React.FC<SelfieFrameListScreenProps> = ({
   navigation,
-}: MovieSelfieScreenProps) => {
+  route,
+}) => {
   const toast = useToast();
+  const title = route?.params?.title ?? 'Selfie Frames';
+  const frames = route?.params?.frames ?? [];
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -54,14 +55,6 @@ const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
       }
     }
   };
-
-  const handleViewAll = () => {
-    navigation.navigate(NavigatorMap.SelfieFrameList, {
-      title: 'Popular Frame',
-      frames: [...SELFIE_FRAMES],
-    });
-  };
-
   return (
     <ScrollView
       style={styles.container}
@@ -75,22 +68,18 @@ const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
           variant="h4"
           color={colors.white}
           fontFamily="Poppins-SemiBold">
-          Movie Selfie
+          {title}
         </Typography>
       </Box>
 
-      <RecentFrames onSelectFrame={handleSelectSelfieFrame} />
-
       <Box flex={false} m={2}>
-        <SectionHeader title="Popular Frame" onPress={handleViewAll} />
-
         <PopularFrames
           onSelectFrame={handleSelectSelfieFrame}
-          frames={[...SELFIE_FRAMES]}
+          frames={frames}
         />
       </Box>
     </ScrollView>
   );
 };
 
-export default MovieSelfieScreen;
+export default SelfieFrameList;

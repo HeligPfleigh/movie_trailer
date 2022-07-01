@@ -5,7 +5,7 @@ import {Box} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import {getThumbnailForSelfieFrame} from '@movie_trailer/assets/pngs';
 import {chunk} from 'lodash';
-import {ISelfieFrameType, SELFIE_FRAMES} from '@movie_trailer/core/constants';
+import {ISelfieFrameType} from '@movie_trailer/core/constants';
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -16,16 +16,20 @@ const styles = StyleSheet.create({
 
 type PopularFramesProps = {
   onSelectFrame: (type: ISelfieFrameType) => void;
+  frames: Array<ISelfieFrameType>;
 };
 
-const PopularFrames: React.FC<PopularFramesProps> = ({onSelectFrame}) => {
+const PopularFrames: React.FC<PopularFramesProps> = ({
+  onSelectFrame,
+  frames,
+}) => {
   const handleSelectSelfieFrame = (type: ISelfieFrameType) => async () => {
     onSelectFrame(type);
   };
 
   return (
     <>
-      {chunk(SELFIE_FRAMES, 2).map(([first, second]) => (
+      {chunk(frames, 2).map(([first, second]) => (
         <Box mb={2} key={first} row>
           <Box mr={1}>
             <TouchableOpacity onPress={handleSelectSelfieFrame(first)}>
