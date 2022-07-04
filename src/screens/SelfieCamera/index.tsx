@@ -181,8 +181,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Box color={colors.codGray}>
+    <Box color={colors.codGray}>
+      <SafeAreaView style={styles.container}>
         {/** header */}
         <Box
           flex={false}
@@ -250,8 +250,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
           onClose={toggleResultPopup}
           content={resultContent}
         />
-      </Box>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Box>
   );
 };
 
