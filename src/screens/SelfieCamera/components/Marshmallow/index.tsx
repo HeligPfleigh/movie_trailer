@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
   },
   cameraContainer: {
     position: 'absolute',
-    width: responsiveSize(305),
-    height: responsiveSize(220),
-    top: responsiveSize(66),
-    left: responsiveSize(45),
+    width: '80%',
+    height: responsiveSize(232),
+    top: responsiveSize(60),
+    left: '10%',
     borderRadius: 20,
   },
   smallFrame: {
