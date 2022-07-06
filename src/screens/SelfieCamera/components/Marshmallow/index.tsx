@@ -18,15 +18,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   largeFrame: {
+    position: 'absolute',
     width: '100%',
-    height: responsiveSize(400),
+    height: '120%',
   },
   cameraContainer: {
-    position: 'absolute',
-    width: '80%',
-    height: responsiveSize(232),
-    top: responsiveSize(60),
-    left: '10%',
+    width: '100%',
+    height: responsiveSize(300),
     borderRadius: 20,
   },
   smallFrame: {
@@ -66,14 +64,14 @@ const Marshmallow: React.FC<IFrameComponentProps> = ({camera, media}) => {
       source={MarshmallowBg}
       resizeMode="cover"
       style={styles.container}>
-      <FastImage
-        source={MarshmallowLargeFrame}
-        resizeMode={FastImage.resizeMode.cover}
-        style={styles.largeFrame}
-      />
-
       <Box flex={false} style={styles.cameraContainer}>
         {camera}
+
+        <FastImage
+          source={MarshmallowLargeFrame}
+          resizeMode={FastImage.resizeMode.cover}
+          style={styles.largeFrame}
+        />
       </Box>
 
       <FastImage
