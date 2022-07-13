@@ -89,7 +89,7 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
         }}>
         <Typography
           variant="h4"
-          fontFamily="Antigua-Presidente"
+          fontFamily="Handlee"
           textAlign="center"
           color={colors.black}>
           {media.title}
@@ -98,7 +98,7 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
           variant="caps3"
           color={colors.black}
           textAlign="center"
-          fontFamily="Antigua-Presidente">
+          fontFamily="Handlee">
           {dayjs(media.time).format('DD MMM, YYYY')}
         </Typography>
       </Box>

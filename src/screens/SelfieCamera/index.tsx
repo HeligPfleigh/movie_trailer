@@ -77,7 +77,8 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   const handleSelectMenuOption = (option: 'changeFrame') => {
     switch (option) {
       case 'changeFrame':
-        toggleChangeFramePopup();
+        // fix: cannot open and close modal simutanenous on ios
+        setTimeout(() => toggleChangeFramePopup(), 500);
         break;
       default:
         break;
