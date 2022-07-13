@@ -71,7 +71,7 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
   const toggleChangeFramePopup = () => setOpenFrames(prev => !prev);
 
   const handleLayout = (event: LayoutChangeEvent) => {
-    setSettingPosition(event.nativeEvent.layout.y + 80);
+    setSettingPosition(event.nativeEvent.layout.y + 20);
   };
 
   const handleSelectMenuOption = (option: 'changeFrame') => {
@@ -176,10 +176,6 @@ const SelfieCameraScreen: React.FC<SelfieCameraScreenProps> = ({
         return <Box color={colors.codGray} />;
     }
   }, [selfieFrameType, media, tmpPhoto]);
-
-  if (!device) {
-    return <Box color={colors.codGray} />;
-  }
 
   return (
     <Box color={colors.codGray}>

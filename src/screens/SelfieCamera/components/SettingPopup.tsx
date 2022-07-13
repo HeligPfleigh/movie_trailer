@@ -53,32 +53,30 @@ const SettingPopup: React.FC<ISettingPopupProps> = ({
       onBackdropPress={onClose}
       backdropColor="transparent"
       statusBarTranslucent>
-      <Box center middle>
-        <Box
-          flex={false}
-          style={[
-            styles.menuContainer,
-            {
-              top,
-            },
-          ]}>
-          {menus.map(({value, label, icon}) => (
-            <TouchableOpacity
-              style={styles.menuItem}
-              key={value}
-              onPress={handleSelectItem(value)}>
-              {icon}
-              <Box flex={false} ml={1}>
-                <Typography
-                  variant="caps1"
-                  color={colors.royalBlue}
-                  fontFamily="Poppins">
-                  {label}
-                </Typography>
-              </Box>
-            </TouchableOpacity>
-          ))}
-        </Box>
+      <Box
+        flex={false}
+        style={[
+          styles.menuContainer,
+          {
+            top,
+          },
+        ]}>
+        {menus.map(({value, label, icon}) => (
+          <TouchableOpacity
+            style={styles.menuItem}
+            key={value}
+            onPress={handleSelectItem(value)}>
+            {icon}
+            <Box flex={false} ml={1}>
+              <Typography
+                variant="caps1"
+                color={colors.royalBlue}
+                fontFamily="Poppins">
+                {label}
+              </Typography>
+            </Box>
+          </TouchableOpacity>
+        ))}
       </Box>
     </Modal>
   );
