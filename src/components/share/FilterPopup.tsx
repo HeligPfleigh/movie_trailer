@@ -59,32 +59,28 @@ const FilterPopup: React.FC<IFilterPopup> = ({
       onBackdropPress={onClose}
       backdropColor="transparent"
       statusBarTranslucent>
-      <Box center middle>
-        <Box
-          flex={false}
-          style={[
-            styles.calendarContainer,
-            {
-              top,
-            },
-          ]}>
-          {menus.map(({value, label}) => (
-            <TouchableOpacity
-              style={styles.menuItem}
-              key={value}
-              onPress={handleSelectItem(value)}>
-              <Typography
-                variant="caps1"
-                color={selected === value ? colors.royalBlue : colors.mirage}
-                fontFamily={
-                  selected === value ? 'Poppins-SemiBold' : 'Poppins'
-                }>
-                {label}
-              </Typography>
-              {selected === value && <Check />}
-            </TouchableOpacity>
-          ))}
-        </Box>
+      <Box
+        flex={false}
+        style={[
+          styles.calendarContainer,
+          {
+            top,
+          },
+        ]}>
+        {menus.map(({value, label}) => (
+          <TouchableOpacity
+            style={styles.menuItem}
+            key={value}
+            onPress={handleSelectItem(value)}>
+            <Typography
+              variant="caps1"
+              color={selected === value ? colors.royalBlue : colors.mirage}
+              fontFamily={selected === value ? 'Poppins-SemiBold' : 'Poppins'}>
+              {label}
+            </Typography>
+            {selected === value && <Check />}
+          </TouchableOpacity>
+        ))}
       </Box>
     </Modal>
   );

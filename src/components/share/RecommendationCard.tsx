@@ -54,7 +54,7 @@ const RecommendationCard: React.FC<IRecommendationCardProps> = ({
           resizeMode="cover"
           style={styles.imageContainer}
           imageStyle={{borderRadius: responsiveSize(16)}}>
-          <Box flex={false} style={styles.badge}>
+          <Box flex={false} style={styles.badge} center>
             <StarIcon />
             <Box flex={false} ml={0.5}>
               <Typography variant="caps3" color={colors.white}>
