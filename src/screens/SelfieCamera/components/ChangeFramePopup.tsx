@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: responsiveSize(229),
     backgroundColor: colors.codGray,
+    width: '100%',
   },
 });
 

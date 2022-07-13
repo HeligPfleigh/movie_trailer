@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   poster: {
-    height: isIPad ? responsiveSize(800) : responsiveSize(396),
+    height: responsiveSize(396),
     width: isIPad ? viewportWidth * 0.75 : responsiveSize(283),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,

@@ -14,13 +14,62 @@ import {
   NougatShortTape,
 } from '@movie_trailer/assets/pngs';
 import FastImage from 'react-native-fast-image';
-import {colors} from '@movie_trailer/theme';
+import {colors, responsiveSize} from '@movie_trailer/theme';
 import dayjs from 'dayjs';
 
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flex: 1,
+  },
+  cameraFrame: {
+    position: 'absolute',
+    top: responsiveSize(-50),
+    left: responsiveSize(-10),
+    width: responsiveSize(430),
+    height: responsiveSize(511),
+  },
+  cameraContainer: {
+    position: 'absolute',
+    width: responsiveSize(300),
+    height: responsiveSize(300),
+    top: responsiveSize(40),
+    left: responsiveSize(28),
+  },
+  shortTape: {
+    position: 'absolute',
+    top: 0,
+    left: '38%',
+    width: responsiveSize(80),
+    height: responsiveSize(80),
+  },
+  paper: {
+    position: 'absolute',
+    bottom: responsiveSize(-44),
+    right: responsiveSize(-10),
+    width: responsiveSize(256),
+    height: responsiveSize(224),
+  },
+  infoContainer: {
+    position: 'absolute',
+    width: responsiveSize(150),
+    height: responsiveSize(100),
+    bottom: responsiveSize(10),
+    right: 0,
+  },
+  longTape: {
+    position: 'absolute',
+    top: 0,
+    right: responsiveSize(20),
+    width: responsiveSize(100),
+    height: '82%',
+  },
+  noStringTape: {
+    position: 'absolute',
+    bottom: responsiveSize(120),
+    left: responsiveSize(50),
+    width: responsiveSize(68),
+    height: responsiveSize(50),
   },
 });
 
@@ -33,60 +82,26 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
       <FastImage
         source={NougatCameraFrame}
         resizeMode={FastImage.resizeMode.cover}
-        style={{
-          position: 'absolute',
-          top: -50,
-          left: -10,
-          width: 430,
-          height: 511,
-        }}
+        style={styles.cameraFrame}
       />
 
-      <Box
-        flex={false}
-        style={{
-          position: 'absolute',
-          width: 300,
-          height: 300,
-          top: 40,
-          left: 28,
-        }}>
+      <Box flex={false} style={styles.cameraContainer}>
         {camera}
       </Box>
 
       <FastImage
         source={NougatShortTape}
         resizeMode={FastImage.resizeMode.stretch}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '38%',
-          width: 80,
-          height: 80,
-        }}
+        style={styles.shortTape}
       />
 
       <FastImage
         source={NougatPaperInfo}
         resizeMode={FastImage.resizeMode.stretch}
-        style={{
-          position: 'absolute',
-          bottom: -44,
-          right: -10,
-          width: 256,
-          height: 224,
-        }}
+        style={styles.paper}
       />
 
-      <Box
-        flex={false}
-        style={{
-          position: 'absolute',
-          width: 150,
-          height: 100,
-          bottom: 10,
-          right: 0,
-        }}>
+      <Box flex={false} style={styles.infoContainer}>
         <Typography
           variant="h4"
           fontFamily="Handlee"
@@ -106,13 +121,7 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
       <FastImage
         source={NougatLongTape}
         resizeMode={FastImage.resizeMode.stretch}
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 20,
-          width: 100,
-          height: 430,
-        }}
+        style={styles.longTape}
       />
 
       <FastImage
@@ -120,23 +129,17 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
         resizeMode={FastImage.resizeMode.stretch}
         style={{
           position: 'absolute',
-          bottom: -20,
-          left: -20,
-          width: 229,
-          height: 202,
+          bottom: responsiveSize(-20),
+          left: responsiveSize(-20),
+          width: responsiveSize(229),
+          height: responsiveSize(202),
         }}
       />
 
       <FastImage
         source={NougatNoStringTape}
         resizeMode={FastImage.resizeMode.stretch}
-        style={{
-          position: 'absolute',
-          bottom: 120,
-          left: 50,
-          width: 68,
-          height: 50,
-        }}
+        style={styles.noStringTape}
       />
 
       <FastImage
@@ -144,10 +147,10 @@ const Nougat: React.FC<IFrameComponentProps> = ({camera, media}) => {
         resizeMode={FastImage.resizeMode.cover}
         style={{
           position: 'absolute',
-          bottom: 46,
-          left: 30,
-          width: 98,
-          height: 86,
+          bottom: responsiveSize(46),
+          left: responsiveSize(30),
+          width: responsiveSize(98),
+          height: responsiveSize(86),
           transform: [{rotate: '1deg'}],
         }}
       />

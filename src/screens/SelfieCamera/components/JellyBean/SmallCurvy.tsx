@@ -8,7 +8,7 @@ import Svg, {
 } from 'react-native-svg';
 
 const SmallCurvy = (props: SvgProps) => (
-  <Svg width={150} height={149} fill="none" {...props}>
+  <Svg width={150} height={149} viewBox="0 0 150 149" fill="none" {...props}>
     <Path
       fillRule="evenodd"
       clipRule="evenodd"

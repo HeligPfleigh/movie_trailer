@@ -68,8 +68,16 @@ const Lollipop: React.FC<IFrameComponentProps> = ({camera, media}) => {
         />
       </Box>
 
-      <ActionBoard style={styles.actionBoard} />
-      <ProCamera style={styles.proCamera} />
+      <ActionBoard
+        style={styles.actionBoard}
+        width={responsiveSize(62)}
+        height={responsiveSize(80)}
+      />
+      <ProCamera
+        style={styles.proCamera}
+        width={responsiveSize(78)}
+        height={responsiveSize(80)}
+      />
 
       <FastImage
         source={{uri: media.poster}}

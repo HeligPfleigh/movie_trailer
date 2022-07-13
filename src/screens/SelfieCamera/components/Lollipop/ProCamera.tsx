@@ -9,7 +9,7 @@ import Svg, {
 } from 'react-native-svg';
 
 const ProCamera = (props: SvgProps) => (
-  <Svg width={78} height={80} fill="none" {...props}>
+  <Svg width={78} height={80} viewBox="0 0 78 80" fill="none" {...props}>
     <Path
       fillRule="evenodd"
       clipRule="evenodd"

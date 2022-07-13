@@ -72,13 +72,21 @@ const JellyBean: React.FC<IFrameComponentProps> = ({
       source={JellyBeanBg}
       resizeMode="cover"
       style={styles.container}>
-      <BigCurvy style={styles.bigCurvy} />
+      <BigCurvy
+        style={styles.bigCurvy}
+        width={responsiveSize(349)}
+        height={responsiveSize(368)}
+      />
       <Box flex={false} style={styles.cameraContainer}>
         {camera}
       </Box>
       <BigTape style={styles.bigTape} />
 
-      <SmallCurvy style={styles.smallCurvy} />
+      <SmallCurvy
+        style={styles.smallCurvy}
+        width={responsiveSize(150)}
+        height={responsiveSize(149)}
+      />
       <FastImage
         source={{uri: media.poster}}
         resizeMode={FastImage.resizeMode.cover}

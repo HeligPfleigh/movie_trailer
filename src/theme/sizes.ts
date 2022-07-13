@@ -1,9 +1,10 @@
-import {PixelRatio} from 'react-native';
+import {PixelRatio, Platform} from 'react-native';
 
 const SPACING_UNIT = 8;
 
 // const commonPixelRatio = 1.5;
-const currentRatio = 1; //Math.min(commonPixelRatio / PixelRatio.get(), 1);
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
+const currentRatio = isIPad ? 2 : 1; // Math.min(commonPixelRatio / PixelRatio.get(), 1);
 
 /**
  * Responsive for xhdpi/ xxhdpi base on hdpi size

@@ -10,7 +10,7 @@ import Svg, {
 } from 'react-native-svg';
 
 const ActionBoard = (props: SvgProps) => (
-  <Svg width={62} height={80} fill="none" {...props}>
+  <Svg width={62} height={80} viewBox="0 0 62 80" fill="none" {...props}>
     <G clipPath="url(#a)">
       <Path
         fillRule="evenodd"

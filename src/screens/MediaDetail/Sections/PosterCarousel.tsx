@@ -30,7 +30,7 @@ const isIPad = Platform.OS === 'ios' && Platform.isPad;
 
 const styles = StyleSheet.create({
   carouselItemContainer: {
-    height: isIPad ? responsiveSize(800) : responsiveSize(396),
+    height: responsiveSize(396),
     width: isIPad ? viewportWidth * 0.75 : responsiveSize(283),
     borderRadius: responsiveSize(16),
     backgroundColor: colors.cadetBlue,
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   playBtn: {
-    top: isIPad ? responsiveSize(390) : responsiveSize(170),
-    left: isIPad ? responsiveSize(390) : responsiveSize(115),
+    top: isIPad ? responsiveSize(180) : responsiveSize(170),
+    left: isIPad ? responsiveSize(170) : responsiveSize(115),
     position: 'absolute',
   },
 });

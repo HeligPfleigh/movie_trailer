@@ -61,7 +61,10 @@ const SelfieWithMovie: React.FC = () => {
         </Box>
 
         <Box flex={false} style={styles.icon}>
-          <SelfieWithMovieIcon />
+          <SelfieWithMovieIcon
+            width={responsiveSize(187)}
+            height={responsiveSize(104)}
+          />
         </Box>
       </LinearGradient>
     </TouchableOpacity>
