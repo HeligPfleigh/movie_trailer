@@ -3,6 +3,7 @@ import {Provider} from 'react-redux';
 import {LogBox} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {ToastProvider} from 'react-native-toast-notifications';
+import codePush from 'react-native-code-push';
 
 import 'react-native-gesture-handler';
 
@@ -32,4 +33,10 @@ function App() {
   );
 }
 
-export default App;
+const AppWithCodePush = codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+})(App);
+
+const App$ = process.env.NODE_ENV === 'development' ? App : AppWithCodePush;
+
+export default App$;

@@ -75,5 +75,7 @@
 	<string>$(PRODUCT_NAME) needs access to your Photo Library.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	<key>CodePushDeploymentKey</key>
+	<string>UBPui2BoO9RfSURRQGNDo88Kr0ADcSJe8z9c4</string>
 </dict>
 </plist>

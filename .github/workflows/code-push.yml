@@ -1,0 +1,27 @@
+name: Code Push
+
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    environment: deployment
+    name: Deploy bundle file to Code Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: yarn
+      - name: Deploy to Codepush IOS App
+        uses: ./.github/actions/code-push-action
+        with:
+          args: release-react -a iop883684/Tajzemoli -d Production --xcode-project-file "./ios/MovieTrailer.xcodeproj/project.pbxproj" --plist-file "./ios/MovieTrailer/Info.plist"
+        env:
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.APPCENTER_ACCESS_TOKEN }}
+
+      - name: Deploy to Codepush Android App
+        uses: ./.github/actions/code-push-action
+        with:
+          args: release-react -a iop883684/Tajzemoli-Android -d Production
+        env:
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.APPCENTER_ACCESS_TOKEN }}
