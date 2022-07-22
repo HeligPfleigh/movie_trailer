@@ -1,0 +1,5 @@
+name: 'Code Push'
+description: 'Upload app bundle to appcenter'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
