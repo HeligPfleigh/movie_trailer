@@ -46,6 +46,6 @@ const AppWithCodePush = codePush({
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
 })(App);
 
-const App$ = process.env.NODE_ENV === 'development' ? App : AppWithCodePush;
+const App$ = __DEV__ ? App : AppWithCodePush;
 
 export default App$;

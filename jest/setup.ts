@@ -65,3 +65,7 @@ jest.mock('react-native-code-push', () => {
   });
   return cp;
 });
+
+jest.mock('react-native-youtube', () => 'Video');
+
+import 'react-native-google-mobile-ads/jest.setup';
