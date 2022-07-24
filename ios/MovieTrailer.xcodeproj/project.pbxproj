@@ -22,6 +22,7 @@
 		C11A1B2EE13E45F09EA223F0 /* Antigua-Presidente.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D63B3DD146CD44FBAABCBC1E /* Antigua-Presidente.ttf */; };
 		C63CFA02288A933D00B557B0 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = C63CFA01288A933D00B557B0 /* AppCenter-Config.plist */; };
 		C69730B727E32C4C0081F0FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C69730B627E32C4C0081F0FA /* GoogleService-Info.plist */; };
+		C0CC65D4F5D94649BC4AC2A3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83BFE93F8D024C7AB066B9E8 /* Entypo.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		E131E3C8F68D4C8CA022DCA3 /* Poppins.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Poppins.ttf; path = ../src/assets/fonts/Poppins.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F2BD8A8F01FF9C7D4F11B4E2 /* Pods-MovieTrailer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer.debug.xcconfig"; path = "Target Support Files/Pods-MovieTrailer/Pods-MovieTrailer.debug.xcconfig"; sourceTree = "<group>"; };
+		83BFE93F8D024C7AB066B9E8 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../src/assets/fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				793D47144147448D991E8500 /* Damion.ttf */,
 				D63B3DD146CD44FBAABCBC1E /* Antigua-Presidente.ttf */,
 				2830E50240CC487780B9FA8B /* Handlee.ttf */,
+				83BFE93F8D024C7AB066B9E8 /* Entypo.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				97A51FFCF032439F991B48D0 /* Damion.ttf in Resources */,
 				C11A1B2EE13E45F09EA223F0 /* Antigua-Presidente.ttf in Resources */,
 				43EBB62BFB2C4583BE47D6A0 /* Handlee.ttf in Resources */,
+				C0CC65D4F5D94649BC4AC2A3 /* Entypo.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
