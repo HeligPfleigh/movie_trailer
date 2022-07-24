@@ -4,20 +4,20 @@ import {LogBox} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {ToastProvider} from 'react-native-toast-notifications';
 import codePush from 'react-native-code-push';
+import mobileAds from 'react-native-google-mobile-ads';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import 'react-native-gesture-handler';
 
 import {persistor, store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {VideoPlayer} from './components';
+import BasicNativeAdsView from './components/share/ads/BasicNativeAdsView';
 
 // temporary comment the warning for react-native-gesture-handler
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
-
-import mobileAds from 'react-native-google-mobile-ads';
 
 mobileAds()
   .initialize()
@@ -34,6 +34,8 @@ function App() {
           <ToastProvider>
             <AppNavigator />
           </ToastProvider>
+
+          <BasicNativeAdsView />
         </SafeAreaProvider>
 
         <VideoPlayer />
