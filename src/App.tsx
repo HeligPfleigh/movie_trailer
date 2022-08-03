@@ -12,7 +12,6 @@ import 'react-native-gesture-handler';
 import {persistor, store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
 import {VideoPlayer} from './components';
-import BasicNativeAdsView from './components/share/ads/BasicNativeAdsView';
 
 // temporary comment the warning for react-native-gesture-handler
 LogBox.ignoreLogs([
@@ -34,8 +33,6 @@ function App() {
           <ToastProvider>
             <AppNavigator />
           </ToastProvider>
-
-          <BasicNativeAdsView />
         </SafeAreaProvider>
 
         <VideoPlayer />

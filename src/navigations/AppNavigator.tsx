@@ -4,7 +4,7 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useRef} from 'react';
-import {AppOpenAd, TestIds, AdEventType} from 'react-native-google-mobile-ads';
+import {AppOpenAd, AdEventType} from 'react-native-google-mobile-ads';
 import analytics from '@react-native-firebase/analytics';
 
 import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
@@ -33,6 +33,7 @@ import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
 import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
 import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
 import SelfieFrameListScreen from '@movie_trailer/screens/SelfieFrameList';
+import {adConfigs} from '@movie_trailer/components/ads/config';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -124,12 +125,7 @@ const YourNoteNavigator = () => (
   </YourNoteStack.Navigator>
 );
 
-// TODO: add real ad
-const adUnitId = __DEV__
-  ? TestIds.APP_OPEN
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-
-const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
+const appOpenAd = AppOpenAd.createForAdRequest(adConfigs.openAdUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });
 

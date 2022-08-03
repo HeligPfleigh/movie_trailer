@@ -2,9 +2,12 @@ import React from 'react';
 import NativeAdView, {
   AdBadge,
   AdvertiserView,
+  CallToActionView,
+  ImageView,
   StoreView,
   TaglineView,
 } from 'react-native-admob-native-ads';
+import {adConfigs} from './config';
 
 const BasicNativeAdsView: React.FC = () => {
   const nativeAdViewRef = React.useRef<NativeAdView>(null);
@@ -15,9 +18,7 @@ const BasicNativeAdsView: React.FC = () => {
   }, []);
 
   return (
-    <NativeAdView
-      adUnitID="ca-app-pub-3940256099942544/2247696110"
-      ref={nativeAdViewRef}>
+    <NativeAdView adUnitID={adConfigs.nativeAdUnitId} ref={nativeAdViewRef}>
       <AdBadge
         style={{
           width: 15,
@@ -48,6 +49,26 @@ const BasicNativeAdsView: React.FC = () => {
           fontWeight: 'bold',
           fontSize: 10,
         }}
+      />
+      <ImageView
+        style={{
+          width: '100%',
+          height: 100,
+        }}
+      />
+
+      <CallToActionView
+        style={{
+          height: 45,
+          paddingHorizontal: 12,
+          backgroundColor: 'purple',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 5,
+          elevation: 10,
+          width: '100%',
+        }}
+        textStyle={{color: 'white', fontSize: 14}}
       />
     </NativeAdView>
   );

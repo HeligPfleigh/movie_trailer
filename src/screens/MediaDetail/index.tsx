@@ -2,11 +2,6 @@ import React, {useEffect} from 'react';
 import InAppReview from 'react-native-in-app-review';
 import dayjs from 'dayjs';
 import Config from 'react-native-config';
-import {
-  InterstitialAd,
-  AdEventType,
-  TestIds,
-} from 'react-native-google-mobile-ads';
 
 import {AppBar, HomeBackground} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
@@ -28,21 +23,12 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: add real ad
-const adUnitId = __DEV__
-  ? TestIds.INTERSTITIAL
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ['fashion', 'clothing'],
-});
-
 const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   navigation,
   route,
 }: MediaDetailScreenProps) => {
   const {type, id} = route.params;
+
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handleShareMedia = () => {
@@ -74,21 +60,6 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
     setTimeout(() => {
       requestInappReview();
     }, 5000);
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        interstitial.show();
-      },
-    );
-
-    // Start loading the interstitial straight away
-    interstitial.load();
-
-    // Unsubscribe from events on unmount
-    return unsubscribe;
   }, []);
 
   const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;
