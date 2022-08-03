@@ -4,6 +4,7 @@ import {
   HomeBackground,
   Typography,
 } from '@movie_trailer/components';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import {IActorOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
@@ -99,6 +100,11 @@ const PopularPeopleScreen: React.FC<PopularPeopleScreenProps> = ({
       <FlatList
         data={people}
         renderItem={renderItem}
+        ListHeaderComponent={
+          <Box flex={false} m={2}>
+            <BasicNativeAdsView />
+          </Box>
+        }
         keyExtractor={item => `${item.id}`}
         showsVerticalScrollIndicator={false}
         onEndReached={handleLoadMore}

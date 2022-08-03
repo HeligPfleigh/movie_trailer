@@ -1,13 +1,58 @@
-import React from 'react';
+import {colors, responsiveSize} from '@movie_trailer/theme';
+import React, {memo} from 'react';
+import {StyleSheet} from 'react-native';
 import NativeAdView, {
   AdBadge,
   AdvertiserView,
   CallToActionView,
   ImageView,
-  StoreView,
   TaglineView,
 } from 'react-native-admob-native-ads';
+
+import {Box} from '../common';
 import {adConfigs} from './config';
+
+const styles = StyleSheet.create({
+  badge: {
+    width: responsiveSize(15),
+    height: responsiveSize(15),
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: colors.irisBlue,
+    position: 'absolute',
+    zIndex: 2,
+  },
+  badgeText: {
+    fontSize: responsiveSize(9),
+    color: colors.irisBlue,
+  },
+  image: {
+    width: '100%',
+    height: responsiveSize(125),
+  },
+  tagline: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: responsiveSize(12),
+  },
+  advertiser: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: responsiveSize(10),
+  },
+  callToAction: {
+    height: responsiveSize(40),
+    width: responsiveSize(90),
+    paddingHorizontal: responsiveSize(12),
+    backgroundColor: colors.fuchsiaPink,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: responsiveSize(5),
+    elevation: 10,
+  },
+  callToActionText: {
+    color: colors.white,
+    fontSize: responsiveSize(14),
+  },
+});
 
 const BasicNativeAdsView: React.FC = () => {
   const nativeAdViewRef = React.useRef<NativeAdView>(null);
@@ -19,59 +64,24 @@ const BasicNativeAdsView: React.FC = () => {
 
   return (
     <NativeAdView adUnitID={adConfigs.nativeAdUnitId} ref={nativeAdViewRef}>
-      <AdBadge
-        style={{
-          width: 15,
-          height: 15,
-          borderWidth: 1,
-          borderRadius: 2,
-          borderColor: 'green',
-        }}
-        textStyle={{
-          fontSize: 9,
-          color: 'green',
-        }}
-      />
-      <AdvertiserView
-        style={{
-          fontWeight: 'bold',
-          fontSize: 10,
-        }}
-      />
-      <TaglineView
-        style={{
-          fontWeight: 'bold',
-          fontSize: 12,
-        }}
-      />
-      <StoreView
-        style={{
-          fontWeight: 'bold',
-          fontSize: 10,
-        }}
-      />
-      <ImageView
-        style={{
-          width: '100%',
-          height: 100,
-        }}
-      />
+      <Box color={colors.white} row>
+        <AdBadge style={styles.badge} textStyle={styles.badgeText} />
 
-      <CallToActionView
-        style={{
-          height: 45,
-          paddingHorizontal: 12,
-          backgroundColor: 'purple',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 5,
-          elevation: 10,
-          width: '100%',
-        }}
-        textStyle={{color: 'white', fontSize: 14}}
-      />
+        <Box flex={2}>
+          <ImageView style={styles.image} />
+        </Box>
+
+        <Box flex={3} p={2}>
+          <TaglineView style={styles.tagline} />
+          <AdvertiserView style={styles.advertiser} />
+          <CallToActionView
+            style={styles.callToAction}
+            textStyle={styles.callToActionText}
+          />
+        </Box>
+      </Box>
     </NativeAdView>
   );
 };
 
-export default BasicNativeAdsView;
+export default memo(BasicNativeAdsView);

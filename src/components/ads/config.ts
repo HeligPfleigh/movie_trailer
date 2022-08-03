@@ -23,3 +23,5 @@ export const adConfigs = {
         android: 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy',
       }) || '',
 };
+
+export const interstitialAdRate = 0.2; // posibility to display interstitial ads

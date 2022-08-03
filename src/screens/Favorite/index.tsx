@@ -7,6 +7,7 @@ import {
   Tabs,
   Typography,
 } from '@movie_trailer/components';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 import ActorSearchCard from '@movie_trailer/components/share/ActorSearchCard';
 import {IActorOverview, IMediaOverview} from '@movie_trailer/core/types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
@@ -52,7 +53,8 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
 
   const toggleRemoveFavoritePopup = () => setOpenPopup(prev => !prev);
 
-  const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
+  const handleOpenSearch = () =>
+    navigation.navigate(NavigatorMap.Search as any);
 
   const handleNavigateToMediaDetail = (id: number) => () => {
     if (activeTab !== 'person') {
@@ -128,6 +130,12 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
     </Box>
   );
 
+  const renderFooter = (
+    <Box flex={false} m={2}>
+      <BasicNativeAdsView />
+    </Box>
+  );
+
   const medias =
     activeTab === 'movie' ? movies : activeTab === 'tv' ? tvShows : [];
 
@@ -184,6 +192,7 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
           renderItem={renderItem}
           keyExtractor={item => `${item.id}`}
           ListEmptyComponent={renderEmpty}
+          ListFooterComponent={renderFooter}
         />
       )}
 
@@ -193,6 +202,7 @@ const FavoriteScreen: React.FC<FavoriteScreenNavigationProps> = ({
           renderItem={renderActorItem}
           keyExtractor={item => `${item.id}`}
           ListEmptyComponent={renderEmpty}
+          ListFooterComponent={renderFooter}
         />
       )}
 

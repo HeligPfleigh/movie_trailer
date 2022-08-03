@@ -5,6 +5,7 @@ import {
   SectionHeader,
   Typography,
 } from '@movie_trailer/components';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 import {ISelfieFrameType, SELFIE_FRAMES} from '@movie_trailer/core/constants';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize} from '@movie_trailer/theme';
@@ -80,6 +81,10 @@ const MovieSelfieScreen: React.FC<MovieSelfieScreenProps> = ({
       </Box>
 
       <RecentFrames onSelectFrame={handleSelectSelfieFrame} />
+
+      <Box flex={false} m={2}>
+        <BasicNativeAdsView />
+      </Box>
 
       <Box flex={false} m={2}>
         <SectionHeader title="Popular Frame" onPress={handleViewAll} />

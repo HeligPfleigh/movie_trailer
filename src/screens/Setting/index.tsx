@@ -8,13 +8,17 @@ import {
   HomeBackground,
   Typography,
 } from '@movie_trailer/components';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {Linking, Platform, Share, StyleSheet} from 'react-native';
+import {Linking, Platform, ScrollView, Share, StyleSheet} from 'react-native';
 import Config from 'react-native-config';
 import SettingItem from './SettingItem';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.codGray,
+  },
   settings: {
     height: responsiveSize(300),
     backgroundColor: colors.oxfordBlue,
@@ -85,8 +89,9 @@ const SettingScreen: React.FC = () => {
       },
     ],
   ];
+
   return (
-    <Box color={colors.codGray}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <HomeBackground height={responsiveSize(337)} />
       <AppBar />
 
@@ -108,7 +113,11 @@ const SettingScreen: React.FC = () => {
           </Box>
         ))}
       </Box>
-    </Box>
+
+      <Box flex={false} m={2}>
+        <BasicNativeAdsView />
+      </Box>
+    </ScrollView>
   );
 };
 

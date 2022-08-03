@@ -29,6 +29,7 @@ import HeartFill2 from '@movie_trailer/assets/icons/HeartFill2';
 import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {loadCredits} from '@movie_trailer/store/slices/mediaListSlice';
 import Gallery from './Gallery';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const styles = StyleSheet.create({
   container: {
@@ -201,6 +202,10 @@ const ActorDetailScreen: React.FC<ActorDetailScreenProps> = ({
             <Typography variant="caps1" color={colors.geyser}>
               {actor.known_for_department}
             </Typography>
+          </Box>
+
+          <Box flex={false} m={2}>
+            <BasicNativeAdsView />
           </Box>
 
           <InfoBox title="Date of birth" value={actor.birthday} />
