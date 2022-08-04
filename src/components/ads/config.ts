@@ -24,4 +24,4 @@ export const adConfigs = {
       }) || '',
 };
 
-export const interstitialAdRate = 0.2; // posibility to display interstitial ads
+export const interstitialAdRate = 0.3; // posibility to display interstitial ads

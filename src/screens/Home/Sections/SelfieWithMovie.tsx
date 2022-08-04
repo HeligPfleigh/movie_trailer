@@ -8,7 +8,10 @@ import {HomeNavigationProps} from '../types';
 import SelfieWithMovieIcon from '@movie_trailer/assets/icons/SelfieWithMovieIcon';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useInterstitialAd} from 'react-native-google-mobile-ads';
-import {adConfigs} from '@movie_trailer/components/ads/config';
+import {
+  adConfigs,
+  interstitialAdRate,
+} from '@movie_trailer/components/ads/config';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
 const SelfieWithMovie: React.FC = () => {
   const navigation = useNavigation<HomeNavigationProps>();
 
-  const {isLoaded, load, show} = useInterstitialAd(
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
     adConfigs.interstitialAdUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
@@ -45,10 +48,10 @@ const SelfieWithMovie: React.FC = () => {
   useEffect(() => {
     // Start loading the interstitial straight away
     load();
-  }, [load]);
+  }, [load, isClosed]);
 
   const handleNavigateToMovieSelfie = () => {
-    if (isLoaded) {
+    if (isLoaded && Math.random() < interstitialAdRate) {
       show();
     }
     navigation.navigate(NavigatorMap.MovieSelfie);

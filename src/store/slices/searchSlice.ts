@@ -62,6 +62,11 @@ const searchSlice = createSlice({
     ) => {
       state.activeSearchTab = action.payload;
     },
+    clearSearch: state => {
+      state.person = defaultPage;
+      state.movie = defaultPage;
+      state.tv = defaultPage;
+    },
   },
   extraReducers: (builder): void => {
     builder.addCase(requestSearchPeople.fulfilled, (state, action) => {
@@ -78,6 +83,6 @@ const searchSlice = createSlice({
   },
 });
 
-export const {setActiveSearchTab} = searchSlice.actions;
+export const {setActiveSearchTab, clearSearch} = searchSlice.actions;
 
 export default searchSlice.reducer;

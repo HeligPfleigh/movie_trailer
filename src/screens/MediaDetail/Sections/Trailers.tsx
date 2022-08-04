@@ -1,6 +1,9 @@
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 import {Box} from '@movie_trailer/components';
-import {adConfigs} from '@movie_trailer/components/ads/config';
+import {
+  adConfigs,
+  interstitialAdRate,
+} from '@movie_trailer/components/ads/config';
 import {IVideo} from '@movie_trailer/core/types';
 import {openVideo} from '@movie_trailer/store/slices/miscSlice';
 import {colors, responsiveSize} from '@movie_trailer/theme';
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
 
 const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
   const dispatch = useDispatch();
-  const {isLoaded, load, show} = useInterstitialAd(
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
     adConfigs.interstitialAdUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
@@ -48,10 +51,10 @@ const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
   useEffect(() => {
     // Start loading the interstitial straight away
     load();
-  }, [load]);
+  }, [load, isClosed]);
 
   const handleOpenYoutube = (key: string) => () => {
-    if (isLoaded) {
+    if (isLoaded && Math.random() < interstitialAdRate) {
       show();
     }
     dispatch(openVideo(key));

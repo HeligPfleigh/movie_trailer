@@ -10,7 +10,7 @@ import Config from 'react-native-config';
 import {useInterstitialAd} from 'react-native-google-mobile-ads';
 
 import {Box} from '../common';
-import {adConfigs} from '../ads/config';
+import {adConfigs, interstitialAdRate} from '../ads/config';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 const VideoPlayer: React.FC = () => {
   const dispatch = useDispatch();
   const url = useSelector((state: RootState) => state.misc.url);
-  const {isLoaded, load, show} = useInterstitialAd(
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
     adConfigs.interstitialAdUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
@@ -45,10 +45,10 @@ const VideoPlayer: React.FC = () => {
 
   useEffect(() => {
     load();
-  }, [load]);
+  }, [load, isClosed]);
 
   const handleClose = () => {
-    if (isLoaded) {
+    if (isLoaded && Math.random() < interstitialAdRate) {
       show();
     }
     dispatch(closeVideo());

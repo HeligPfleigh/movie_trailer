@@ -13,7 +13,10 @@ import {ScrollView, Share, StyleSheet} from 'react-native';
 import MovieDetail from './MovieDetail';
 import TVDetail from './TVDetail';
 import {useInterstitialAd} from 'react-native-google-mobile-ads';
-import {adConfigs} from '@movie_trailer/components/ads/config';
+import {
+  adConfigs,
+  interstitialAdRate,
+} from '@movie_trailer/components/ads/config';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +34,7 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
 }: MediaDetailScreenProps) => {
   const {type, id} = route.params;
 
-  const {isLoaded, load, show} = useInterstitialAd(
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
     adConfigs.interstitialAdUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
@@ -74,10 +77,10 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   useEffect(() => {
     // Start loading the interstitial straight away
     load();
-  }, [load]);
+  }, [load, isClosed]);
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && Math.random() < interstitialAdRate) {
       show();
     }
   }, [isLoaded, show]);
