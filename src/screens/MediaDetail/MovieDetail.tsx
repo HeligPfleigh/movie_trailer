@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import Reviews from './Sections/Reviews';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const MovieDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -217,6 +218,10 @@ const MovieDetail: React.FC = () => {
       </Box>
 
       <Trailers videos={movie.videos.results} />
+
+      <Box flex={false} ml={2} mr={2} mt={2}>
+        <BasicNativeAdsView />
+      </Box>
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <Reviews

@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import SelfieWithMovie from './Sections/SelfieWithMovie';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const styles = StyleSheet.create({
   seeAllBtn: {
@@ -68,6 +69,10 @@ const MovieTab = () => {
     <>
       <Box flex={false} ml={2} mr={2} mb={4} mt={4}>
         <PopularGenres genres={genres} type="movie" />
+      </Box>
+
+      <Box flex={false} ml={2} mr={2} mb={4}>
+        <BasicNativeAdsView />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>

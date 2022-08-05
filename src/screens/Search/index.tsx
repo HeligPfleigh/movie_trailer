@@ -8,17 +8,23 @@ import Search from '@movie_trailer/assets/icons/Search';
 import CloseFill from '@movie_trailer/assets/icons/CloseFill';
 import {useDispatch} from 'react-redux';
 import {
+  clearSearch,
   requestSearchMovie,
   requestSearchPeople,
   requestSearchTV,
 } from '@movie_trailer/store/slices/searchSlice';
-import throttle from 'lodash/throttle';
+// import throttle from 'lodash/throttle';
 import {TextField} from 'react-native-material-textfield';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFocusEffect} from '@react-navigation/native';
 import {SearchScreenProps} from './types';
 import CommonSearch from './components/CommonSearch';
 import SelfieSearch from './components/SelfieSearch';
+import {useInterstitialAd} from 'react-native-google-mobile-ads';
+import {
+  adConfigs,
+  interstitialAdRate,
+} from '@movie_trailer/components/ads/config';
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -41,19 +47,30 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
   const [searchText, setSearchText] = useState<string>('');
   const {selfieMode} = route?.params ?? {};
 
-  const dispatch = useDispatch();
-  const throttled = useRef(
-    throttle(newValue => {
-      dispatch(requestSearchMovie(newValue));
-      dispatch(requestSearchTV(newValue));
-      dispatch(requestSearchPeople(newValue));
-    }, 2000),
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
+    adConfigs.interstitialAdUnitId,
+    {
+      requestNonPersonalizedAdsOnly: true,
+    },
   );
+
+  const dispatch = useDispatch();
+  // const throttled = useRef(
+  //   throttle(newValue => {
+  //     dispatch(requestSearchMovie(newValue));
+  //     dispatch(requestSearchTV(newValue));
+  //     dispatch(requestSearchPeople(newValue));
+  //   }, 2000),
+  // );
   const textFieldRef = useRef<TextField>(null);
 
+  // useEffect(() => {
+  //   throttled.current(searchText);
+  // }, [searchText]);
+
   useEffect(() => {
-    throttled.current(searchText);
-  }, [searchText]);
+    load();
+  }, [load, isClosed]);
 
   useFocusEffect(
     useCallback(() => {
@@ -67,9 +84,24 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
 
   const handleBack = () => navigation.goBack();
 
+  const handleSearch = () => {
+    if (!searchText) {
+      return;
+    }
+
+    if (isLoaded && Math.random() < interstitialAdRate) {
+      show();
+    }
+
+    dispatch(requestSearchMovie(searchText));
+    dispatch(requestSearchTV(searchText));
+    dispatch(requestSearchPeople(searchText));
+  };
+
   const handleClearSearch = () => {
     setSearchText('');
     textFieldRef.current?.clear();
+    dispatch(clearSearch());
   };
 
   const content = selfieMode ? (
@@ -102,7 +134,9 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
               baseColor={colors.white}
               tintColor={colors.white}
               containerStyle={styles.textField}
+              onSubmitEditing={handleSearch}
               autoFocus
+              returnKeyType="search"
             />
           </Box>
           <TouchableOpacity onPress={handleClearSearch}>

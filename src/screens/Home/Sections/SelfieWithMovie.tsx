@@ -1,12 +1,17 @@
 import {Box, Typography} from '@movie_trailer/components';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from '../types';
 import SelfieWithMovieIcon from '@movie_trailer/assets/icons/SelfieWithMovieIcon';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
+import {useInterstitialAd} from 'react-native-google-mobile-ads';
+import {
+  adConfigs,
+  interstitialAdRate,
+} from '@movie_trailer/components/ads/config';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,8 +38,24 @@ const styles = StyleSheet.create({
 const SelfieWithMovie: React.FC = () => {
   const navigation = useNavigation<HomeNavigationProps>();
 
-  const handleNavigateToMovieSelfie = () =>
+  const {isLoaded, load, show, isClosed} = useInterstitialAd(
+    adConfigs.interstitialAdUnitId,
+    {
+      requestNonPersonalizedAdsOnly: true,
+    },
+  );
+
+  useEffect(() => {
+    // Start loading the interstitial straight away
+    load();
+  }, [load, isClosed]);
+
+  const handleNavigateToMovieSelfie = () => {
+    if (isLoaded && Math.random() < interstitialAdRate) {
+      show();
+    }
     navigation.navigate(NavigatorMap.MovieSelfie);
+  };
 
   return (
     <TouchableOpacity onPress={handleNavigateToMovieSelfie}>

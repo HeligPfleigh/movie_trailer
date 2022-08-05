@@ -26,6 +26,7 @@ import {IMediaOverview} from '@movie_trailer/core/types';
 import Filter from '@movie_trailer/assets/icons/Filter';
 import ArrowDown from '@movie_trailer/assets/icons/ArrowDown';
 import {loadInitial, loadMore} from '@movie_trailer/store/slices/discoverSlice';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const styles = StyleSheet.create({
   filterContainer: {
@@ -137,6 +138,12 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
     </Box>
   );
 
+  const renderHeader = (
+    <Box flex={false} mb={2}>
+      <BasicNativeAdsView />
+    </Box>
+  );
+
   const [filterPosition, setFilterPosition] = useState<number>(0);
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
@@ -199,6 +206,7 @@ const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
           ListFooterComponent={loading ? <ActivityIndicator /> : null}
+          ListHeaderComponent={renderHeader}
           // initialNumToRender={10}
           // maxToRenderPerBatch={10}
           // updateCellsBatchingPeriod={30}

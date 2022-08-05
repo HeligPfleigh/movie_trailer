@@ -16,6 +16,7 @@ import {SearchNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {ISelfieFrameType} from '@movie_trailer/core/constants';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const tabs = [
   {value: 'movie' as const, title: 'Movie'},
@@ -71,6 +72,12 @@ const SelfieSearch: React.FC<ISelfieSearchProps> = ({
     />
   );
 
+  const renderHeader = (
+    <Box flex={false} m={2}>
+      <BasicNativeAdsView />
+    </Box>
+  );
+
   // if (!searchText) {
   //   return null;
   // }
@@ -91,6 +98,7 @@ const SelfieSearch: React.FC<ISelfieSearchProps> = ({
         renderItem={renderItem}
         keyExtractor={item => `${item.id}`}
         ListEmptyComponent={<NoResult searchText={searchText} />}
+        ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.list}
       />
     </Box>

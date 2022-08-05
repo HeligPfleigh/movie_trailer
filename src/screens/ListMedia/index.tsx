@@ -24,6 +24,7 @@ import {
 import {AppDispatch, RootState} from '@movie_trailer/store/rootReducer';
 import {IMediaOverview} from '@movie_trailer/core/types';
 import {useFocusEffect} from '@react-navigation/native';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const styles = StyleSheet.create({
   filterContainer: {
@@ -102,6 +103,12 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
     </Box>
   );
 
+  const renderHeader = (
+    <Box flex={false} mb={2}>
+      <BasicNativeAdsView />
+    </Box>
+  );
+
   return (
     <Box color={colors.codGray}>
       <HomeBackground height={responsiveSize(337)} />
@@ -135,6 +142,7 @@ const ListMediaScreen: React.FC<ListMediaScreenProps> = ({
             onEndReachedCalledDuringMomentumRef.current = false;
           }}
           ListFooterComponent={loading ? <ActivityIndicator /> : null}
+          ListHeaderComponent={renderHeader}
           // removeClippedSubviews
           // initialNumToRender={10}
           // maxToRenderPerBatch={10}

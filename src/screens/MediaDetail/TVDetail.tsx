@@ -19,6 +19,7 @@ import {RootState} from '@movie_trailer/store/rootReducer';
 import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import Seasons from './Sections/Seasons';
 import Reviews from './Sections/Reviews';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const TVDetail: React.FC = () => {
   const route = useRoute<MediaDetailRouteProps>();
@@ -202,6 +203,10 @@ const TVDetail: React.FC = () => {
       <Seasons seasons={tvShow.seasons} id={tvShow.id} />
 
       <Trailers videos={tvShow.videos.results} />
+
+      <Box flex={false} ml={2} mr={2} mt={2}>
+        <BasicNativeAdsView />
+      </Box>
 
       <Box flex={false} ml={2} mr={2} mt={2}>
         <Reviews

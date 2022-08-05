@@ -1,3 +1,12 @@
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, {useRef} from 'react';
+import {AppOpenAd, AdEventType} from 'react-native-google-mobile-ads';
+import analytics from '@react-native-firebase/analytics';
+
 import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
 import DiscoverScreen from '@movie_trailer/screens/Discover';
 import FavoriteScreen from '@movie_trailer/screens/Favorite';
@@ -10,20 +19,14 @@ import SearchScreen from '@movie_trailer/screens/Search';
 import SeasonDetailScreen from '@movie_trailer/screens/SeasonDetail';
 import SettingScreen from '@movie_trailer/screens/Setting';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {
-  NavigationContainer,
-  useNavigationContainerRef,
-} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useRef} from 'react';
 import MovieTrailerDrawer from './MovieTrailerDrawer';
 import NavigatorMap from './NavigatorMap';
 import {
   MainStackParamList,
   RootDrawerParamList,
+  SettingStackParamList,
   YourNoteStackParamList,
 } from './types';
-import analytics from '@react-native-firebase/analytics';
 import UserReviewsScreen from '@movie_trailer/screens/UserReviews';
 import AddReviewScreen from '@movie_trailer/screens/AddReview';
 import YourNoteScreen from '@movie_trailer/screens/YourNote';
@@ -31,10 +34,13 @@ import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
 import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
 import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
 import SelfieFrameListScreen from '@movie_trailer/screens/SelfieFrameList';
+import PolicyScreen from '@movie_trailer/screens/Policy';
+import {adConfigs} from '@movie_trailer/components/ads/config';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const YourNoteStack = createNativeStackNavigator<YourNoteStackParamList>();
+const SettingStack = createNativeStackNavigator<SettingStackParamList>();
 
 const linking = {
   prefixes: ['trailers://'],
@@ -122,9 +128,39 @@ const YourNoteNavigator = () => (
   </YourNoteStack.Navigator>
 );
 
+const SettingStackNavigator = () => (
+  <SettingStack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <SettingStack.Screen
+      name={NavigatorMap.Setting}
+      component={SettingScreen}
+    />
+    <SettingStack.Screen name={NavigatorMap.Policy} component={PolicyScreen} />
+  </SettingStack.Navigator>
+);
+
+const appOpenAd = AppOpenAd.createForAdRequest(adConfigs.openAdUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+});
+
 const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef<string>('');
+
+  React.useEffect(() => {
+    const unsubscribeOpenAd = appOpenAd.addAdEventsListener(({type}) => {
+      if (type === AdEventType.LOADED) {
+        appOpenAd.show();
+      }
+    });
+
+    // Preload an app open ad
+    appOpenAd.load();
+
+    return unsubscribeOpenAd;
+  }, []);
 
   const onNavigationReady = () => {
     if (navigationRef.current) {
@@ -176,8 +212,8 @@ const AppNavigator = () => {
         <Drawer.Group>
           <Drawer.Screen name={NavigatorMap.Home} component={MainNavigator} />
           <Drawer.Screen
-            name={NavigatorMap.Setting}
-            component={SettingScreen}
+            name={NavigatorMap.SettingNavigator}
+            component={SettingStackNavigator}
           />
           <Drawer.Screen
             name={NavigatorMap.Favorite}

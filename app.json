@@ -1,4 +1,8 @@
 {
   "name": "MovieTrailer",
-  "displayName": "MovieTrailer"
+  "displayName": "MovieTrailer",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8229705098819168~8614963711",
+    "ios_app_id": "ca-app-pub-8229705098819168~4017243159"
+  }
 }

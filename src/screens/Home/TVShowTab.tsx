@@ -19,6 +19,7 @@ import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationProps} from './types';
 import {unwrapResult} from '@reduxjs/toolkit';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 const TvShowTab = () => {
   const genres = useSelector((state: RootState) => state.genre.tvGenres);
@@ -54,6 +55,10 @@ const TvShowTab = () => {
     <>
       <Box flex={false} mb={4} mt={2}>
         <LatestShows />
+      </Box>
+
+      <Box flex={false} ml={2} mr={2} mb={4}>
+        <BasicNativeAdsView />
       </Box>
 
       <Box flex={false} ml={2} mr={2} mb={4}>

@@ -18,6 +18,7 @@ import {togglePersonFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import {SearchNavigationProps} from '../types';
 import {RootState} from '@movie_trailer/store/rootReducer';
 import NoResult from './NoResult';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
 interface ICommonSearchProps {
   searchText?: string;
@@ -64,6 +65,12 @@ const CommonSearch: React.FC<ICommonSearchProps> = ({
     <MediaSearchCard {...item} onPress={handleNavigateToMediaDetail(item.id)} />
   );
 
+  const renderHeader = (
+    <Box flex={false} m={2}>
+      <BasicNativeAdsView />
+    </Box>
+  );
+
   const handleNavigateToActorDetail = (id: number) => () =>
     navigation.navigate(NavigatorMap.Home, {
       screen: NavigatorMap.ActorDetail,
@@ -105,6 +112,7 @@ const CommonSearch: React.FC<ICommonSearchProps> = ({
           renderItem={renderItem}
           keyExtractor={item => `${item.id}`}
           ListEmptyComponent={<NoResult searchText={searchText} />}
+          ListHeaderComponent={renderHeader}
           contentContainerStyle={styles.list}
         />
       )}
@@ -115,6 +123,7 @@ const CommonSearch: React.FC<ICommonSearchProps> = ({
           renderItem={renderActorItem}
           keyExtractor={item => `${item.id}`}
           ListEmptyComponent={<NoResult searchText={searchText} />}
+          ListHeaderComponent={renderHeader}
           contentContainerStyle={styles.list}
         />
       )}

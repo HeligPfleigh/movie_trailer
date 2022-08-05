@@ -8,13 +8,19 @@ import {
   HomeBackground,
   Typography,
 } from '@movie_trailer/components';
+import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
+import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {colors, responsiveSize, spacing} from '@movie_trailer/theme';
 import React from 'react';
-import {Linking, Platform, Share, StyleSheet} from 'react-native';
+import {Linking, Platform, ScrollView, Share, StyleSheet} from 'react-native';
 import Config from 'react-native-config';
 import SettingItem from './SettingItem';
+import {SettingScreenProps} from './types';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.codGray,
+  },
   settings: {
     height: responsiveSize(300),
     backgroundColor: colors.oxfordBlue,
@@ -32,7 +38,7 @@ const rateLink =
     ? `${appleStoreLink}&action=write-review`
     : googlePlayLink;
 
-const SettingScreen: React.FC = () => {
+const SettingScreen: React.FC<SettingScreenProps> = ({navigation}) => {
   const handlePressShare = () => {
     Share.share({
       message: `Check out this app! ${sharelink}`,
@@ -42,7 +48,9 @@ const SettingScreen: React.FC = () => {
   const handlePressRateAndReview = () => Linking.openURL(rateLink);
 
   const handlePressPrivacyPolicy = () =>
-    Linking.openURL(Config.PRIVACY_POLICY_URL);
+    navigation.navigate(NavigatorMap.Policy);
+
+  // Linking.openURL(Config.PRIVACY_POLICY_URL);
 
   const handlePressFeedback = () =>
     Linking.openURL(`mailto:${Config.FEEDBACK_EMAIL}`);
@@ -85,8 +93,9 @@ const SettingScreen: React.FC = () => {
       },
     ],
   ];
+
   return (
-    <Box color={colors.codGray}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <HomeBackground height={responsiveSize(337)} />
       <AppBar />
 
@@ -108,7 +117,11 @@ const SettingScreen: React.FC = () => {
           </Box>
         ))}
       </Box>
-    </Box>
+
+      <Box flex={false} m={2}>
+        <BasicNativeAdsView />
+      </Box>
+    </ScrollView>
   );
 };
 

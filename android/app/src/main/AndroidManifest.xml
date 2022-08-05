@@ -17,6 +17,10 @@
         <!-- <data android:scheme="https" android:host="www.example.com" />
         <data android:scheme="http" android:host="www.example.com" /> -->
       </intent-filter>
+      <!-- TODO: add real ad -->
+      <meta-data
+          android:name="com.google.android.gms.ads.APPLICATION_ID"
+          android:value="ca-app-pub-3940256099942544/2247696110"/>
     </activity>
   </application>
   <queries>
