@@ -34,7 +34,7 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
 }: MediaDetailScreenProps) => {
   const {type, id} = route.params;
 
-  const {isLoaded, load, show, isClosed} = useInterstitialAd(
+  const {isLoaded, load, show} = useInterstitialAd(
     adConfigs.interstitialAdUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
@@ -75,9 +75,8 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   }, []);
 
   useEffect(() => {
-    // Start loading the interstitial straight away
     load();
-  }, [load, isClosed]);
+  }, [load]);
 
   useEffect(() => {
     if (isLoaded && Math.random() < interstitialAdRate) {

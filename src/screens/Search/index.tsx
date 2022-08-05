@@ -137,7 +137,6 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
               onSubmitEditing={handleSearch}
               autoFocus
               returnKeyType="search"
-              clearButtonMode="while-editing"
             />
           </Box>
           <TouchableOpacity onPress={handleClearSearch}>
