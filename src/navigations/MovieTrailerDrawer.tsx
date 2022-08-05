@@ -53,7 +53,7 @@ const MovieTrailerDrawer: React.FC<DrawerContentComponentProps> = (
     },
     {
       title: 'Setting',
-      onPress: () => navigation.navigate(NavigatorMap.Setting),
+      onPress: () => navigation.navigate(NavigatorMap.SettingNavigator),
     },
   ];
 

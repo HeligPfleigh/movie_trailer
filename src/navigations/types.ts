@@ -5,12 +5,12 @@ import NavigatorMap from './NavigatorMap';
 
 export type RootDrawerParamList = {
   Home: NavigatorScreenParams<MainStackParamList>;
-  Setting: undefined;
+  [NavigatorMap.SettingNavigator]: undefined;
   Favorite: undefined;
   Search: {
     selfieMode?: ISelfieFrameType;
   };
-  YourNoteNavigator: undefined;
+  [NavigatorMap.YourNoteNavigator]: undefined;
 };
 
 export type MainStackParamList = {
@@ -79,4 +79,9 @@ export type YourNoteStackParamList = {
   ReviewDetail: {
     review: IReview;
   };
+};
+
+export type SettingStackParamList = {
+  [NavigatorMap.Setting]: undefined;
+  [NavigatorMap.Policy]: undefined;
 };

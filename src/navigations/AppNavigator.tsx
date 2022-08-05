@@ -24,6 +24,7 @@ import NavigatorMap from './NavigatorMap';
 import {
   MainStackParamList,
   RootDrawerParamList,
+  SettingStackParamList,
   YourNoteStackParamList,
 } from './types';
 import UserReviewsScreen from '@movie_trailer/screens/UserReviews';
@@ -33,11 +34,13 @@ import ReviewDetailScreen from '@movie_trailer/screens/ReviewDetail';
 import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
 import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
 import SelfieFrameListScreen from '@movie_trailer/screens/SelfieFrameList';
+import PolicyScreen from '@movie_trailer/screens/Policy';
 import {adConfigs} from '@movie_trailer/components/ads/config';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const YourNoteStack = createNativeStackNavigator<YourNoteStackParamList>();
+const SettingStack = createNativeStackNavigator<SettingStackParamList>();
 
 const linking = {
   prefixes: ['trailers://'],
@@ -125,6 +128,19 @@ const YourNoteNavigator = () => (
   </YourNoteStack.Navigator>
 );
 
+const SettingStackNavigator = () => (
+  <SettingStack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <SettingStack.Screen
+      name={NavigatorMap.Setting}
+      component={SettingScreen}
+    />
+    <SettingStack.Screen name={NavigatorMap.Policy} component={PolicyScreen} />
+  </SettingStack.Navigator>
+);
+
 const appOpenAd = AppOpenAd.createForAdRequest(adConfigs.openAdUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });
@@ -196,8 +212,8 @@ const AppNavigator = () => {
         <Drawer.Group>
           <Drawer.Screen name={NavigatorMap.Home} component={MainNavigator} />
           <Drawer.Screen
-            name={NavigatorMap.Setting}
-            component={SettingScreen}
+            name={NavigatorMap.SettingNavigator}
+            component={SettingStackNavigator}
           />
           <Drawer.Screen
             name={NavigatorMap.Favorite}

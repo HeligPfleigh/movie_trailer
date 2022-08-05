@@ -1,8 +1,8 @@
 enum NavigatorMap {
   Home = 'Home',
-  Setting = 'Setting',
   Favorite = 'Favorite',
   YourNoteNavigator = 'YourNoteNavigator',
+  SettingNavigator = 'SettingNavigator',
 
   // modal
   Search = 'Search',
@@ -25,6 +25,10 @@ enum NavigatorMap {
 
   // your note stack
   YourNote = 'YourNote',
+
+  // setting stack
+  Setting = 'Setting',
+  Policy = 'Policy',
 }
 
 export default NavigatorMap;
