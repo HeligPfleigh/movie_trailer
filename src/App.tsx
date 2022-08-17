@@ -6,12 +6,15 @@ import {ToastProvider} from 'react-native-toast-notifications';
 import codePush from 'react-native-code-push';
 import mobileAds from 'react-native-google-mobile-ads';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import remoteConfig from '@react-native-firebase/remote-config';
 
 import 'react-native-gesture-handler';
 
 import {persistor, store} from './store/rootReducer';
 import AppNavigator from './navigations/AppNavigator';
 import {VideoPlayer} from './components';
+import {setAdRate} from './store/slices/adsSlice';
+import Config from 'react-native-config';
 
 // temporary comment the warning for react-native-gesture-handler
 LogBox.ignoreLogs([
@@ -23,6 +26,32 @@ mobileAds()
   .then(adapterStatuses => {
     // Initialization complete!
     console.log({adapterStatuses});
+  });
+
+remoteConfig()
+  .setDefaults({
+    interstitial_ad_rate: 1,
+    open_ad_rate: 1,
+  })
+  .then(() => remoteConfig().fetchAndActivate())
+  .then(fetchedRemotely => {
+    if (fetchedRemotely) {
+      console.info('Configs were retrieved from the backend and activated.');
+      store.dispatch(
+        setAdRate({
+          interstitialAdRate: remoteConfig()
+            .getValue(Config.REMOTE_CONFIG_INTERSTITIAL_AD_RATE)
+            .asNumber(),
+          openAdRate: remoteConfig()
+            .getValue(Config.REMOTE_CONFIG_OPEN_AD_RATE)
+            .asNumber(),
+        }),
+      );
+    } else {
+      console.info(
+        'No configs were fetched from the backend, and the local configs were already activated',
+      );
+    }
   });
 
 function App() {

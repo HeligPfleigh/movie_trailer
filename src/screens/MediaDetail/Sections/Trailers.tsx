@@ -1,16 +1,13 @@
 import PlayCircleFill2 from '@movie_trailer/assets/icons/PlayCircleFill2';
 import {Box} from '@movie_trailer/components';
-import {
-  adConfigs,
-  interstitialAdRate,
-} from '@movie_trailer/components/ads/config';
+
+import {useInterstitialAd} from '@movie_trailer/components/ads/useInterstitialAd';
 import {IVideo} from '@movie_trailer/core/types';
 import {openVideo} from '@movie_trailer/store/slices/miscSlice';
 import {colors, responsiveSize} from '@movie_trailer/theme';
 import React, {useEffect} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {useInterstitialAd} from 'react-native-google-mobile-ads';
 import {useDispatch} from 'react-redux';
 
 interface ITrailersProps {
@@ -41,12 +38,7 @@ const styles = StyleSheet.create({
 
 const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
   const dispatch = useDispatch();
-  const {isLoaded, load, show, isClosed} = useInterstitialAd(
-    adConfigs.interstitialAdUnitId,
-    {
-      requestNonPersonalizedAdsOnly: true,
-    },
-  );
+  const {isLoaded, load, show, isClosed} = useInterstitialAd();
 
   useEffect(() => {
     // Start loading the interstitial straight away
@@ -54,7 +46,7 @@ const Trailers: React.FC<ITrailersProps> = ({videos}: ITrailersProps) => {
   }, [load, isClosed]);
 
   const handleOpenYoutube = (key: string) => () => {
-    if (isLoaded && Math.random() < interstitialAdRate) {
+    if (isLoaded) {
       show();
     }
     dispatch(openVideo(key));

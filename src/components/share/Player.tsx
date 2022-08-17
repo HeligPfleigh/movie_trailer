@@ -7,10 +7,9 @@ import YouTube from 'react-native-youtube';
 import {useDispatch, useSelector} from 'react-redux';
 import CloseIcon from '@movie_trailer/assets/icons/Close';
 import Config from 'react-native-config';
-import {useInterstitialAd} from 'react-native-google-mobile-ads';
 
 import {Box} from '../common';
-import {adConfigs, interstitialAdRate} from '../ads/config';
+import {useInterstitialAd} from '../ads/useInterstitialAd';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,19 +35,14 @@ const styles = StyleSheet.create({
 const VideoPlayer: React.FC = () => {
   const dispatch = useDispatch();
   const url = useSelector((state: RootState) => state.misc.url);
-  const {isLoaded, load, show, isClosed} = useInterstitialAd(
-    adConfigs.interstitialAdUnitId,
-    {
-      requestNonPersonalizedAdsOnly: true,
-    },
-  );
+  const {isLoaded, load, show, isClosed} = useInterstitialAd();
 
   useEffect(() => {
     load();
   }, [load, isClosed]);
 
   const handleClose = () => {
-    if (isLoaded && Math.random() < interstitialAdRate) {
+    if (isLoaded) {
       show();
     }
     dispatch(closeVideo());

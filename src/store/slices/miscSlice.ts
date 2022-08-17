@@ -9,7 +9,7 @@ export const initialState: IMiscState = {
 };
 
 const miscSlice = createSlice({
-  name: 'genre',
+  name: 'misc',
   initialState,
   reducers: {
     openVideo: (state, action: PayloadAction<string>) => {

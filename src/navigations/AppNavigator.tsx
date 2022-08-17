@@ -4,7 +4,6 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useRef} from 'react';
-import {AppOpenAd, AdEventType} from 'react-native-google-mobile-ads';
 import analytics from '@react-native-firebase/analytics';
 
 import ActorDetailScreen from '@movie_trailer/screens/ActorDetail';
@@ -35,7 +34,7 @@ import MovieSelfieScreen from '@movie_trailer/screens/MovieSelfie';
 import SelfieCameraScreen from '@movie_trailer/screens/SelfieCamera';
 import SelfieFrameListScreen from '@movie_trailer/screens/SelfieFrameList';
 import PolicyScreen from '@movie_trailer/screens/Policy';
-import {adConfigs} from '@movie_trailer/components/ads/config';
+import {useAppOpenAd} from '@movie_trailer/components/ads/useAppOpenAd';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -141,26 +140,11 @@ const SettingStackNavigator = () => (
   </SettingStack.Navigator>
 );
 
-const appOpenAd = AppOpenAd.createForAdRequest(adConfigs.openAdUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-});
-
 const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef<string>('');
 
-  React.useEffect(() => {
-    const unsubscribeOpenAd = appOpenAd.addAdEventsListener(({type}) => {
-      if (type === AdEventType.LOADED) {
-        appOpenAd.show();
-      }
-    });
-
-    // Preload an app open ad
-    appOpenAd.load();
-
-    return unsubscribeOpenAd;
-  }, []);
+  useAppOpenAd();
 
   const onNavigationReady = () => {
     if (navigationRef.current) {

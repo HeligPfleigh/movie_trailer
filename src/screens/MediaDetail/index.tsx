@@ -12,11 +12,7 @@ import {ScrollView, Share, StyleSheet} from 'react-native';
 
 import MovieDetail from './MovieDetail';
 import TVDetail from './TVDetail';
-import {useInterstitialAd} from 'react-native-google-mobile-ads';
-import {
-  adConfigs,
-  interstitialAdRate,
-} from '@movie_trailer/components/ads/config';
+import {useInterstitialAd} from '@movie_trailer/components/ads/useInterstitialAd';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,12 +30,7 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
 }: MediaDetailScreenProps) => {
   const {type, id} = route.params;
 
-  const {isLoaded, load, show} = useInterstitialAd(
-    adConfigs.interstitialAdUnitId,
-    {
-      requestNonPersonalizedAdsOnly: true,
-    },
-  );
+  const {isLoaded, load, show} = useInterstitialAd();
 
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
@@ -79,10 +70,11 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
   }, [load]);
 
   useEffect(() => {
-    if (isLoaded && Math.random() < interstitialAdRate) {
+    if (isLoaded) {
       show();
     }
-  }, [isLoaded, show]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
   const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;
 

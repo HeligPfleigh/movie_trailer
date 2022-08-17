@@ -20,11 +20,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {SearchScreenProps} from './types';
 import CommonSearch from './components/CommonSearch';
 import SelfieSearch from './components/SelfieSearch';
-import {useInterstitialAd} from 'react-native-google-mobile-ads';
-import {
-  adConfigs,
-  interstitialAdRate,
-} from '@movie_trailer/components/ads/config';
+import {useInterstitialAd} from '@movie_trailer/components/ads/useInterstitialAd';
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -47,12 +43,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
   const [searchText, setSearchText] = useState<string>('');
   const {selfieMode} = route?.params ?? {};
 
-  const {isLoaded, load, show, isClosed} = useInterstitialAd(
-    adConfigs.interstitialAdUnitId,
-    {
-      requestNonPersonalizedAdsOnly: true,
-    },
-  );
+  const {isLoaded, load, show, isClosed} = useInterstitialAd();
 
   const dispatch = useDispatch();
   // const throttled = useRef(
@@ -89,7 +80,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({
       return;
     }
 
-    if (isLoaded && Math.random() < interstitialAdRate) {
+    if (isLoaded) {
       show();
     }
 

@@ -23,11 +23,12 @@ import favoriteReducer from './slices/favoriteSlice';
 import miscReducer from './slices/miscSlice';
 import personalReviewReducer from './slices/personalReviewSlice';
 import selfieReducer from './slices/selfieSlice';
+import adsReducer from './slices/adsSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favorite', 'personalReview', 'selfie'],
+  whitelist: ['favorite', 'personalReview', 'selfie', 'ads'],
 };
 
 export const rootReducer = combineReducers({
@@ -42,6 +43,7 @@ export const rootReducer = combineReducers({
   misc: miscReducer,
   personalReview: personalReviewReducer,
   selfie: selfieReducer,
+  ads: adsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
