@@ -8,8 +8,8 @@ export interface IAdsState {
 }
 
 export const initialState: IAdsState = {
-  interstitialAdRate: 0,
-  openAdRate: 0,
+  interstitialAdRate: 1,
+  openAdRate: 1,
   interstitialAdDisplayAmount: 0,
   openAdDisplayAmount: 0,
 };

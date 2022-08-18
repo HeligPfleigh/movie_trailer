@@ -1,6 +1,8 @@
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {increaseOpenAdDisplayAmount} from '@movie_trailer/store/slices/adsSlice';
+import dayjs from 'dayjs';
 import {useEffect} from 'react';
+import Config from 'react-native-config';
 import {useAppOpenAd as useAppOpenAdDefault} from 'react-native-google-mobile-ads';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -23,7 +25,11 @@ export const useAppOpenAd = () => {
 
   const handleShowOpenAd = () => {
     dispatch(increaseOpenAdDisplayAmount());
-    if (!openAdRate || openAdDisplayAmount % openAdRate) {
+    if (
+      !openAdRate ||
+      openAdDisplayAmount % openAdRate ||
+      !dayjs().isAfter(dayjs(Config.IN_APP_REVIEW_DISABLE_BEFORE_DAY))
+    ) {
       return;
     } else {
       show();

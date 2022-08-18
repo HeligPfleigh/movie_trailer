@@ -1,5 +1,7 @@
 import {RootState} from '@movie_trailer/store/rootReducer';
 import {increaseInterstitialAdDisplayAmount} from '@movie_trailer/store/slices/adsSlice';
+import dayjs from 'dayjs';
+import Config from 'react-native-config';
 import {
   AdHookReturns,
   useInterstitialAd as useInterstitialAdDefault,
@@ -28,7 +30,8 @@ export const useInterstitialAd = (): Omit<
     dispatch(increaseInterstitialAdDisplayAmount());
     if (
       !interstitialAdRate ||
-      interstitialAdDisplayAmount % interstitialAdRate
+      interstitialAdDisplayAmount % interstitialAdRate ||
+      !dayjs().isAfter(dayjs(Config.IN_APP_REVIEW_DISABLE_BEFORE_DAY))
     ) {
       return;
     } else {
