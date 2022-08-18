@@ -53,7 +53,7 @@
 		69BC49DD6AB540AFA54386C6 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		793D47144147448D991E8500 /* Damion.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Damion.ttf; path = ../src/assets/fonts/Damion.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MovieTrailer/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		83BFE93F8D024C7AB066B9E8 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = ../src/assets/fonts/Entypo.ttf; sourceTree = "<group>"; };
+		83BFE93F8D024C7AB066B9E8 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = ../src/assets/fonts/Entypo.ttf; sourceTree = "<group>"; };
 		B157140FFD9CFE4BA8BAA33A /* Pods-MovieTrailer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer.release.xcconfig"; path = "Target Support Files/Pods-MovieTrailer/Pods-MovieTrailer.release.xcconfig"; sourceTree = "<group>"; };
 		B5381A900A91DE8648B3D524 /* Pods-MovieTrailer-MovieTrailerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTrailer-MovieTrailerTests.release.xcconfig"; path = "Target Support Files/Pods-MovieTrailer-MovieTrailerTests/Pods-MovieTrailer-MovieTrailerTests.release.xcconfig"; sourceTree = "<group>"; };
 		C63CFA01288A933D00B557B0 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "MovieTrailer/AppCenter-Config.plist"; sourceTree = "<group>"; };
@@ -640,7 +640,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.movietrailer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tize.moli.trailer.list;
 				PRODUCT_NAME = MovieTrailer;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -724,7 +724,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.movietrailer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tize.moli.trailer.list;
 				PRODUCT_NAME = MovieTrailer;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
