@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Movie Trailers</string>
+	<string>Tizemoli</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -30,7 +30,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CodePushDeploymentKey</key>
 	<string>UBPui2BoO9RfSURRQGNDo88Kr0ADcSJe8z9c4</string>
 	<key>GADApplicationIdentifier</key>
@@ -49,15 +51,15 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Calendar.</string>
+	<string>To remind when this movie on theater</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	<string>Take photo to framing</string>
 	<key>NSContactsUsageDescription</key>
 	<string>$(PRODUCT_NAME) contact use.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Get current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Photo Library.</string>
+	<string>Post comment with image</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -225,6 +227,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
