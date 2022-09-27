@@ -3,7 +3,7 @@ name: Build Android Artifact
 on:
   push:
     branches:
-      - feature/secret_key
+      - main
 
 jobs:
   build:
