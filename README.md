@@ -28,4 +28,6 @@ Discover movies/tv shows
 - [IOS] Xcode and Xcode Command Line Tools
 - [Android] JDK and Android Studio
 
-# Preview
+## Referrence
+
+- [Encrypted secrets on GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
