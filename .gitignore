@@ -62,3 +62,8 @@ buck-out/
 /ios/Pods/
 
 coverage/
+
+# secrets
+.env
+google-services.json
+GoogleService-Info.plist

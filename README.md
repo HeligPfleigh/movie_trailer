@@ -11,6 +11,12 @@ Discover movies/tv shows
 
 - Node, Watchman, Yarn
 
+- decrypt the secret files (contact with author to get the secret_key)
+
+```
+ LARGE_SECRET_PASSPHRASE=secret_key sh ./scripts/decrypt_secret.sh
+```
+
 ```
  brew install node
  brew install watchman
@@ -22,4 +28,6 @@ Discover movies/tv shows
 - [IOS] Xcode and Xcode Command Line Tools
 - [Android] JDK and Android Studio
 
-# Preview
+## Referrence
+
+- [Encrypted secrets on GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
