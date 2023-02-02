@@ -31,6 +31,7 @@ export const useInterstitialAd = (): Omit<
     if (
       !interstitialAdRate ||
       interstitialAdDisplayAmount % interstitialAdRate ||
+      interstitialAdDisplayAmount < 7 ||
       !dayjs().isAfter(dayjs(Config.IN_APP_REVIEW_DISABLE_BEFORE_DAY))
     ) {
       return;
