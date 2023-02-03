@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import InAppReview from 'react-native-in-app-review';
 import dayjs from 'dayjs';
 import Config from 'react-native-config';
 
 import {AppBar, HomeBackground} from '@movie_trailer/components';
 import {colors, responsiveSize} from '@movie_trailer/theme';
-import {MediaDetailScreenProps} from './types';
+import {MediaDetailRef, MediaDetailScreenProps} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 
-import {ScrollView, Share, StyleSheet} from 'react-native';
+import {Linking, ScrollView, Share, StyleSheet} from 'react-native';
 
 import MovieDetail from './MovieDetail';
 import TVDetail from './TVDetail';
@@ -32,6 +32,8 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
 
   const {isLoaded, load, show} = useInterstitialAd();
 
+  const mediaDetailRef = useRef<MediaDetailRef>(null);
+
   const handleOpenSearch = () => navigation.navigate(NavigatorMap.Search);
 
   const handleShareMedia = () => {
@@ -40,6 +42,19 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
         type === 'tv' ? 'show' : 'movie'
       } on TMDB: https://www.themoviedb.org/${type}/${id}`,
     });
+  };
+
+  const handleReportPolicyViolent = () => {
+    // send mail to report this movie
+    const subject = 'Report Policy Violent';
+
+    const body = `Dear Developer,\nOn behalf of my company <company_name>\nPlease hidden this show from your app:\n${
+      mediaDetailRef.current?.mediaName || ''
+    }\nhttps://www.themoviedb.org/${type}/${id}\nBecause:\n\n<reason here>\n\n--------------------\nSystem version:\nModel name:\nApp version:`;
+
+    Linking.openURL(
+      `mailto:${Config.FEEDBACK_EMAIL}?subject=${subject}&body=${body}`,
+    );
   };
 
   useEffect(() => {
@@ -76,7 +91,12 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
-  const content = type === 'movie' ? <MovieDetail /> : <TVDetail />;
+  const content =
+    type === 'movie' ? (
+      <MovieDetail ref={mediaDetailRef} />
+    ) : (
+      <TVDetail ref={mediaDetailRef} />
+    );
 
   return (
     <ScrollView
@@ -84,7 +104,11 @@ const MediaDetailScreen: React.FC<MediaDetailScreenProps> = ({
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollview}>
       <HomeBackground height={responsiveSize(337)} />
-      <AppBar onSearch={handleOpenSearch} onShare={handleShareMedia} />
+      <AppBar
+        onSearch={handleOpenSearch}
+        onShare={handleShareMedia}
+        onReport={handleReportPolicyViolent}
+      />
 
       {content}
     </ScrollView>

@@ -1,4 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import dayjs from 'dayjs';
 import {ActivityIndicator} from 'react-native';
@@ -6,7 +11,11 @@ import chunk from 'lodash/chunk';
 
 import {Box, SectionB, Typography} from '@movie_trailer/components';
 import {colors} from '@movie_trailer/theme';
-import {MediaDetailRouteProps, MediaDetailNavigationProps} from './types';
+import {
+  MediaDetailRouteProps,
+  MediaDetailNavigationProps,
+  MediaDetailRef,
+} from './types';
 import NavigatorMap from '@movie_trailer/navigations/NavigatorMap';
 import {IMovieDetail} from '@movie_trailer/core/types';
 import {getMovieDetail, IMAGE_SERVER} from '@movie_trailer/core/apis';
@@ -21,7 +30,7 @@ import {toggleMediaFavorite} from '@movie_trailer/store/slices/favoriteSlice';
 import Reviews from './Sections/Reviews';
 import BasicNativeAdsView from '@movie_trailer/components/ads/BasicNativeAdsView';
 
-const MovieDetail: React.FC = () => {
+const MovieDetail = forwardRef<MediaDetailRef, {}>((_, ref) => {
   const route = useRoute<MediaDetailRouteProps>();
   const navigation = useNavigation<MediaDetailNavigationProps>();
   const [movie, setMovie] = useState<IMovieDetail>();
@@ -62,6 +71,14 @@ const MovieDetail: React.FC = () => {
 
     loadData();
   }, [id]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      mediaName: movie?.title,
+    }),
+    [movie],
+  );
 
   const handlePressMedia = (movieId: number) =>
     navigation.push(NavigatorMap.MediaDetail, {id: movieId, type: 'movie'});
@@ -242,6 +259,6 @@ const MovieDetail: React.FC = () => {
       </Box>
     </Box>
   );
-};
+});
 
 export default MovieDetail;

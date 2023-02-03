@@ -8,13 +8,19 @@ import SearchIcon from '@movie_trailer/assets/icons/Search';
 import {Box} from '@movie_trailer/components';
 import {colors} from '@movie_trailer/theme';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import ReportProblemIcon from '@movie_trailer/assets/icons/ReportProblem';
 
 interface IAppBarProps {
   onShare?: () => void;
   onSearch?: () => void;
+  onReport?: () => void;
 }
 
-const AppBar: React.FC<IAppBarProps> = ({onShare, onSearch}: IAppBarProps) => {
+const AppBar: React.FC<IAppBarProps> = ({
+  onShare,
+  onSearch,
+  onReport,
+}: IAppBarProps) => {
   const navigation = useNavigation();
 
   const handleBack = () => navigation.goBack();
@@ -31,6 +37,14 @@ const AppBar: React.FC<IAppBarProps> = ({onShare, onSearch}: IAppBarProps) => {
         <Box />
 
         <Box flex={false} row center>
+          {onReport && (
+            <Box flex={false} mr={2}>
+              <TouchableOpacity onPress={onReport}>
+                <ReportProblemIcon fill={colors.roseWhite} />
+              </TouchableOpacity>
+            </Box>
+          )}
+
           {onShare && (
             <Box flex={false} mr={2}>
               <TouchableOpacity onPress={onShare}>
